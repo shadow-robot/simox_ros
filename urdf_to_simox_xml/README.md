@@ -23,4 +23,4 @@ To grasp an object with the DMS hand, run GraspPlanner (also part of Simox).
 
 $ GraspPlanner --robot dms.xml --endeffector "DMS Hand" --preshape "Grasp Preshape"
 
-Note that all preshape values are set to zero by the converter. Update them before you run the grasp planner (especially the values for the thumb). Compare with the handcrafted file dms.xml inside package dms_description (dms_description/robots/simox_xml/dms.xml).
+Note that all preshape values are set to zero by the converter. Update them before you run the grasp planner (especially the values for the thumb). Compare with the handcrafted file dms.xml inside package dms_description (dms_description/robots/simox_xml/dms.xml). Inside the Preshape node, update also the values of the Actor nodes.
