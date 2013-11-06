@@ -520,8 +520,8 @@ std::string UrdfToSimoxXml::convert_filename_(const std::string & urdf_filename)
   simox_filename = simox_filename.substr(0, simox_filename.find_first_of('.'));
   simox_filename.append(".wrl");
 
-  // "wrl/base_link.wrl"
-  simox_filename = "wrl/" + simox_filename;
+  // For example "src/dms_description/meshes/wrl/base_link.wrl"
+  simox_filename = "src/dms_description/meshes/wrl/" + simox_filename;
 
   return simox_filename;
 }
