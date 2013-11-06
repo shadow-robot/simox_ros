@@ -40,7 +40,7 @@ UrdfToSimoxXml::UrdfToSimoxXml(const std::string& urdf_file)
   // Parse the URDF file and construct the model.
   if (!urdf_model_->initFile(urdf_file))
   {
-    ROS_ERROR_STREAM("Failed to parse urdf file" << urdf_file << ".");
+    ROS_ERROR_STREAM("Failed to parse urdf file " << urdf_file << ".");
     exit (EXIT_FAILURE);
   }
 
@@ -287,7 +287,7 @@ void UrdfToSimoxXml::add_joint_node_(boost::property_tree::ptree & DMSHand_node,
   boost::property_tree::ptree Joint_node;
   if (child_joint->type != urdf::Joint::REVOLUTE)
   {
-    ROS_ERROR_STREAM("Only revolute joints are support at moment!.");
+    ROS_ERROR_STREAM("Only revolute joints are support at moment.");
     exit (EXIT_FAILURE);
   }
   Joint_node.put("<xmlattr>.type", "revolute");
