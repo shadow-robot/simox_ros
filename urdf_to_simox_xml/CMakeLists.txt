@@ -6,7 +6,6 @@ project(urdf_to_simox_xml)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
   roscpp
-  rospy
   std_msgs
   urdf
 )
