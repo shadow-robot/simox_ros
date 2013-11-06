@@ -9,7 +9,7 @@
 /**
  * @file   main.cpp
  * @author Yi Li <yi@shadowrobot.com>
- * @brief  Calll class UrdfToSimoxXml to onvert from a hand description in URDF format to Simox XML.
+ * @brief  Calll class UrdfToSimoxXml to convert from a hand description in URDF format to Simox XML.
  **/
 
 //-------------------------------------------------------------------------------
