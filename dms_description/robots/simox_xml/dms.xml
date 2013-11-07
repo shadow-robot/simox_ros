@@ -29,10 +29,10 @@
       <rollpitchyaw roll="0" pitch="0" yaw="0" unitsAngle="radian"/>
     </Transform>
     <Visualization enable="true">
-      <File type="Inventor">wrl/base_link.wrl</File>
+      <File type="Inventor">../../meshes/wrl/base_link.wrl</File>
     </Visualization>
     <CollisionModel>
-      <File type="Inventor">wrl/base_link.wrl</File>
+      <File type="Inventor">../../meshes/wrl/base_link.wrl</File>
     </CollisionModel>
     <Child name="ffj1"/>
     <Child name="mfj1"/>
@@ -61,10 +61,10 @@
       <rollpitchyaw roll="0" pitch="0" yaw="0" unitsAngle="radian"/>
     </Transform>
     <Visualization enable="true">
-      <File type="Inventor">wrl/fk.wrl</File>
+      <File type="Inventor">../../meshes/wrl/fk.wrl</File>
     </Visualization>
     <CollisionModel>
-      <File type="Inventor">wrl/fk.wrl</File>
+      <File type="Inventor">../../meshes/wrl/fk.wrl</File>
     </CollisionModel>
     <Child name="ffj2"/>
   </RobotNode>
@@ -87,10 +87,10 @@
       <rollpitchyaw roll="0" pitch="0" yaw="0" unitsAngle="radian"/>
     </Transform>
     <Visualization enable="true">
-      <File type="Inventor">wrl/fp.wrl</File>
+      <File type="Inventor">../../meshes/wrl/fp.wrl</File>
     </Visualization>
     <CollisionModel>
-      <File type="Inventor">wrl/fp.wrl</File>
+      <File type="Inventor">../../meshes/wrl/fp.wrl</File>
     </CollisionModel>
     <Child name="ffj3"/>
   </RobotNode>
@@ -113,10 +113,10 @@
       <rollpitchyaw roll="0" pitch="0" yaw="0" unitsAngle="radian"/>
     </Transform>
     <Visualization enable="true">
-      <File type="Inventor">wrl/fm.wrl</File>
+      <File type="Inventor">../../meshes/wrl/fm.wrl</File>
     </Visualization>
     <CollisionModel>
-      <File type="Inventor">wrl/fm.wrl</File>
+      <File type="Inventor">../../meshes/wrl/fm.wrl</File>
     </CollisionModel>
     <Child name="ffj4"/>
   </RobotNode>
@@ -139,10 +139,10 @@
       <rollpitchyaw roll="0" pitch="0" yaw="0" unitsAngle="radian"/>
     </Transform>
     <Visualization enable="true">
-      <File type="Inventor">wrl/fd.wrl</File>
+      <File type="Inventor">../../meshes/wrl/fd.wrl</File>
     </Visualization>
     <CollisionModel>
-      <File type="Inventor">wrl/fd.wrl</File>
+      <File type="Inventor">../../meshes/wrl/fd.wrl</File>
     </CollisionModel>
   </RobotNode>
 
@@ -167,10 +167,10 @@
       <rollpitchyaw roll="0" pitch="0" yaw="0" unitsAngle="radian"/>
     </Transform>
     <Visualization enable="true">
-      <File type="Inventor">wrl/mk.wrl</File>
+      <File type="Inventor">../../meshes/wrl/mk.wrl</File>
     </Visualization>
     <CollisionModel>
-      <File type="Inventor">wrl/mk.wrl</File>
+      <File type="Inventor">../../meshes/wrl/mk.wrl</File>
     </CollisionModel>
     <Child name="mfj2"/>
   </RobotNode>
@@ -193,10 +193,10 @@
       <rollpitchyaw roll="0" pitch="0" yaw="0" unitsAngle="radian"/>
     </Transform>
     <Visualization enable="true">
-      <File type="Inventor">wrl/mp.wrl</File>
+      <File type="Inventor">../../meshes/wrl/mp.wrl</File>
     </Visualization>
     <CollisionModel>
-      <File type="Inventor">wrl/mp.wrl</File>
+      <File type="Inventor">../../meshes/wrl/mp.wrl</File>
     </CollisionModel>
     <Child name="mfj3"/>
   </RobotNode>
@@ -219,10 +219,10 @@
       <rollpitchyaw roll="0" pitch="0" yaw="0" unitsAngle="radian"/>
     </Transform>
     <Visualization enable="true">
-      <File type="Inventor">wrl/mm.wrl</File>
+      <File type="Inventor">../../meshes/wrl/mm.wrl</File>
     </Visualization>
     <CollisionModel>
-      <File type="Inventor">wrl/mm.wrl</File>
+      <File type="Inventor">../../meshes/wrl/mm.wrl</File>
     </CollisionModel>
     <Child name="mfj4"/>
   </RobotNode>
@@ -245,10 +245,10 @@
       <rollpitchyaw roll="0" pitch="0" yaw="0" unitsAngle="radian"/>
     </Transform>
     <Visualization enable="true">
-      <File type="Inventor">wrl/md.wrl</File>
+      <File type="Inventor">../../meshes/wrl/md.wrl</File>
     </Visualization>
     <CollisionModel>
-      <File type="Inventor">wrl/md.wrl</File>
+      <File type="Inventor">../../meshes/wrl/md.wrl</File>
     </CollisionModel>
   </RobotNode>
 
@@ -273,10 +273,10 @@
       <rollpitchyaw roll="0" pitch="0" yaw="0" unitsAngle="radian"/>
     </Transform>
     <Visualization enable="true">
-      <File type="Inventor">wrl/lk.wrl</File>
+      <File type="Inventor">../../meshes/wrl/lk.wrl</File>
     </Visualization>
     <CollisionModel>
-      <File type="Inventor">wrl/lk.wrl</File>
+      <File type="Inventor">../../meshes/wrl/lk.wrl</File>
     </CollisionModel>
     <Child name="lfj2"/>
   </RobotNode>
@@ -299,10 +299,10 @@
       <rollpitchyaw roll="0" pitch="0" yaw="0" unitsAngle="radian"/>
     </Transform>
     <Visualization enable="true">
-      <File type="Inventor">wrl/lp.wrl</File>
+      <File type="Inventor">../../meshes/wrl/lp.wrl</File>
     </Visualization>
     <CollisionModel>
-      <File type="Inventor">wrl/lp.wrl</File>
+      <File type="Inventor">../../meshes/wrl/lp.wrl</File>
     </CollisionModel>
     <Child name="lfj3"/>
   </RobotNode>
@@ -325,10 +325,10 @@
       <rollpitchyaw roll="0" pitch="0" yaw="0" unitsAngle="radian"/>
     </Transform>
     <Visualization enable="true">
-      <File type="Inventor">wrl/lm.wrl</File>
+      <File type="Inventor">../../meshes/wrl/lm.wrl</File>
     </Visualization>
     <CollisionModel>
-      <File type="Inventor">wrl/lm.wrl</File>
+      <File type="Inventor">../../meshes/wrl/lm.wrl</File>
     </CollisionModel>
     <Child name="lfj4"/>
   </RobotNode>
@@ -351,10 +351,10 @@
       <rollpitchyaw roll="0" pitch="0" yaw="0" unitsAngle="radian"/>
     </Transform>
     <Visualization enable="true">
-      <File type="Inventor">wrl/ld.wrl</File>
+      <File type="Inventor">../../meshes/wrl/ld.wrl</File>
     </Visualization>
     <CollisionModel>
-      <File type="Inventor">wrl/ld.wrl</File>
+      <File type="Inventor">../../meshes/wrl/ld.wrl</File>
     </CollisionModel>
   </RobotNode>
 
@@ -378,10 +378,10 @@
       <rollpitchyaw roll="0" pitch="0" yaw="0" unitsAngle="radian"/>
     </Transform>
     <Visualization enable="true">
-      <File type="Inventor">wrl/tb.wrl</File>
+      <File type="Inventor">../../meshes/wrl/tb.wrl</File>
     </Visualization>
     <CollisionModel>
-      <File type="Inventor">wrl/tb.wrl</File>
+      <File type="Inventor">../../meshes/wrl/tb.wrl</File>
     </CollisionModel>
     <Child name="thj2"/>
   </RobotNode>
@@ -404,10 +404,10 @@
       <rollpitchyaw roll="0" pitch="0" yaw="0" unitsAngle="radian"/>
     </Transform>
     <Visualization enable="true">
-      <File type="Inventor">wrl/tk.wrl</File>
+      <File type="Inventor">../../meshes/wrl/tk.wrl</File>
     </Visualization>
     <CollisionModel>
-      <File type="Inventor">wrl/tk.wrl</File>
+      <File type="Inventor">../../meshes/wrl/tk.wrl</File>
     </CollisionModel>
     <Child name="thj3"/>
   </RobotNode>
@@ -430,10 +430,10 @@
       <rollpitchyaw roll="0" pitch="0" yaw="0" unitsAngle="radian"/>
     </Transform>
     <Visualization enable="true">
-      <File type="Inventor">wrl/tp.wrl</File>
+      <File type="Inventor">../../meshes/wrl/tp.wrl</File>
     </Visualization>
     <CollisionModel>
-      <File type="Inventor">wrl/tp.wrl</File>
+      <File type="Inventor">../../meshes/wrl/tp.wrl</File>
     </CollisionModel>
     <Child name="thj4"/>
   </RobotNode>
@@ -456,10 +456,10 @@
       <rollpitchyaw roll="0" pitch="0" yaw="0" unitsAngle="radian"/>
     </Transform>
     <Visualization enable="true">
-      <File type="Inventor">wrl/td.wrl</File>
+      <File type="Inventor">../../meshes/wrl/td.wrl</File>
     </Visualization>
     <CollisionModel>
-      <File type="Inventor">wrl/td.wrl</File>
+      <File type="Inventor">../../meshes/wrl/td.wrl</File>
     </CollisionModel>
   </RobotNode>
 
