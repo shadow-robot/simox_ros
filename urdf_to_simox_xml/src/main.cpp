@@ -54,7 +54,7 @@ int main(int argc, char** argv)
       return 0;
     }
 
-    std::cout << "Path to URDF file: " << urdf_filename << std::endl;
+    std::cout << "Path to the URDF file:               " << urdf_filename << std::endl;
     std::cout << "Name of the output file (Simox XML): " << simox_xml_filename << std::endl;
   }
   catch (std::exception& e)
