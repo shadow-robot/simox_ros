@@ -16,24 +16,54 @@
 
 #include "urdf_to_simox_xml/urdf_to_simox_xml.hpp"
 
-#include "ros/ros.h"
-
 #include <iostream>
 #include <string>
+#include <boost/program_options.hpp>
+#include <ros/ros.h>
+
+//-------------------------------------------------------------------------------
+
+namespace po = boost::program_options;
 
 //-------------------------------------------------------------------------------
 
 int main(int argc, char** argv)
 {
-  ros::init(argc, argv, "urdf_to_simox_xml");
-  if (argc != 3)
+  std::string urdf_filename;
+  std::string simox_xml_filename;
+
+  try {
+    po::options_description desc("Allowed options");
+    desc.add_options()
+      ("help",
+       "produce help message")
+      ("urdf", po::value<std::string>(&urdf_filename)->default_value("src/dms_description/robots/urdf/dms.urdf"),
+       "set the path to the urdf file (input)")
+      ("xml", po::value<std::string>(&simox_xml_filename)->default_value("dms.xml"),
+       "set the filename of the Simox XML file (output)")
+      ;
+
+    po::variables_map vm;
+    po::store(po::parse_command_line(argc, argv, desc), vm);
+    po::notify(vm);
+
+    if (vm.count("help"))
+    {
+      std::cout << "Usage: rosrun urdf_to_simox_xml urdf_to_simox_xml [options]" << std::endl;
+      std::cout << desc << std::cout;
+      return 0;
+    }
+
+    std::cout << "Path to URDF file: " << urdf_filename << std::endl;
+    std::cout << "Name of the output file (Simox XML): " << simox_xml_filename << std::endl;
+  }
+  catch (std::exception& e)
   {
-    ROS_ERROR_STREAM("Need a urdf file as input and an xml filename as output.");
-    exit (EXIT_FAILURE);
+    std::cout << e.what() << std::endl;
+    return 1;
   }
 
-  std::string urdf_filename = argv[1];
-  std::string simox_xml_filename = argv[2];
+  ros::init(argc, argv, "urdf_to_simox_xml");
 
   gsc::UrdfToSimoxXml urdf2xml(urdf_filename);
 
