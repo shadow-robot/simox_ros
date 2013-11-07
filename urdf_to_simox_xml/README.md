@@ -7,7 +7,7 @@ $ ls src/
 CMakeLists.txt  dms_description  README.md  urdf_to_simox_xml
 $ catkin_make
 $ source devel/setup.bash
-$ rosrun urdf_to_simox_xml urdf_to_simox_xml src/dms_description/robots/urdf/dms.urdf dms.xml
+$ rosrun urdf_to_simox_xml urdf_to_simox_xml --urdf src/dms_description/robots/urdf/dms.urdf --xml dms.xml
 
 The converter generates dms.xml and places it in ~/catkin_ws.
 
