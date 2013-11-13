@@ -570,6 +570,8 @@ std::string UrdfToSimoxXml::convert_mesh_(const std::string & urdf_filename)
   if (!boost::filesystem::exists(mesh_dir))
     boost::filesystem::create_directories(mesh_dir);
 
+  // Call meshlabserver to convert meshes to wrl.
+  // http://en.wikipedia.org/wiki/VRML
   std::stringstream stream;
   simox_filename = mesh_dir + "/" + simox_filename;
   stream <<"meshlabserver -i " << package_path << " -o " << simox_filename;
