@@ -83,14 +83,10 @@ void UrdfToSimoxXml::write_xml(const std::string& simox_xml_file)
   // Create empty property tree object
   ptree pt;
 
-  ///////////////////////////////////////////////////////////////////////////////
-
   std::string dms_hand_base("dms_hand_base");
   std::string dms_hand_tcp("dms_hand_tcp");
   std::string dms_hand_gcp("dms_hand_gcp");
   std::string base_link(links_[0]->name);
-
-  ///////////////////////////////////////////////////////////////////////////////
 
   // Create the DMSHand node.
   boost::property_tree::ptree DMSHand_node;
@@ -119,8 +115,6 @@ void UrdfToSimoxXml::write_xml(const std::string& simox_xml_file)
 
   // Add the DMSHand node to the tree.
   pt.add_child("Robot", DMSHand_node);
-
-  ///////////////////////////////////////////////////////////////////////////////
 
   // Write property tree to XML file
   // http://stackoverflow.com/questions/6572550/boostproperty-tree-xml-pretty-printing
