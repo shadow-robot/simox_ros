@@ -34,8 +34,10 @@ using boost::property_tree::ptree;
 
 //-------------------------------------------------------------------------------
 
-UrdfToSimoxXml::UrdfToSimoxXml(const std::string& urdf_file)
-  : urdf_model_(new urdf::Model())
+UrdfToSimoxXml::UrdfToSimoxXml(const std::string urdf_file,
+                               const std::string dms_description_path)
+  : urdf_model_(new urdf::Model()),
+    dms_description_path_(dms_description_path)
 {
   // Parse the URDF file and construct the model.
   if (!urdf_model_->initFile(urdf_file))
@@ -520,8 +522,7 @@ std::string UrdfToSimoxXml::convert_filename_(const std::string & urdf_filename)
   simox_filename = simox_filename.substr(0, simox_filename.find_first_of('.'));
   simox_filename.append(".wrl");
 
-  // For example "src/dms_description/meshes/wrl/base_link.wrl"
-  simox_filename = "src/dms_description/meshes/wrl/" + simox_filename;
+  simox_filename = dms_description_path_ + "/meshes/" + simox_filename;
 
   return simox_filename;
 }
