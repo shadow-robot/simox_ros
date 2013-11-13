@@ -11,11 +11,14 @@
 
   <!-- The *_depend tags are used to specify dependencies -->
   <buildtool_depend>catkin</buildtool_depend>
+
   <build_depend>roscpp</build_depend>
+  <build_depend>roslib</build_depend>
   <build_depend>std_msgs</build_depend>
   <build_depend>urdf</build_depend>
 
   <run_depend>roscpp</run_depend>
+  <run_depend>roslib</run_depend>
   <run_depend>std_msgs</run_depend>
   <run_depend>urdf</run_depend>
 </package>
