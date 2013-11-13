@@ -24,8 +24,13 @@
 #include <sstream>
 #include <vector>
 #include <boost/foreach.hpp>
+#include <boost/algorithm/string.hpp>
+#include <boost/algorithm/string/iter_find.hpp>
+#include <boost/filesystem/operations.hpp>
+#include <boost/filesystem/path.hpp>
 #include <boost/lexical_cast.hpp>
 #include <ros/console.h>
+#include <ros/package.h>
 
 //-------------------------------------------------------------------------------
 
@@ -36,9 +41,9 @@ using boost::property_tree::ptree;
 
 UrdfToSimoxXml::UrdfToSimoxXml(const bool urdf_init_param,
                                const std::string urdf_file,
-                               const std::string dms_description_path)
+                               const std::string output_dir)
   : urdf_model_(new urdf::Model()),
-    dms_description_path_(dms_description_path)
+    output_dir_(output_dir)
 {
   if (urdf_init_param)
   {
@@ -515,6 +520,38 @@ void UrdfToSimoxXml::set_rollpitchyaw_node_(boost::property_tree::ptree & Transl
 // simox_filename = "base_link.wrl"
 std::string UrdfToSimoxXml::convert_filename_(const std::string & urdf_filename)
 {
+  std::string urdf_filename_copy(urdf_filename);
+
+  std::string packagePrefix("package://");
+  size_t pos1 = urdf_filename_copy.find(packagePrefix, 0);
+  if (pos1 != std::string::npos)
+  {
+    size_t repLen = packagePrefix.size();
+    urdf_filename_copy.erase(pos1, repLen);
+  }
+  else
+  {
+    ROS_ERROR_STREAM("Please verify mesh path " << urdf_filename << ".");
+    exit (EXIT_FAILURE);
+  }
+
+  std::list<std::string> stringList;
+  boost::iter_split(stringList, urdf_filename_copy, boost::first_finder("/"));
+
+  if (stringList.size() < 2)
+  {
+    ROS_ERROR_STREAM("Please verify mesh path " << urdf_filename << ".");
+    exit (EXIT_FAILURE);
+  }
+
+  std::string package_name = stringList.front();
+  std::string package_path  = ros::package::getPath(package_name);
+  BOOST_FOREACH(std::string token, stringList)
+  {
+    if (package_name != token)
+      package_path += ("/" + token);
+  }
+
   std::string simox_filename;
 
   size_t sp = urdf_filename.find_first_of( '/' );
@@ -530,7 +567,14 @@ std::string UrdfToSimoxXml::convert_filename_(const std::string & urdf_filename)
   simox_filename = simox_filename.substr(0, simox_filename.find_first_of('.'));
   simox_filename.append(".wrl");
 
-  simox_filename = dms_description_path_ + "/meshes/" + simox_filename;
+  std::string mesh_dir = output_dir_ + "/meshes";
+  if (!boost::filesystem::exists(mesh_dir))
+    boost::filesystem::create_directories(mesh_dir);
+
+  std::stringstream stream;
+  simox_filename = mesh_dir + "/" + simox_filename;
+  stream <<"meshlabserver -i " << package_path << " -o " << simox_filename;
+  system(stream.str().c_str());
 
   return simox_filename;
 }

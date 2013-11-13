@@ -19,6 +19,8 @@
 #include <iostream>
 #include <string>
 #include <boost/program_options.hpp>
+#include <boost/filesystem/operations.hpp>
+#include <boost/filesystem/path.hpp>
 #include <ros/ros.h>
 #include <ros/package.h>
 
@@ -35,8 +37,11 @@ int main(int argc, char** argv)
   std::string dms_description_path  = ros::package::getPath("dms_description");
   std::string urdf_filename_default = dms_description_path + "/robots/urdf/dms.urdf";
 
+  std::string output_dir_default = std::string(getenv("HOME")) + "/urdf_to_simox_xml_output";
+
   bool urdf_init_param;
   std::string urdf_filename;
+  std::string output_dir;
   std::string simox_xml_filename;
 
   try {
@@ -48,6 +53,8 @@ int main(int argc, char** argv)
        "disables the urdf file as the input when true (use the robot_description parameter instead)")
       ("urdf", po::value<std::string>(&urdf_filename)->default_value(urdf_filename_default),
        "set the path to the urdf file (input)")
+      ("output_dir", po::value<std::string>(&output_dir)->default_value(output_dir_default),
+       "set the output directory")
       ("xml", po::value<std::string>(&simox_xml_filename)->default_value("dms.xml"),
        "set the filename of the Simox XML file (output)")
       ;
@@ -75,9 +82,12 @@ int main(int argc, char** argv)
     return 1;
   }
 
-  gsc::UrdfToSimoxXml urdf2xml(urdf_init_param, urdf_filename, dms_description_path);
+  if (!boost::filesystem::exists(output_dir))
+    boost::filesystem::create_directories(output_dir);
 
-  std::string simox_xml_file(simox_xml_filename);
+  gsc::UrdfToSimoxXml urdf2xml(urdf_init_param, urdf_filename, output_dir);
+
+  std::string simox_xml_file = output_dir + "/" + simox_xml_filename;
   urdf2xml.write_xml(simox_xml_file);
 
   return 0;
