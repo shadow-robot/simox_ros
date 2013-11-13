@@ -545,10 +545,13 @@ std::string UrdfToSimoxXml::convert_mesh_(const std::string & urdf_filename)
 
   std::string package_name = stringList.front();
   std::string original_filename = ros::package::getPath(package_name);
+  unsigned short n = 0;
   BOOST_FOREACH(std::string token, stringList)
   {
-    if (package_name != token)
-      original_filename += ("/" + token);
+    if (n == 0)
+      continue;
+    original_filename += ("/" + token);
+    n++;
   }
 
   std::string simox_filename;
