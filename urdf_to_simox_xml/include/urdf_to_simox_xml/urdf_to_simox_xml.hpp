@@ -27,7 +27,8 @@ namespace gsc
 class UrdfToSimoxXml
 {
 public:
-  UrdfToSimoxXml(const std::string urdf_file,
+  UrdfToSimoxXml(const bool urdf_init_param,
+                 const std::string urdf_file,
                  const std::string dms_description_path);
   ~UrdfToSimoxXml();
 

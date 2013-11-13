@@ -35,6 +35,7 @@ int main(int argc, char** argv)
   std::string dms_description_path  = ros::package::getPath("dms_description");
   std::string urdf_filename_default = dms_description_path + "/robots/urdf/dms.urdf";
 
+  bool urdf_init_param;
   std::string urdf_filename;
   std::string simox_xml_filename;
 
@@ -43,6 +44,8 @@ int main(int argc, char** argv)
     desc.add_options()
       ("help",
        "produce help message")
+      ("robot_description", po::value<bool>(&urdf_init_param)->default_value(false),
+       "disables the urdf file as the input when true (use the robot_description parameter instead)")
       ("urdf", po::value<std::string>(&urdf_filename)->default_value(urdf_filename_default),
        "set the path to the urdf file (input)")
       ("xml", po::value<std::string>(&simox_xml_filename)->default_value("dms.xml"),
@@ -60,8 +63,11 @@ int main(int argc, char** argv)
       return 0;
     }
 
-    std::cout << "Path to the URDF file:               " << urdf_filename << std::endl;
-    std::cout << "Name of the output file (Simox XML): " << simox_xml_filename << std::endl;
+    if (urdf_init_param)
+      std::cout << "Load from the robot_description parameter : " << urdf_init_param << std::endl;
+    else
+      std::cout << "Path to the URDF file:                      " << urdf_filename << std::endl;
+    std::cout << "Name of the output file (Simox XML):        " << simox_xml_filename << std::endl;
   }
   catch (std::exception& e)
   {
@@ -69,7 +75,7 @@ int main(int argc, char** argv)
     return 1;
   }
 
-  gsc::UrdfToSimoxXml urdf2xml(urdf_filename, dms_description_path);
+  gsc::UrdfToSimoxXml urdf2xml(urdf_init_param, urdf_filename, dms_description_path);
 
   std::string simox_xml_file(simox_xml_filename);
   urdf2xml.write_xml(simox_xml_file);
