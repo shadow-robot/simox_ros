@@ -34,14 +34,28 @@ using boost::property_tree::ptree;
 
 //-------------------------------------------------------------------------------
 
-UrdfToSimoxXml::UrdfToSimoxXml(const std::string& urdf_file)
+UrdfToSimoxXml::UrdfToSimoxXml(const bool urdf_init_param,
+                               const std::string& urdf_file)
   : urdf_model_(new urdf::Model())
 {
-  // Parse the URDF file and construct the model.
-  if (!urdf_model_->initFile(urdf_file))
+  if (urdf_init_param)
   {
-    ROS_ERROR_STREAM("Failed to parse urdf file " << urdf_file << ".");
-    exit (EXIT_FAILURE);
+    // Parse the the robot_description parameter and then construct the model.
+    const std::string rd_param("robot_description");
+    if (!urdf_model_->initParam(rd_param))
+    {
+      ROS_ERROR_STREAM("Failed to parse param " << rd_param << ".");
+      exit (EXIT_FAILURE);
+    }
+  }
+  else
+  {
+    // Parse the URDF file and then construct the model.
+    if (!urdf_model_->initFile(urdf_file))
+    {
+      ROS_ERROR_STREAM("Failed to parse urdf file " << urdf_file << ".");
+      exit (EXIT_FAILURE);
+    }
   }
 
   // Get all links in the model.
