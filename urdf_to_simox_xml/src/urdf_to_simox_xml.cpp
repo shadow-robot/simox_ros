@@ -239,7 +239,7 @@ void UrdfToSimoxXml::add_link_node_(boost::property_tree::ptree & DMSHand_node,
 
   boost::property_tree::ptree Visualization_File_node;
   Visualization_File_node.put("<xmlattr>.type", "Inventor");
-  Visualization_File_node.put("<xmltext>", this->convert_filename_(mesh->filename));
+  Visualization_File_node.put("<xmltext>", this->convert_mesh_(mesh->filename));
 
   boost::property_tree::ptree Visualization_node;
   Visualization_node.put("<xmlattr>.enable", "true");
@@ -248,7 +248,7 @@ void UrdfToSimoxXml::add_link_node_(boost::property_tree::ptree & DMSHand_node,
 
   boost::property_tree::ptree CollisionModel_File_node;
   CollisionModel_File_node.put("<xmlattr>.type", "Inventor");
-  CollisionModel_File_node.put("<xmltext>", this->convert_filename_(mesh->filename));
+  CollisionModel_File_node.put("<xmltext>", this->convert_mesh_(mesh->filename));
 
   boost::property_tree::ptree CollisionModel_node;
   CollisionModel_node.add_child("File", CollisionModel_File_node);
@@ -517,8 +517,7 @@ void UrdfToSimoxXml::set_rollpitchyaw_node_(boost::property_tree::ptree & Transl
 //-------------------------------------------------------------------------------
 
 // urdf_filename  = "package://dms_description/meshes/base_link.STL"
-// simox_filename = "base_link.wrl"
-std::string UrdfToSimoxXml::convert_filename_(const std::string & urdf_filename)
+std::string UrdfToSimoxXml::convert_mesh_(const std::string & urdf_filename)
 {
   std::string urdf_filename_copy(urdf_filename);
 

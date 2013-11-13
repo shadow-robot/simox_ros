@@ -88,7 +88,7 @@ private:
   void set_rollpitchyaw_node_(boost::property_tree::ptree & Translation_node,
                               double roll, double pitch, double yaw);
 
-  std::string convert_filename_(const std::string & urdf_filename);
+  std::string convert_mesh_(const std::string & urdf_filename);
 
   std::string to_string_(double x);
 
