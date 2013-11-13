@@ -544,11 +544,11 @@ std::string UrdfToSimoxXml::convert_mesh_(const std::string & urdf_filename)
   }
 
   std::string package_name = stringList.front();
-  std::string package_path  = ros::package::getPath(package_name);
+  std::string original_filename = ros::package::getPath(package_name);
   BOOST_FOREACH(std::string token, stringList)
   {
     if (package_name != token)
-      package_path += ("/" + token);
+      original_filename += ("/" + token);
   }
 
   std::string simox_filename;
@@ -574,7 +574,7 @@ std::string UrdfToSimoxXml::convert_mesh_(const std::string & urdf_filename)
   // http://en.wikipedia.org/wiki/VRML
   std::stringstream stream;
   simox_filename = mesh_dir + "/" + simox_filename;
-  stream <<"meshlabserver -i " << package_path << " -o " << simox_filename;
+  stream <<"meshlabserver -i " << original_filename << " -o " << simox_filename;
   system(stream.str().c_str());
 
   return simox_filename;
