@@ -29,7 +29,7 @@ class UrdfToSimoxXml
 public:
   UrdfToSimoxXml(const bool urdf_init_param,
                  const std::string urdf_file,
-                 const std::string dms_description_path);
+                 const std::string output_dir);
   ~UrdfToSimoxXml();
 
   void write_xml(const std::string& simox_xml_file);
@@ -88,14 +88,14 @@ private:
   void set_rollpitchyaw_node_(boost::property_tree::ptree & Translation_node,
                               double roll, double pitch, double yaw);
 
-  std::string convert_filename_(const std::string & urdf_filename);
+  std::string convert_mesh_(const std::string & urdf_filename);
 
   std::string to_string_(double x);
 
 private:
   boost::scoped_ptr<urdf::Model> urdf_model_;
 
-  std::string dms_description_path_;
+  std::string output_dir_;
 
   std::vector< boost::shared_ptr<urdf::Link> > links_;
 

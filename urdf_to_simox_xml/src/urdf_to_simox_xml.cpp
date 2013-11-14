@@ -24,8 +24,13 @@
 #include <sstream>
 #include <vector>
 #include <boost/foreach.hpp>
+#include <boost/algorithm/string.hpp>
+#include <boost/algorithm/string/iter_find.hpp>
+#include <boost/filesystem/operations.hpp>
+#include <boost/filesystem/path.hpp>
 #include <boost/lexical_cast.hpp>
 #include <ros/console.h>
+#include <ros/package.h>
 
 //-------------------------------------------------------------------------------
 
@@ -36,9 +41,9 @@ using boost::property_tree::ptree;
 
 UrdfToSimoxXml::UrdfToSimoxXml(const bool urdf_init_param,
                                const std::string urdf_file,
-                               const std::string dms_description_path)
+                               const std::string output_dir)
   : urdf_model_(new urdf::Model()),
-    dms_description_path_(dms_description_path)
+    output_dir_(output_dir)
 {
   if (urdf_init_param)
   {
@@ -234,7 +239,7 @@ void UrdfToSimoxXml::add_link_node_(boost::property_tree::ptree & DMSHand_node,
 
   boost::property_tree::ptree Visualization_File_node;
   Visualization_File_node.put("<xmlattr>.type", "Inventor");
-  Visualization_File_node.put("<xmltext>", this->convert_filename_(mesh->filename));
+  Visualization_File_node.put("<xmltext>", this->convert_mesh_(mesh->filename));
 
   boost::property_tree::ptree Visualization_node;
   Visualization_node.put("<xmlattr>.enable", "true");
@@ -243,7 +248,7 @@ void UrdfToSimoxXml::add_link_node_(boost::property_tree::ptree & DMSHand_node,
 
   boost::property_tree::ptree CollisionModel_File_node;
   CollisionModel_File_node.put("<xmlattr>.type", "Inventor");
-  CollisionModel_File_node.put("<xmltext>", this->convert_filename_(mesh->filename));
+  CollisionModel_File_node.put("<xmltext>", this->convert_mesh_(mesh->filename));
 
   boost::property_tree::ptree CollisionModel_node;
   CollisionModel_node.add_child("File", CollisionModel_File_node);
@@ -512,11 +517,40 @@ void UrdfToSimoxXml::set_rollpitchyaw_node_(boost::property_tree::ptree & Transl
 //-------------------------------------------------------------------------------
 
 // urdf_filename  = "package://dms_description/meshes/base_link.STL"
-// simox_filename = "base_link.wrl"
-std::string UrdfToSimoxXml::convert_filename_(const std::string & urdf_filename)
+std::string UrdfToSimoxXml::convert_mesh_(const std::string & urdf_filename)
 {
-  std::string simox_filename;
+  std::string urdf_filename_copy(urdf_filename);
+  std::string packagePrefix("package://");
+  size_t pos1 = urdf_filename_copy.find(packagePrefix, 0);
+  if (pos1 != std::string::npos)
+  {
+    size_t repLen = packagePrefix.size();
+    urdf_filename_copy.erase(pos1, repLen);
+  }
+  else
+  {
+    ROS_ERROR_STREAM("The prefix of " << urdf_filename << " is NOT package://.");
+    exit (EXIT_FAILURE);
+  }
 
+  std::list<std::string> stringList;
+  boost::iter_split(stringList, urdf_filename_copy, boost::first_finder("/"));
+  if (stringList.size() < 2)
+  {
+    ROS_ERROR_STREAM(urdf_filename << " is either empty or too short.");
+    exit (EXIT_FAILURE);
+  }
+
+  std::string package_name = stringList.front();
+  std::string original_filename = ros::package::getPath(package_name);
+  unsigned short n = 0;
+  BOOST_FOREACH(std::string token, stringList)
+  {
+    if (n++ != 0)
+      original_filename += ("/" + token);
+  }
+
+  std::string simox_filename;
   size_t sp = urdf_filename.find_first_of( '/' );
   if ( sp != std::string::npos ) {
     sp = urdf_filename.find_last_of( '/' );
@@ -525,12 +559,38 @@ std::string UrdfToSimoxXml::convert_filename_(const std::string & urdf_filename)
       simox_filename = last_part;
     }
   }
-
   // Convert from for example "base_link.STL" to "base_link.wrl".
   simox_filename = simox_filename.substr(0, simox_filename.find_first_of('.'));
   simox_filename.append(".wrl");
 
-  simox_filename = dms_description_path_ + "/meshes/" + simox_filename;
+  std::string mesh_dir = output_dir_ + "/meshes";
+  if (!boost::filesystem::exists(mesh_dir))
+    boost::filesystem::create_directories(mesh_dir);
+
+  // Call meshlabserver to convert meshes to wrl.
+  // http://en.wikipedia.org/wiki/VRML
+  std::stringstream stream;
+  simox_filename = mesh_dir + "/" + simox_filename;
+  stream <<"meshlabserver -i " << original_filename << " -o " << simox_filename;
+  FILE *fp = popen(stream.str().c_str(), "r");
+
+  // Look for error meshlabserver messages.
+  char * line = NULL;
+  size_t len = 0;
+  while (getline(&line, &len, fp) != -1) {
+    std::string str(line);
+    std::size_t found = str.find("loaded has 0 vn");
+    if (found!=std::string::npos)
+    {
+      ROS_ERROR_STREAM("The following system call failed. Check URDF data.");
+      ROS_ERROR_STREAM(stream.str());
+      exit (EXIT_FAILURE);
+    }
+  }
+  if (line)
+    free(line);
+
+  pclose(fp);
 
   return simox_filename;
 }
