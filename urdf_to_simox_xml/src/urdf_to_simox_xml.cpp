@@ -520,7 +520,6 @@ void UrdfToSimoxXml::set_rollpitchyaw_node_(boost::property_tree::ptree & Transl
 std::string UrdfToSimoxXml::convert_mesh_(const std::string & urdf_filename)
 {
   std::string urdf_filename_copy(urdf_filename);
-
   std::string packagePrefix("package://");
   size_t pos1 = urdf_filename_copy.find(packagePrefix, 0);
   if (pos1 != std::string::npos)
@@ -530,16 +529,15 @@ std::string UrdfToSimoxXml::convert_mesh_(const std::string & urdf_filename)
   }
   else
   {
-    ROS_ERROR_STREAM("Please verify mesh path " << urdf_filename << ".");
+    ROS_ERROR_STREAM("The prefix of " << urdf_filename << " is NOT package://.");
     exit (EXIT_FAILURE);
   }
 
   std::list<std::string> stringList;
   boost::iter_split(stringList, urdf_filename_copy, boost::first_finder("/"));
-
   if (stringList.size() < 2)
   {
-    ROS_ERROR_STREAM("Please verify mesh path " << urdf_filename << ".");
+    ROS_ERROR_STREAM(urdf_filename << " is either empty or too short.");
     exit (EXIT_FAILURE);
   }
 
@@ -548,14 +546,11 @@ std::string UrdfToSimoxXml::convert_mesh_(const std::string & urdf_filename)
   unsigned short n = 0;
   BOOST_FOREACH(std::string token, stringList)
   {
-    if (n == 0)
-      continue;
-    original_filename += ("/" + token);
-    n++;
+    if (n++ != 0)
+      original_filename += ("/" + token);
   }
 
   std::string simox_filename;
-
   size_t sp = urdf_filename.find_first_of( '/' );
   if ( sp != std::string::npos ) {
     sp = urdf_filename.find_last_of( '/' );
@@ -564,7 +559,6 @@ std::string UrdfToSimoxXml::convert_mesh_(const std::string & urdf_filename)
       simox_filename = last_part;
     }
   }
-
   // Convert from for example "base_link.STL" to "base_link.wrl".
   simox_filename = simox_filename.substr(0, simox_filename.find_first_of('.'));
   simox_filename.append(".wrl");
@@ -578,7 +572,25 @@ std::string UrdfToSimoxXml::convert_mesh_(const std::string & urdf_filename)
   std::stringstream stream;
   simox_filename = mesh_dir + "/" + simox_filename;
   stream <<"meshlabserver -i " << original_filename << " -o " << simox_filename;
-  system(stream.str().c_str());
+  FILE *fp = popen(stream.str().c_str(), "r");
+
+  // Look for error meshlabserver messages.
+  char * line = NULL;
+  size_t len = 0;
+  while (getline(&line, &len, fp) != -1) {
+    std::string str(line);
+    std::size_t found = str.find("loaded has 0 vn");
+    if (found!=std::string::npos)
+    {
+      ROS_ERROR_STREAM("The following system call failed. Check URDF data.");
+      ROS_ERROR_STREAM(stream.str());
+      exit (EXIT_FAILURE);
+    }
+  }
+  if (line)
+    free(line);
+
+  pclose(fp);
 
   return simox_filename;
 }
