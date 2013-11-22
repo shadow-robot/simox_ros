@@ -10,6 +10,8 @@
 #include <actionlib/client/simple_action_client.h>
 #include <actionlib/client/terminal_state.h>
 
+//-------------------------------------------------------------------------------
+
 // Called once when the goal completes
 void done_cb(const actionlib::SimpleClientGoalState& state,
             const sr_grasp_msgs::graspMeshResultConstPtr& result)
@@ -25,17 +27,23 @@ void done_cb(const actionlib::SimpleClientGoalState& state,
   ros::shutdown();
 }
 
+//-------------------------------------------------------------------------------
+
 // Called once when the goal becomes active
 void active_cb()
 {
   ROS_INFO("Goal just went active");
 }
 
+//-------------------------------------------------------------------------------
+
 // Called every time feedback is received for the goal
 void feedback_cb(const sr_grasp_msgs::graspMeshFeedbackConstPtr& feedback)
 {
   ROS_INFO_STREAM("Got feedback of number of stable grasps: " << feedback->no_of_stable_grasps << ".");
 }
+
+//-------------------------------------------------------------------------------
 
 int main (int argc, char **argv)
 {
@@ -87,3 +95,6 @@ int main (int argc, char **argv)
   ros::spin();
   return 0;
 }
+
+//-------------------------------------------------------------------------------
+
