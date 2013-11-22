@@ -138,6 +138,9 @@
         <property name="text">
          <string>Force closure</string>
         </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
        </widget>
        <widget class="QSpinBox" name="spinBoxGraspNumber">
         <property name="geometry">
