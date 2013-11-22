@@ -160,6 +160,10 @@ add_dependencies(sr_grasp_mesh_planner_qt
   sr_grasp_msgs_gencpp
   ${catkin_EXPORTED_TARGETS}
 )
+add_dependencies(grasp_action_client_mesh
+  sr_grasp_msgs_gencpp
+  ${catkin_EXPORTED_TARGETS}
+)
 
 ## Specify libraries to link a library or executable target against
 target_link_libraries(sr_grasp_mesh_planner_qt
