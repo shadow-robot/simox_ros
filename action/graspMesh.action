@@ -1,0 +1,8 @@
+# Goal
+shape_msgs/Mesh obj_mesh
+---
+# Result
+moveit_msgs/Grasp[] grasps
+---
+# Feedback
+int32 no_of_stable_grasps
