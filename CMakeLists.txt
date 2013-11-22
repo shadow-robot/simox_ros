@@ -6,13 +6,11 @@ project(sr_grasp_mesh_planner)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
   actionlib
-  actionlib_msgs
-  pcl_conversions
-  pcl_msgs
   pcl_ros
   roscpp
   rospy
   sr_grasp_msgs
+  actionlib_msgs
   moveit_msgs
   sensor_msgs
   std_msgs
@@ -105,7 +103,7 @@ ENDIF()
 catkin_package(
   INCLUDE_DIRS include ${EIGEN_INCLUDE_DIRS}
   # LIBRARIES sr_grasp_mesh_planner
-  CATKIN_DEPENDS roscpp rospy sr_grasp_msgs pcl_conversions pcl_ros actionlib_msgs pcl_msgs sensor_msgs std_msgs
+  CATKIN_DEPENDS roscpp rospy sr_grasp_msgs actionlib_msgs sensor_msgs std_msgs
   DEPENDS eigen
 )
 
