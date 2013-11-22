@@ -287,8 +287,8 @@ void GraspPlannerWindow::loadRobot()
 
 //-------------------------------------------------------------------------------
 
-void GraspPlannerWindow::plan(boost::shared_ptr<sr_grasp_mesh_planner::graspMeshFeedback> feedback_mesh,
-                              boost::shared_ptr<sr_grasp_mesh_planner::graspMeshResult> result_mesh)
+void GraspPlannerWindow::plan(boost::shared_ptr<sr_grasp_msg::graspMeshFeedback> feedback_mesh,
+                              boost::shared_ptr<sr_grasp_msg::graspMeshResult> result_mesh)
 {
   feedback_mesh_ = feedback_mesh;
   result_mesh_ = result_mesh;
