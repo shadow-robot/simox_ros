@@ -141,7 +141,6 @@ add_executable(sr_grasp_mesh_planner_qt
 
 add_executable(grasp_action_client_mesh
   src/grasp_action_client_mesh.cpp
-  src/mesh_obstacle.cpp
   src/read_ply.cpp
 )
 
