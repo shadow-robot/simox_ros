@@ -175,7 +175,6 @@ target_link_libraries(sr_grasp_mesh_planner_qt
 
 target_link_libraries(grasp_action_client_mesh
   ${Simox_LIBRARIES}
-  ${Simox_VISUALIZATION_LIBS}
   ${catkin_LIBRARIES}
 )
 
