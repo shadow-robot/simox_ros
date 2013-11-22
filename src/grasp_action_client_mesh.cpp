@@ -1,6 +1,6 @@
 #include "sr_grasp_mesh_planner/mesh_obstacle.hpp"
 #include "sr_grasp_mesh_planner/read_ply.hpp"
-#include <sr_grasp_msg/graspMeshAction.h>
+#include <sr_grasp_msgs/graspMeshAction.h>
 #include <geometry_msgs/Point.h>
 #include <shape_msgs/MeshTriangle.h>
 #include <shape_msgs/Mesh.h>
@@ -12,7 +12,7 @@
 
 // Called once when the goal completes
 void done_cb(const actionlib::SimpleClientGoalState& state,
-            const sr_grasp_msg::graspMeshResultConstPtr& result)
+            const sr_grasp_msgs::graspMeshResultConstPtr& result)
 {
   ROS_INFO("Finished in state [%s]", state.toString().c_str());
 
@@ -32,7 +32,7 @@ void active_cb()
 }
 
 // Called every time feedback is received for the goal
-void feedback_cb(const sr_grasp_msg::graspMeshFeedbackConstPtr& feedback)
+void feedback_cb(const sr_grasp_msgs::graspMeshFeedbackConstPtr& feedback)
 {
   ROS_INFO_STREAM("Got feedback of number of stable grasps: " << feedback->no_of_stable_grasps << ".");
 }
@@ -50,7 +50,7 @@ int main (int argc, char **argv)
   ROS_INFO_STREAM("Number of vertices read  = " << reader.total_vertices_  << ".");
   ROS_INFO_STREAM("Number of triangles read = " << reader.total_triangles_ << ".");
 
-  sr_grasp_msg::graspMeshGoal goal;
+  sr_grasp_msgs::graspMeshGoal goal;
 
   // Set the list of triangles.
   for (int i = 0; i < reader.total_triangles_; i++)
@@ -75,7 +75,7 @@ int main (int argc, char **argv)
   }
 
   // Create the action client, and true causes the client to spin its own thread.
-  actionlib::SimpleActionClient<sr_grasp_msg::graspMeshAction> ac("sr_grasp_mesh_planner", true);
+  actionlib::SimpleActionClient<sr_grasp_msgs::graspMeshAction> ac("sr_grasp_mesh_planner", true);
 
   ROS_INFO_STREAM("Waiting for action server to start.");
   ac.waitForServer();

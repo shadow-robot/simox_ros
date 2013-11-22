@@ -24,8 +24,8 @@ GraspActionServer::GraspActionServer(std::string node_name,
     action_name_(node_name),
     grasp_win_(grasp_win)
 {
-  feedback_mesh_.reset(new sr_grasp_msg::graspMeshFeedback);
-  result_mesh_.reset(new sr_grasp_msg::graspMeshResult);
+  feedback_mesh_.reset(new sr_grasp_msgs::graspMeshFeedback);
+  result_mesh_.reset(new sr_grasp_msgs::graspMeshResult);
 
   as_mesh_.start();
   ROS_INFO_STREAM("Action server " << action_name_ << " just started.");
@@ -39,7 +39,7 @@ GraspActionServer::~GraspActionServer()
 
 //-------------------------------------------------------------------------------
 
-void GraspActionServer::goal_cb_mesh(const sr_grasp_msg::graspMeshGoalConstPtr &goal)
+void GraspActionServer::goal_cb_mesh(const sr_grasp_msgs::graspMeshGoalConstPtr &goal)
 {
   bool success = true;
 
