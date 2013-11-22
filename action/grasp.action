@@ -1,9 +1,0 @@
-# Goal
-sensor_msgs/PointCloud2 object_cloud2
----
-# Result
-moveit_msgs/Grasp grasp
-bool force_closure
----
-# Feedback
-int32 no_of_stable_grasps

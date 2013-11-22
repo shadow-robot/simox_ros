@@ -1,3 +1,3 @@
 <launch>
-<node name="sr_grasp_planner" pkg="sr_grasp_planner" type="sr_grasp_planner_qt" output="screen"/>
+<node name="sr_grasp_mesh_planner" pkg="sr_grasp_mesh_planner" type="sr_grasp_mesh_planner_qt" output="screen"/>
 </launch>

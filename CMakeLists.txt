@@ -82,7 +82,6 @@ ENDIF()
 ## Generate actions in the 'action' folder
 add_action_files(
   FILES
-  grasp.action
   graspMesh.action
 )
 
