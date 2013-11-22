@@ -13,6 +13,7 @@
   <!--- http://wiki.ros.org/pcl/Tutorials -->
   <buildtool_depend>catkin</buildtool_depend>
 
+  <build_depend>sr_grasp_msgs</build_depend>
   <build_depend>actionlib</build_depend>
   <build_depend>actionlib_msgs</build_depend>
   <build_depend>pcl_conversions</build_depend>
@@ -26,7 +27,7 @@
   <build_depend>std_msgs</build_depend>
   <build_depend>eigen</build_depend>
 
-  <run_depend>sr_grasp_msg</run_depend>
+  <run_depend>sr_grasp_msgs</run_depend>
   <run_depend>actionlib</run_depend>
   <run_depend>actionlib_msgs</run_depend>
   <run_depend>pcl_conversions</run_depend>

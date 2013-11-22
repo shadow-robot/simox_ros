@@ -12,6 +12,7 @@ find_package(catkin REQUIRED COMPONENTS
   pcl_ros
   roscpp
   rospy
+  sr_grasp_msgs
   moveit_msgs
   sensor_msgs
   std_msgs
@@ -104,7 +105,7 @@ ENDIF()
 catkin_package(
   INCLUDE_DIRS include ${EIGEN_INCLUDE_DIRS}
   # LIBRARIES sr_grasp_mesh_planner
-  CATKIN_DEPENDS roscpp rospy pcl_conversions pcl_ros actionlib_msgs pcl_msgs sensor_msgs std_msgs
+  CATKIN_DEPENDS roscpp rospy sr_grasp_msgs pcl_conversions pcl_ros actionlib_msgs pcl_msgs sensor_msgs std_msgs
   DEPENDS eigen
 )
 
@@ -153,7 +154,12 @@ add_executable(grasp_action_client_mesh
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
-# add_dependencies(sr_grasp_mesh_planner_node sr_grasp_mesh_planner_generate_messages_cpp)
+# http://answers.ros.org/question/62092/catkin_make-started-failing-to-generate-h-from-msg/
+# http://answers.ros.org/question/52744/how-to-specify-dependencies-with-foo_msgs-catkin-packages/
+add_dependencies(sr_grasp_mesh_planner_qt
+  sr_grasp_msgs_gencpp
+  ${catkin_EXPORTED_TARGETS}
+)
 
 ## Specify libraries to link a library or executable target against
 target_link_libraries(sr_grasp_mesh_planner_qt
