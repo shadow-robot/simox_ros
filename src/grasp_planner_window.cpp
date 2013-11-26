@@ -225,8 +225,9 @@ void GraspPlannerWindow::quit()
 
 //-------------------------------------------------------------------------------
 
-void GraspPlannerWindow::loadObject(const shape_msgs::Mesh& obj_mesh)
+void GraspPlannerWindow::loadObject(const object_recognition_msgs::RecognizedObject &object)
 {
+  const shape_msgs::Mesh& obj_mesh = object.bounding_mesh;
   TriMeshModelPtr triMeshModel = MeshObstacle::create_tri_mesh(obj_mesh);
   this->loadObject(triMeshModel);
 }
@@ -287,8 +288,8 @@ void GraspPlannerWindow::loadRobot()
 
 //-------------------------------------------------------------------------------
 
-void GraspPlannerWindow::plan(boost::shared_ptr<sr_grasp_msgs::GraspMeshFeedback> feedback_mesh,
-                              boost::shared_ptr<sr_grasp_msgs::GraspMeshResult> result_mesh)
+void GraspPlannerWindow::plan(boost::shared_ptr<sr_grasp_msgs::PlanGraspFeedback> feedback_mesh,
+                              boost::shared_ptr<sr_grasp_msgs::PlanGraspResult> result_mesh)
 {
   feedback_mesh_ = feedback_mesh;
   result_mesh_ = result_mesh;
@@ -341,7 +342,7 @@ void GraspPlannerWindow::plan()
     moveit_msgs::Grasp grasp_msg;
 
     // nrComputedGrasps should be one.
-    feedback_mesh_->no_of_stable_grasps += nrComputedGrasps;
+    feedback_mesh_->number_of_synthesized_grasps += nrComputedGrasps;
 
     // A name for this grasp.
     grasp_msg.id = std::string("grasp_") + boost::lexical_cast<std::string>(grasp_counter_);

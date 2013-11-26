@@ -3,7 +3,7 @@
 //-------------------------------------------------------------------------------
 
 #include "sr_grasp_mesh_planner/coin_viewer.hpp"
-#include <sr_grasp_msgs/GraspMeshAction.h>
+#include <sr_grasp_msgs/PlanGraspAction.h>
 #include <shape_msgs/Mesh.h>
 
 #include <VirtualRobot/Robot.h>
@@ -78,13 +78,13 @@ public slots:
 
   void buildVisu();
 
-  void plan(boost::shared_ptr<sr_grasp_msgs::GraspMeshFeedback> feedback_mesh,
-            boost::shared_ptr<sr_grasp_msgs::GraspMeshResult> result_mesh);
+  void plan(boost::shared_ptr<sr_grasp_msgs::PlanGraspFeedback> feedback_mesh,
+            boost::shared_ptr<sr_grasp_msgs::PlanGraspResult> result_mesh);
   void plan();
   void save();
 
   void loadRobot();
-  void loadObject(const shape_msgs::Mesh &obj_mesh);
+  void loadObject(const object_recognition_msgs::RecognizedObject &object);
   void loadObject(VirtualRobot::TriMeshModelPtr triMeshModel);
 
   void setupUI();
@@ -127,8 +127,8 @@ protected:
   // Not used.
   // boost::shared_ptr<VirtualRobot::CoinVisualization> visualizationObject_;
 
-  boost::shared_ptr<sr_grasp_msgs::GraspMeshFeedback> feedback_mesh_;
-  boost::shared_ptr<sr_grasp_msgs::GraspMeshResult> result_mesh_;
+  boost::shared_ptr<sr_grasp_msgs::PlanGraspFeedback> feedback_mesh_;
+  boost::shared_ptr<sr_grasp_msgs::PlanGraspResult> result_mesh_;
 
   unsigned short grasp_counter_;
 };

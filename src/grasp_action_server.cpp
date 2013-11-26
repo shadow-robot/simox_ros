@@ -24,8 +24,8 @@ GraspActionServer::GraspActionServer(std::string node_name,
     action_name_(node_name),
     grasp_win_(grasp_win)
 {
-  feedback_mesh_.reset(new sr_grasp_msgs::GraspMeshFeedback);
-  result_mesh_.reset(new sr_grasp_msgs::GraspMeshResult);
+  feedback_mesh_.reset(new sr_grasp_msgs::PlanGraspFeedback);
+  result_mesh_.reset(new sr_grasp_msgs::PlanGraspResult);
 
   as_mesh_.start();
   ROS_INFO_STREAM("Action server " << action_name_ << " just started.");
@@ -39,16 +39,16 @@ GraspActionServer::~GraspActionServer()
 
 //-------------------------------------------------------------------------------
 
-void GraspActionServer::goal_cb_mesh(const sr_grasp_msgs::GraspMeshGoalConstPtr &goal)
+void GraspActionServer::goal_cb_mesh(const sr_grasp_msgs::PlanGraspGoalConstPtr &goal)
 {
   bool success = true;
 
   // Construct an object from the given triangle mesh model (for the grasp planner).
-  grasp_win_->loadObject(goal->obj_mesh);
+  grasp_win_->loadObject(goal->object);
   grasp_win_->buildVisu();
 
   // Init the actionlib feedback and result data.
-  feedback_mesh_->no_of_stable_grasps = 0;
+  feedback_mesh_->number_of_synthesized_grasps = 0;
   result_mesh_->grasps.clear();
 
   // publish info to the console for the user
@@ -75,7 +75,7 @@ void GraspActionServer::goal_cb_mesh(const sr_grasp_msgs::GraspMeshGoalConstPtr 
 
     // publish the feedback
     as_mesh_.publishFeedback(*feedback_mesh_);
-    ROS_INFO_STREAM("feedback_mesh_->no_of_stable_grasps = " << feedback_mesh_->no_of_stable_grasps);
+    ROS_INFO_STREAM("feedback_mesh_->number_of_synthesized_grasps = " << feedback_mesh_->number_of_synthesized_grasps);
   }
 
   if (success)
