@@ -22,6 +22,11 @@
   <build_depend>std_msgs</build_depend>
   <build_depend>roscpp</build_depend>
   <build_depend>rospy</build_depend>
+  <build_depend>libsoqt4-dev</build_depend>
+  <build_depend>libcoin60-dev</build_depend>
+  <build_depend>libqt4-dev</build_depend>
+  <build_depend>qt4-qmake</build_depend>
+  <build_depend>eigen</build_depend>
 
   <run_depend>actionlib</run_depend>
   <run_depend>pcl_ros</run_depend>
@@ -32,6 +37,10 @@
   <run_depend>std_msgs</run_depend>
   <run_depend>roscpp</run_depend>
   <run_depend>rospy</run_depend>
+  <run_depend>libsoqt4-dev</run_depend>
+  <run_depend>libcoin60-dev</run_depend>
+  <run_depend>libqt4-dev</run_depend>
+  <run_depend>eigen</run_depend>
 
   <!-- The export tag contains other, unspecified, tags -->
   <export>
