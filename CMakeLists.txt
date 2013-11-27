@@ -171,7 +171,6 @@ target_link_libraries(sr_grasp_mesh_planner_qt
 )
 
 target_link_libraries(grasp_action_client_mesh
-  ${Simox_LIBRARIES}
   ${catkin_LIBRARIES}
 )
 
@@ -215,10 +214,19 @@ target_link_libraries(grasp_action_client_mesh
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_sr_grasp_mesh_planner.cpp)
-# if(TARGET ${PROJECT_NAME}-test)
-#   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
-# endif()
+catkin_add_gtest(test_grasp_mesh_planner
+  src/read_ply.cpp
+  test/test_grasp_mesh_planner.test
+  test/test_grasp_mesh_planner.cpp)
+if(TARGET test_grasp_mesh_planner)
+  target_link_libraries(test_grasp_mesh_planner
+    ${catkin_LIBRARIES}
+    ${GTEST_LIBRARIES})
+  add_dependencies(test_grasp_mesh_planner
+    sr_grasp_msgs_gencpp
+    ${catkin_EXPORTED_TARGETS})
+endif()
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
+
