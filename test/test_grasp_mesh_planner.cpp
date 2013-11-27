@@ -36,6 +36,7 @@ void done_cb(const actionlib::SimpleClientGoalState& state,
 void active_cb()
 {
   ROS_INFO("Goal just went active");
+  ASSERT_TRUE(true);
 }
 
 //-------------------------------------------------------------------------------
@@ -43,7 +44,9 @@ void active_cb()
 // Called every time feedback is received for the goal
 void feedback_cb(const sr_grasp_msgs::PlanGraspFeedbackConstPtr& feedback)
 {
-  ROS_INFO_STREAM("Got feedback of number of stable grasps: " << feedback->number_of_synthesized_grasps << ".");
+  ROS_INFO_STREAM("Got feedback of number of stable grasps: " <<
+                  feedback->number_of_synthesized_grasps << ".");
+  EXPECT_GT(feedback->number_of_synthesized_grasps, 0);
 }
 
 //-------------------------------------------------------------------------------
