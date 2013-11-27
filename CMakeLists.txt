@@ -5,6 +5,7 @@ project(sr_grasp_mesh_planner)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
+  dynamic_reconfigure
   actionlib
   pcl_ros
   roscpp
@@ -92,6 +93,13 @@ ENDIF()
 # )
 
 ###################################
+##      dynamic reconfigure      ##
+###################################
+generate_dynamic_reconfigure_options(
+  cfg/Planner.cfg
+)
+
+###################################
 ## catkin specific configuration ##
 ###################################
 ## The catkin_package macro generates cmake config files for your package
@@ -155,6 +163,7 @@ add_executable(grasp_action_client_mesh
 # http://answers.ros.org/question/52744/how-to-specify-dependencies-with-foo_msgs-catkin-packages/
 add_dependencies(sr_grasp_mesh_planner_qt
   sr_grasp_msgs_gencpp
+  ${PROJECT_NAME}_gencfg
   ${catkin_EXPORTED_TARGETS}
 )
 add_dependencies(grasp_action_client_mesh

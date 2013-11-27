@@ -105,8 +105,8 @@
        <property name="geometry">
         <rect>
          <x>30</x>
-         <y>290</y>
-         <width>141</width>
+         <y>250</y>
+         <width>151</width>
          <height>31</height>
         </rect>
        </property>
@@ -126,22 +126,6 @@
        <property name="title">
         <string>Grasp Planning Options</string>
        </property>
-       <widget class="QCheckBox" name="checkBoxFoceClosure">
-        <property name="geometry">
-         <rect>
-          <x>30</x>
-          <y>170</y>
-          <width>111</width>
-          <height>17</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Force closure</string>
-        </property>
-        <property name="checked">
-         <bool>true</bool>
-        </property>
-       </widget>
        <widget class="QSpinBox" name="spinBoxGraspNumber">
         <property name="geometry">
          <rect>
@@ -203,45 +187,13 @@
          <number>30</number>
         </property>
        </widget>
-       <widget class="QLabel" name="label_13">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>120</y>
-          <width>171</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Min quality</string>
-        </property>
-       </widget>
-       <widget class="QDoubleSpinBox" name="doubleSpinBoxQuality">
-        <property name="geometry">
-         <rect>
-          <x>30</x>
-          <y>140</y>
-          <width>111</width>
-          <height>22</height>
-         </rect>
-        </property>
-        <property name="decimals">
-         <number>3</number>
-        </property>
-        <property name="maximum">
-         <double>1.000000000000000</double>
-        </property>
-        <property name="singleStep">
-         <double>0.001000000000000</double>
-        </property>
-       </widget>
       </widget>
       <widget class="QPushButton" name="pushButtonSave">
        <property name="geometry">
         <rect>
          <x>30</x>
-         <y>400</y>
-         <width>141</width>
+         <y>350</y>
+         <width>151</width>
          <height>31</height>
         </rect>
        </property>
@@ -253,7 +205,7 @@
        <property name="geometry">
         <rect>
          <x>30</x>
-         <y>340</y>
+         <y>300</y>
          <width>71</width>
          <height>31</height>
         </rect>
@@ -266,7 +218,7 @@
        <property name="geometry">
         <rect>
          <x>110</x>
-         <y>340</y>
+         <y>300</y>
          <width>71</width>
          <height>31</height>
         </rect>
