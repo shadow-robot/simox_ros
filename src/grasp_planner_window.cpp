@@ -288,18 +288,20 @@ void GraspPlannerWindow::loadRobot()
 
 //-------------------------------------------------------------------------------
 
-void GraspPlannerWindow::plan(boost::shared_ptr<sr_grasp_msgs::PlanGraspFeedback> feedback_mesh,
+void GraspPlannerWindow::plan(bool force_closure,
+                              float min_quality,
+                              boost::shared_ptr<sr_grasp_msgs::PlanGraspFeedback> feedback_mesh,
                               boost::shared_ptr<sr_grasp_msgs::PlanGraspResult> result_mesh)
 {
   feedback_mesh_ = feedback_mesh;
   result_mesh_ = result_mesh;
   this->resetSceneryAll();
-  this->plan();
+  this->plan(force_closure, min_quality);
 }
 
 //-------------------------------------------------------------------------------
 
-void GraspPlannerWindow::plan()
+void GraspPlannerWindow::plan(bool force_closure, float min_quality)
 {
   viewer_->lock();
 
@@ -307,15 +309,15 @@ void GraspPlannerWindow::plan()
   clock_t begin = clock();
 
   float timeout = UI_.spinBoxTimeOut->value() * 1000.0f;
-  bool forceClosure = UI_.checkBoxFoceClosure->isChecked();
-  float quality = static_cast<float>(UI_.doubleSpinBoxQuality->value());
   int nrDesiredGrasps = UI_.spinBoxGraspNumber->value();
+  // bool force_closure = UI_.checkBoxFoceClosure->isChecked();
+  // float min_quality = static_cast<float>(UI_.doubleSpinBoxQuality->value());
 
   planner_.reset(new GraspStudio::GenericGraspPlanner(grasps_,
                                                       qualityMeasure_,
                                                       approach_,
-                                                      quality,
-                                                      forceClosure));
+                                                      min_quality,
+                                                      force_closure));
 
   int nrComputedGrasps = planner_->plan(nrDesiredGrasps, timeout);
   grasps_->setPreshape(preshape_);

@@ -78,9 +78,12 @@ public slots:
 
   void buildVisu();
 
-  void plan(boost::shared_ptr<sr_grasp_msgs::PlanGraspFeedback> feedback_mesh,
+  void plan(bool force_closure,
+            float min_quality,
+            boost::shared_ptr<sr_grasp_msgs::PlanGraspFeedback> feedback_mesh,
             boost::shared_ptr<sr_grasp_msgs::PlanGraspResult> result_mesh);
-  void plan();
+  void plan(bool force_closure = true,
+            float min_quality = 0.0f);
   void save();
 
   void loadRobot();
