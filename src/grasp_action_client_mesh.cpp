@@ -17,7 +17,6 @@ void done_cb(const actionlib::SimpleClientGoalState& state,
             const sr_grasp_msgs::PlanGraspResultConstPtr& result)
 {
   ROS_INFO("Finished in state [%s]", state.toString().c_str());
-
   const std::vector<moveit_msgs::Grasp> &grasps = result->grasps;
   for (size_t i = 0; i < grasps.size(); i++)
   {

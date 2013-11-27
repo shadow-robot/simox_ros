@@ -19,12 +19,13 @@ void done_cb(const actionlib::SimpleClientGoalState& state,
             const sr_grasp_msgs::PlanGraspResultConstPtr& result)
 {
   ROS_INFO("Finished in state [%s]", state.toString().c_str());
-
   const std::vector<moveit_msgs::Grasp> &grasps = result->grasps;
+  EXPECT_GT(grasps.size(), 0);
   for (size_t i = 0; i < grasps.size(); i++)
   {
     ROS_INFO_STREAM("id: " << grasps[i].id);
     ROS_INFO_STREAM("grasp_quality: " << grasps[i].grasp_quality);
+    EXPECT_GT(grasps[i].grasp_quality, 0);
   }
   ros::shutdown();
 }
