@@ -310,8 +310,6 @@ void GraspPlannerWindow::plan(bool force_closure, float min_quality)
 
   float timeout = UI_.spinBoxTimeOut->value() * 1000.0f;
   int nrDesiredGrasps = UI_.spinBoxGraspNumber->value();
-  // bool force_closure = UI_.checkBoxFoceClosure->isChecked();
-  // float min_quality = static_cast<float>(UI_.doubleSpinBoxQuality->value());
 
   planner_.reset(new GraspStudio::GenericGraspPlanner(grasps_,
                                                       qualityMeasure_,
