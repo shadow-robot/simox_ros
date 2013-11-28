@@ -3,6 +3,11 @@
 #include <Inventor/Qt/viewers/SoQtExaminerViewer.h>
 #include <Inventor/threads/SbMutex.h>
 
+//-------------------------------------------------------------------------------
+
+namespace sr_grasp_mesh_planner
+{
+
 class CoinViewer : public SoQtExaminerViewer
 {
 public:
@@ -21,3 +26,7 @@ protected:
 
   SbThreadMutex sbmutex_;
 };
+
+} // end of namespace sr_grasp_mesh_planner
+
+//-------------------------------------------------------------------------------

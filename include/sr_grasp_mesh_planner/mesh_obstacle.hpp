@@ -18,6 +18,9 @@ using namespace VirtualRobot;
 
 //-------------------------------------------------------------------------------
 
+namespace sr_grasp_mesh_planner
+{
+
 /**
  * A mesh obstacle is based on an obstacle, that is an object that owns a visualization
  * and a collision model. It can be moved around and used for collision detection.
@@ -46,5 +49,7 @@ private:
   // Size of the skybox divided by two.
   static const float SKY_BOX_SIZE2_;
 };
+
+} // end of namespace sr_grasp_mesh_planner
 
 //-------------------------------------------------------------------------------

@@ -14,6 +14,10 @@
 
 //-------------------------------------------------------------------------------
 
+using namespace sr_grasp_mesh_planner;
+
+//-------------------------------------------------------------------------------
+
 SrApproachMovementSurfaceNormal::SrApproachMovementSurfaceNormal(VirtualRobot::SceneObjectPtr object,
                                                                  VirtualRobot::EndEffectorPtr eef,
                                                                  const std::string &graspPreshape,

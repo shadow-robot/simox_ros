@@ -2,6 +2,11 @@
 
 #include <vector>
 
+//-------------------------------------------------------------------------------
+
+namespace sr_grasp_mesh_planner
+{
+
 class ReadPLY
 {
 public:
@@ -31,5 +36,8 @@ public:
   float* Vertex_Buffer;
 };
 
+} // end of namespace sr_grasp_mesh_planner
+
+//-------------------------------------------------------------------------------
 
 

@@ -29,6 +29,7 @@
 using namespace std;
 using namespace VirtualRobot;
 using namespace GraspStudio;
+using namespace sr_grasp_mesh_planner;
 
 //-------------------------------------------------------------------------------
 

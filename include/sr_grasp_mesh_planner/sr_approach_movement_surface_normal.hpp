@@ -2,6 +2,11 @@
 
 #include <GraspPlanning/ApproachMovementSurfaceNormal.h>
 
+//-------------------------------------------------------------------------------
+
+namespace sr_grasp_mesh_planner
+{
+
 class SrApproachMovementSurfaceNormal : public GraspStudio::ApproachMovementSurfaceNormal
 {
 public:
@@ -25,3 +30,7 @@ private:
   //! From the object and outward.
   Eigen::Vector3f approach_direction_;
 };
+
+} // end of namespace sr_grasp_mesh_planner
+
+//-------------------------------------------------------------------------------

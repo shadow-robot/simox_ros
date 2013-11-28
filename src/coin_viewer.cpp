@@ -2,6 +2,10 @@
 
 //-------------------------------------------------------------------------------
 
+using namespace sr_grasp_mesh_planner;
+
+//-------------------------------------------------------------------------------
+
 CoinViewer::CoinViewer(QWidget *parent,
                        const char *name,
                        SbBool embed,

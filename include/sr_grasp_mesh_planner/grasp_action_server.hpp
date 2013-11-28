@@ -14,9 +14,10 @@
 
 //-------------------------------------------------------------------------------
 
-using namespace VirtualRobot;
+namespace sr_grasp_mesh_planner
+{
 
-//-------------------------------------------------------------------------------
+using namespace VirtualRobot;
 
 class GraspActionServer
 {
@@ -59,5 +60,7 @@ private:
 
   void timer_cb_(const ros::WallTimerEvent& event);
 };
+
+} // end of namespace sr_grasp_mesh_planner
 
 //-------------------------------------------------------------------------------

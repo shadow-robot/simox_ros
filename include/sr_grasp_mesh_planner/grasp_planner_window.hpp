@@ -46,6 +46,9 @@
 
 //-------------------------------------------------------------------------------
 
+namespace sr_grasp_mesh_planner
+{
+
 class GraspPlannerWindow : public QMainWindow
 {
   Q_OBJECT
@@ -135,5 +138,7 @@ protected:
 
   unsigned short grasp_counter_;
 };
+
+} // end of namespace sr_grasp_mesh_planner
 
 //-------------------------------------------------------------------------------
