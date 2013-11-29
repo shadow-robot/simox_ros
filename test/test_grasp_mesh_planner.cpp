@@ -14,6 +14,10 @@
 
 //-------------------------------------------------------------------------------
 
+using namespace sr_grasp_mesh_planner;
+
+//-------------------------------------------------------------------------------
+
 // Called once when the goal completes
 void done_cb(const actionlib::SimpleClientGoalState& state,
             const sr_grasp_msgs::PlanGraspResultConstPtr& result)
