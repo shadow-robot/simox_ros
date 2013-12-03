@@ -6,6 +6,23 @@
     </plugin>
   </gazebo>
 
+  <transmission name="trans_WRJ1">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="WRJ1"/>
+    <actuator name="motor_WRJ1">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="trans_WRJ2">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="WRJ2"/>
+    <actuator name="motor_WRJ2">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
   <!-- adding fixed link to world for the hand not to fall -->
   <link name="world"/>
   <joint name="fixed" type="fixed">
