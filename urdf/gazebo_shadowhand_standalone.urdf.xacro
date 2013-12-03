@@ -1,0 +1,21 @@
+<robot name="shadowhand" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <gazebo>
+    <plugin name="ros_control" filename="libgazebo_ros_control.so">
+      <robotNamespace>/sh</robotNamespace>
+    </plugin>
+  </gazebo>
+
+  <!-- adding fixed link to world for the hand not to fall -->
+  <!-- wtf! this crashes when launching but works ok in the dms_gazebo launch. Why? -->
+  <!--
+  <link name="world"/>
+  <joint name="fixed" type="fixed">
+    <parent link="world"/>
+    <child link="base_link"/>
+  </joint>
+  -->
+
+  <!-- loading the shadow hand -->
+  <xacro:include filename="$(find sr_grasp_description)/urdf/shadowhand.urdf" />
+</robot>
