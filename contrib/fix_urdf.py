@@ -8,11 +8,11 @@
 # Input is the full hand urdf. Generated from the shadow_robot sr_description
 # package under fuerte as follows:
 #
-# $ rosrun xacro xacro.py robots/shadowhand_motor_biotac.urdf.xacro > urdf/shadowhand.orig.urdf
+# $ rosrun xacro xacro.py robots/shadowhand_motor_biotac.urdf.xacro > shadowhand_motor_biotac.orig.urdf
 #
 # Then run over with this:
 #
-# $ ./contrib/fix_urdf.py urdf/shadowhand.orig.urdf urdf/shadowhand.urdf
+# $ ./contrib/fix_urdf.py urdf/shadowhand_motor_biotac.orig.urdf urdf/shadowhand.urdf
 #
 
 import sys, os
@@ -52,6 +52,9 @@ for mesh in root.iter('mesh'):
     new_file = "package://sr_grasp_description/meshes/" + name
     #print fn + " -> " + new_file
     mesh.attrib['filename'] = new_file
+    # Fix scale, did the units change?
+    if mesh.attrib['scale'] == "0.001 0.001 0.001" and not name.endswith(".stl") and not name.endswith("biotac_thumb_adapter.dae"):
+        mesh.attrib['scale'] = "0.1 0.1 0.1"
 
 # Re-move sr_gazebo_ros_controller_manager
 for tag in root.findall('.//controller:sr_gazebo_ros_controller_manager/..', namespaces=namespaces):

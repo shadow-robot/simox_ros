@@ -29,7 +29,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0" />
       <geometry name="shadow_forearm_geom">
-        <mesh filename="package://sr_grasp_description/meshes/forearm.dae" scale="0.001 0.001 0.001" />
+        <mesh filename="package://sr_grasp_description/meshes/forearm.dae" scale="0.1 0.1 0.1" />
       </geometry>
       <material name="Grey" />
     </visual>
@@ -50,7 +50,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0" />
       <geometry name="wrist_visual">
-        <mesh filename="package://sr_grasp_description/meshes/wrist.dae" scale="0.001 0.001 0.001" />
+        <mesh filename="package://sr_grasp_description/meshes/wrist.dae" scale="0.1 0.1 0.1" />
       </geometry>
       <material name="LightGrey" />
     </visual>
@@ -79,7 +79,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0" />
       <geometry name="palm_visual">
-        <mesh filename="package://sr_grasp_description/meshes/palm.dae" scale="0.001 0.001 0.001" />
+        <mesh filename="package://sr_grasp_description/meshes/palm.dae" scale="0.1 0.1 0.1" />
       </geometry>
       <material name="Grey" />
     </visual>
@@ -108,7 +108,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0.0005" />
       <geometry name="knuckle_visual">
-        <mesh filename="package://sr_grasp_description/meshes/knuckle.dae" scale="0.001 0.001 0.001" />
+        <mesh filename="package://sr_grasp_description/meshes/knuckle.dae" scale="0.1 0.1 0.1" />
       </geometry>
       <material name="LightGrey" />
     </visual>
@@ -137,7 +137,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0" />
       <geometry name="proximal_visual">
-        <mesh filename="package://sr_grasp_description/meshes/F3.dae" scale="0.001 0.001 0.001" />
+        <mesh filename="package://sr_grasp_description/meshes/F3.dae" scale="0.1 0.1 0.1" />
       </geometry>
       <material name="Grey" />
     </visual>
@@ -258,7 +258,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0.0005" />
       <geometry name="knuckle_visual">
-        <mesh filename="package://sr_grasp_description/meshes/knuckle.dae" scale="0.001 0.001 0.001" />
+        <mesh filename="package://sr_grasp_description/meshes/knuckle.dae" scale="0.1 0.1 0.1" />
       </geometry>
       <material name="LightGrey" />
     </visual>
@@ -287,7 +287,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0" />
       <geometry name="proximal_visual">
-        <mesh filename="package://sr_grasp_description/meshes/F3.dae" scale="0.001 0.001 0.001" />
+        <mesh filename="package://sr_grasp_description/meshes/F3.dae" scale="0.1 0.1 0.1" />
       </geometry>
       <material name="Grey" />
     </visual>
@@ -408,7 +408,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0.0005" />
       <geometry name="knuckle_visual">
-        <mesh filename="package://sr_grasp_description/meshes/knuckle.dae" scale="0.001 0.001 0.001" />
+        <mesh filename="package://sr_grasp_description/meshes/knuckle.dae" scale="0.1 0.1 0.1" />
       </geometry>
       <material name="LightGrey" />
     </visual>
@@ -437,7 +437,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0" />
       <geometry name="proximal_visual">
-        <mesh filename="package://sr_grasp_description/meshes/F3.dae" scale="0.001 0.001 0.001" />
+        <mesh filename="package://sr_grasp_description/meshes/F3.dae" scale="0.1 0.1 0.1" />
       </geometry>
       <material name="Grey" />
     </visual>
@@ -557,7 +557,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0" />
       <geometry name="lfmetacarpal_visual">
-        <mesh filename="package://sr_grasp_description/meshes/lfmetacarpal.dae" scale="0.001 0.001 0.001" />
+        <mesh filename="package://sr_grasp_description/meshes/lfmetacarpal.dae" scale="0.1 0.1 0.1" />
       </geometry>
       <material name="Grey" />
     </visual>
@@ -585,7 +585,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0" />
       <geometry name="knuckle_visual">
-        <mesh filename="package://sr_grasp_description/meshes/knuckle.dae" scale="0.001 0.001 0.001" />
+        <mesh filename="package://sr_grasp_description/meshes/knuckle.dae" scale="0.1 0.1 0.1" />
       </geometry>
       <material name="LightGrey" />
     </visual>
@@ -613,7 +613,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0" />
       <geometry name="proximal_visual">
-        <mesh filename="package://sr_grasp_description/meshes/F3.dae" scale="0.001 0.001 0.001" />
+        <mesh filename="package://sr_grasp_description/meshes/F3.dae" scale="0.1 0.1 0.1" />
       </geometry>
       <material name="Grey" />
     </visual>
@@ -763,7 +763,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0" />
       <geometry name="thproximal_visual">
-        <mesh filename="package://sr_grasp_description/meshes/TH3_z.dae" scale="0.001 0.001 0.001" />
+        <mesh filename="package://sr_grasp_description/meshes/TH3_z.dae" scale="0.1 0.1 0.1" />
       </geometry>
       <material name="shadow_thproximal_material">
         <color rgba="0.2 0.2 0.2 1.0" />
