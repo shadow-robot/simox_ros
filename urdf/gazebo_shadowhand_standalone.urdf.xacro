@@ -6,18 +6,18 @@
     </plugin>
   </gazebo>
 
-  <transmission name="trans_WRJ1">
+  <transmission name="trans_wrj1">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="WRJ1"/>
-    <actuator name="motor_WRJ1">
+    <actuator name="motor_wrj1">
       <hardwareInterface>EffortJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
-  <transmission name="trans_WRJ2">
+  <transmission name="trans_wrj2">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="WRJ2"/>
-    <actuator name="motor_WRJ2">
+    <actuator name="motor_wrj2">
       <hardwareInterface>EffortJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
