@@ -2,7 +2,7 @@
 <package>
   <name>sr_grasp_description</name>
   <version>0.0.1</version>
-  <description>Runs the grasping demo.</description>
+  <description>Description of the Shadow Hand robot.</description>
   <license>Private</license>
   <url type="repository">https://github.com/shadow-robot/sr-grasp-stabilisation/wiki/sr_grasp_description</url>
 
