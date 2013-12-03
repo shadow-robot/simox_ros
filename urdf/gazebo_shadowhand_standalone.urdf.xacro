@@ -22,6 +22,39 @@
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
+  
+  <transmission name="trans_ffj1">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="FFJ1"/>
+    <actuator name="motor_ffj1">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="trans_ffj2">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="FFJ2"/>
+    <actuator name="motor_ffj2">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="trans_ffj3">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="FFJ3"/>
+    <actuator name="motor_ffj3">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="trans_ffj4">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="FFJ4"/>
+    <actuator name="motor_ffj4">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
 
   <!-- adding fixed link to world for the hand not to fall -->
   <link name="world"/>
