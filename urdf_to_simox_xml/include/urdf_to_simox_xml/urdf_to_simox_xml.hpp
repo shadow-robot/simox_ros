@@ -32,9 +32,11 @@ public:
                  const std::string output_dir);
   ~UrdfToSimoxXml();
 
-  void write_xml(const std::string& simox_xml_file);
+  void write_xml(const std::string& output_dir,
+                 const std::string& simox_xml_filename);
 
-  static bool compareUrdfJoint(boost::shared_ptr<urdf::Joint> j1, boost::shared_ptr<urdf::Joint> j2);
+  static bool compareUrdfJoint(boost::shared_ptr<urdf::Joint> j1,
+                               boost::shared_ptr<urdf::Joint> j2);
 
 private:
   void add_dms_hand_base_node_(boost::property_tree::ptree & DMSHand_node,
@@ -57,12 +59,14 @@ private:
 
 private:
   void add_endeffector_node_(boost::property_tree::ptree & DMSHand_node,
+                             const std::string & hand_name_upper,
                              const std::string & dms_hand_base,
                              const std::string & dms_hand_tcp,
                              const std::string & dms_hand_gcp,
                              const std::string & base_link);
 
-  void add_dms_hand_joints_node_(boost::property_tree::ptree & DMSHand_node);
+  void add_dms_hand_joints_node_(boost::property_tree::ptree & DMSHand_node,
+                                 const std::string & hand_name_upper);
 
   void get_actors(std::map<int, bool>& actors);
 

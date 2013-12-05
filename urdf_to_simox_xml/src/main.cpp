@@ -95,8 +95,7 @@ int main(int argc, char** argv)
 
   gsc::UrdfToSimoxXml urdf2xml(urdf_init_param, urdf_filename, output_dir);
 
-  std::string simox_xml_file = output_dir + "/" + simox_xml_filename;
-  urdf2xml.write_xml(simox_xml_file);
+  urdf2xml.write_xml(output_dir, simox_xml_filename);
 
   return 0;
 }

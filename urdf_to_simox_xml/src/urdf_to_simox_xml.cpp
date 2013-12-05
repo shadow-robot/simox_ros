@@ -97,46 +97,69 @@ UrdfToSimoxXml::~UrdfToSimoxXml()
 //-------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------
 
-void UrdfToSimoxXml::write_xml(const std::string& simox_xml_file)
+void UrdfToSimoxXml::write_xml(const std::string& output_dir,
+                               const std::string& simox_xml_filename)
 {
+  // Obtain the name of the hand from simox_xml_filename.
+  std::list<std::string> stringList;
+  boost::iter_split(stringList, simox_xml_filename, boost::first_finder("."));
+  if (stringList.size() != 2)
+  {
+    ROS_ERROR_STREAM(simox_xml_filename << " should be something like dms.xml or shadowhand.xml.");
+    exit (EXIT_FAILURE);
+  }
+
+  std::string hand_name(stringList.front());
+  std::string hand_name_upper = boost::to_upper_copy(hand_name);
+  std::string hand_name_lower = boost::to_lower_copy(hand_name);
+
   // Create empty property tree object
   ptree pt;
 
-  std::string dms_hand_base("dms_hand_base");
-  std::string dms_hand_tcp("dms_hand_tcp");
-  std::string dms_hand_gcp("dms_hand_gcp");
+  std::string hand_base(hand_name_lower + "_hand_base");
+  std::string hand_tcp(hand_name_lower + "_hand_tcp");
+  std::string hand_gcp(hand_name_lower + "_hand_gcp");
   std::string base_link(links_[0]->name);
 
-  // Create the DMSHand node.
-  boost::property_tree::ptree DMSHand_node;
-  DMSHand_node.put("<xmlattr>.Type", "DMSHand");
-  DMSHand_node.put("<xmlattr>.RootNode", dms_hand_base);
+  // Create the ${hand_name_upper} node.
+  boost::property_tree::ptree hand_node;
+  hand_node.put("<xmlattr>.Type", hand_name_upper);
+  hand_node.put("<xmlattr>.RootNode", hand_base);
 
-  // Add RobotNode name="dms_hand_base".
-  this->add_dms_hand_base_node_(DMSHand_node, dms_hand_base, dms_hand_tcp,
-                                dms_hand_gcp, base_link);
+  // Add RobotNode name="${hand_name_lower}_hand_base".
+  this->add_dms_hand_base_node_(hand_node,
+                                hand_base,
+                                hand_tcp,
+                                hand_gcp,
+                                base_link);
 
-  // Add RobotNode name="dms_hand_tcp".
-  this->add_dms_hand_tcp_node_(DMSHand_node, dms_hand_tcp);
+  // Add RobotNode name="${hand_name_lower}_hand_tcp".
+  this->add_dms_hand_tcp_node_(hand_node, hand_tcp);
 
-  // Add RobotNode name="dms_hand_gcp".
-  this->add_dms_hand_gcp_node_(DMSHand_node, dms_hand_gcp);
+  // Add RobotNode name="${hand_name_lower}_hand_gcp".
+  this->add_dms_hand_gcp_node_(hand_node, hand_gcp);
 
   // Add RobotNode for the base/first link.
-  this->add_link_node_(DMSHand_node, links_[0]);
+  this->add_link_node_(hand_node, links_[0]);
 
-  // Add Endeffector name="DMS Hand" base="dms_hand_base" tcp="dms_hand_tcp" gcp="dms_hand_gcp".
-  this->add_endeffector_node_(DMSHand_node, dms_hand_base, dms_hand_tcp,
-                              dms_hand_gcp, base_link);
+  // Add Endeffector name="${hand_name_upper}" base="${hand_name_lower}_hand_base"
+  // tcp="${hand_name_lower}_hand_tcp" gcp="${hand_name_lower}_hand_gcp".
+  this->add_endeffector_node_(hand_node,
+                              hand_name_upper,
+                              hand_base,
+                              hand_tcp,
+                              hand_gcp,
+                              base_link);
 
-  // Add RobotNodeSet name="DMS Hand Joints".
-  this->add_dms_hand_joints_node_(DMSHand_node);
+  // Add RobotNodeSet name="${hand_name_upper} Joints".
+  this->add_dms_hand_joints_node_(hand_node, hand_name_upper);
 
-  // Add the DMSHand node to the tree.
-  pt.add_child("Robot", DMSHand_node);
+  // Add the ${hand_name_upper} to the tree.
+  pt.add_child("Robot", hand_node);
 
   // Write property tree to XML file
   // http://stackoverflow.com/questions/6572550/boostproperty-tree-xml-pretty-printing
+  std::string simox_xml_file = output_dir + "/" + simox_xml_filename;
   boost::property_tree::xml_writer_settings<char> settings('\t', 1);
   boost::property_tree::write_xml(simox_xml_file, pt, std::locale(), settings);
 }
@@ -325,6 +348,7 @@ void UrdfToSimoxXml::add_joint_node_(boost::property_tree::ptree & DMSHand_node,
 //-------------------------------------------------------------------------------
 
 void UrdfToSimoxXml::add_endeffector_node_(boost::property_tree::ptree & DMSHand_node,
+                                           const std::string & hand_name_upper,
                                            const std::string & dms_hand_base,
                                            const std::string & dms_hand_tcp,
                                            const std::string & dms_hand_gcp,
@@ -332,7 +356,7 @@ void UrdfToSimoxXml::add_endeffector_node_(boost::property_tree::ptree & DMSHand
 {
   boost::property_tree::ptree Endeffector_node;
   Endeffector_node.put("<xmlcomment>", "This node is for Simox (e.g., GraspPlanner in Simox)!");
-  Endeffector_node.put("<xmlattr>.name", "DMS Hand");
+  Endeffector_node.put("<xmlattr>.name", hand_name_upper);
   Endeffector_node.put("<xmlattr>.base", dms_hand_base);
   Endeffector_node.put("<xmlattr>.tcp", dms_hand_tcp);
   Endeffector_node.put("<xmlattr>.gcp", dms_hand_gcp);
@@ -405,11 +429,12 @@ void UrdfToSimoxXml::add_endeffector_node_(boost::property_tree::ptree & DMSHand
   DMSHand_node.add_child("Endeffector", Endeffector_node);
 }
 
-void UrdfToSimoxXml::add_dms_hand_joints_node_(boost::property_tree::ptree & DMSHand_node)
+void UrdfToSimoxXml::add_dms_hand_joints_node_(boost::property_tree::ptree & DMSHand_node,
+                                               const std::string & hand_name_upper)
 {
   boost::property_tree::ptree dms_hand_joints_node;
   dms_hand_joints_node.put("<xmlcomment>", "This node is for Simox (e.g., GraspPlanner in Simox)!");
-  dms_hand_joints_node.put("<xmlattr>.name", "DMS Hand Joints");
+  dms_hand_joints_node.put("<xmlattr>.name", hand_name_upper + " Joints");
 
   BOOST_FOREACH(boost::shared_ptr<const urdf::Joint> joint, joints_)
   {
