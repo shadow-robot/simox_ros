@@ -74,8 +74,8 @@ int main(int argc, char** argv)
     if (vm.count("help"))
     {
       std::cout << "Usage: rosrun urdf_to_simox_xml urdf_to_simox_xml [options]" << std::endl;
-      std::cout << desc << std::cout;
-      return 0;
+      std::cout << desc << "\n\n";
+      exit (EXIT_SUCCESS);
     }
 
     if (urdf_init_param)
@@ -87,7 +87,7 @@ int main(int argc, char** argv)
   catch (std::exception& e)
   {
     std::cout << e.what() << std::endl;
-    return 1;
+    exit (EXIT_FAILURE);
   }
 
   if (!boost::filesystem::exists(output_dir))
