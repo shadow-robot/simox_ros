@@ -5,6 +5,7 @@ project(urdf_to_simox_xml)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
+  sr_grasp_description
   roscpp
   roslib
   std_msgs
