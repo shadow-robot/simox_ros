@@ -39,34 +39,34 @@ public:
                                boost::shared_ptr<urdf::Joint> j2);
 
 private:
-  void add_dms_hand_base_node_(boost::property_tree::ptree & DMSHand_node,
-                               const std::string & dms_hand_base,
-                               const std::string & dms_hand_tcp,
-                               const std::string & dms_hand_gcp,
-                               const std::string & base_link);
+  void add_hand_base_node_(boost::property_tree::ptree & hand_node,
+                           const std::string & hand_base,
+                           const std::string & hand_tcp,
+                           const std::string & hand_gcp,
+                           const std::string & base_link);
 
-  void add_dms_hand_tcp_node_(boost::property_tree::ptree & DMSHand_node,
-                              const std::string & dms_hand_tcp);
+  void add_hand_tcp_node_(boost::property_tree::ptree & hand_node,
+                          const std::string & hand_tcp);
 
-  void add_dms_hand_gcp_node_(boost::property_tree::ptree & DMSHand_node,
-                              const std::string & dms_hand_gcp);
+  void add_hand_gcp_node_(boost::property_tree::ptree & hand_node,
+                          const std::string & hand_gcp);
 
-  void add_link_node_(boost::property_tree::ptree & DMSHand_node,
+  void add_link_node_(boost::property_tree::ptree & hand_node,
                       boost::shared_ptr<const urdf::Link> link);
 
-  void add_joint_node_(boost::property_tree::ptree & DMSHand_node,
+  void add_joint_node_(boost::property_tree::ptree & hand_node,
                        boost::shared_ptr<const urdf::Joint> child_joint);
 
 private:
-  void add_endeffector_node_(boost::property_tree::ptree & DMSHand_node,
+  void add_endeffector_node_(boost::property_tree::ptree & hand_node,
                              const std::string & hand_name_upper,
-                             const std::string & dms_hand_base,
-                             const std::string & dms_hand_tcp,
-                             const std::string & dms_hand_gcp,
+                             const std::string & hand_base,
+                             const std::string & hand_tcp,
+                             const std::string & hand_gcp,
                              const std::string & base_link);
 
-  void add_dms_hand_joints_node_(boost::property_tree::ptree & DMSHand_node,
-                                 const std::string & hand_name_upper);
+  void add_hand_joints_node_(boost::property_tree::ptree & hand_node,
+                             const std::string & hand_name_upper);
 
   void get_actors(std::map<int, bool>& actors);
 
