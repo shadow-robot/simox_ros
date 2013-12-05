@@ -72,8 +72,6 @@ UrdfToSimoxXml::UrdfToSimoxXml(const bool urdf_init_param,
     ROS_ERROR_STREAM("There are no links in " << urdf_file << ".");
     exit (EXIT_FAILURE);
   }
-ROS_ERROR_STREAM("There are no links in " << urdf_file << ".");
-exit (EXIT_FAILURE);
 
   // Get all joints in the model.
   joints_.clear();
