@@ -238,6 +238,8 @@ void UrdfToSimoxXml::add_link_node_(boost::property_tree::ptree & hand_node,
   boost::property_tree::ptree link_node;
   link_node.put("<xmlattr>.name", link->name);
 
+  // ROS_ERROR_STREAM("YILI: link->name = " << link->name);
+
   boost::shared_ptr<urdf::Visual> visual = link->visual;
   urdf::Pose pose = visual->origin;
 
@@ -316,22 +318,31 @@ void UrdfToSimoxXml::add_joint_node_(boost::property_tree::ptree & hand_node,
   Transform_node.add_child("rollpitchyaw", rollpitchyaw_node);
   child_joint_node.add_child("Transform", Transform_node);
 
-  boost::property_tree::ptree Axis_node;
-  this->set_axis_node_(Axis_node, child_joint->axis);
-
-  boost::property_tree::ptree Limits_node;
-  this->set_joint_limits_node_(Limits_node, child_joint->limits);
-
-  boost::property_tree::ptree Joint_node;
-  if (child_joint->type != urdf::Joint::REVOLUTE)
+  if (child_joint->type == urdf::Joint::REVOLUTE)
   {
-    ROS_ERROR_STREAM("Only revolute joints are support at moment.");
+    boost::property_tree::ptree Axis_node;
+    this->set_axis_node_(Axis_node, child_joint->axis);
+
+    boost::property_tree::ptree Limits_node;
+    this->set_joint_limits_node_(Limits_node, child_joint->limits);
+
+    boost::property_tree::ptree Joint_node;
+    Joint_node.put("<xmlattr>.type", "revolute");
+    Joint_node.add_child("Axis", Axis_node);
+    Joint_node.add_child("Limits", Limits_node);
+    child_joint_node.add_child("Joint", Joint_node);
+  }
+  else if (child_joint->type == urdf::Joint::FIXED)
+  {
+    boost::property_tree::ptree Joint_node;
+    Joint_node.put("<xmlattr>.type", "fixed");
+    child_joint_node.add_child("Joint", Joint_node);
+  }
+  else
+  {
+    ROS_ERROR_STREAM("Only revolute and fixed joints are support at moment.");
     exit (EXIT_FAILURE);
   }
-  Joint_node.put("<xmlattr>.type", "revolute");
-  Joint_node.add_child("Axis", Axis_node);
-  Joint_node.add_child("Limits", Limits_node);
-  child_joint_node.add_child("Joint", Joint_node);
 
   boost::property_tree::ptree Child_node;
   boost::shared_ptr<const urdf::Link> child_link = urdf_model_->getLink(child_joint->child_link_name);
