@@ -552,6 +552,86 @@ void UrdfToSimoxXml::set_rollpitchyaw_node_(boost::property_tree::ptree & Transl
 
 //-------------------------------------------------------------------------------
 
+// Write the scene to a iv file.
+void UrdfToSimoxXml::write_to_iv_file_(std::string shape_name,
+                                       SoSeparator *scene_with_shape)
+{
+  SoWriteAction writeAction;
+  std::string file_name = shape_name + ".iv";
+  writeAction.getOutput()->openFile(file_name.c_str());
+  writeAction.getOutput()->setBinary(FALSE);
+  writeAction.apply(scene_with_shape);
+  writeAction.getOutput()->closeFile();
+}
+
+//-------------------------------------------------------------------------------
+
+std::string UrdfToSimoxXml::convert_cube_(const std::string & urdf_filename)
+{
+  // init Inventor
+  const char input[] = "cube";
+  QWidget *window = SoQt::init(input);
+  if (window == NULL) exit(1);
+
+  // Make a scene containing a cube.
+  SoSeparator *cube_scene = new SoSeparator;
+  SoUnits *cube_units = new SoUnits;
+  SoMaterial *cube_color = new SoMaterial;
+  SoTranslation *cube_trans = new SoTranslation;
+  SoCube *cube = new SoCube;
+  cube_scene->ref();
+  cube_units->units = SoUnits::MILLIMETERS;
+  cube_scene->addChild(cube_units);
+  cube_color->diffuseColor.setValue(1.0, 1.0, 1.0);
+  cube_scene->addChild(cube_color);
+  SoSFVec3f cube_trans_vec;
+  cube_trans_vec.setValue(0.0, 0.0, 0.0);
+  cube_trans->translation = cube_trans_vec;
+  cube_scene->addChild(cube_trans);
+  cube->width  = 10.0;
+  cube->height = 10.0;
+  cube->depth  = 10.0;
+  cube_scene->addChild(cube);
+
+  // Write the scene to a iv file.
+  std::string cube_name("cube");
+  this->write_to_iv_file_(cube_name, cube_scene);
+}
+
+//-------------------------------------------------------------------------------
+
+std::string UrdfToSimoxXml::convert_sphere_(const std::string & urdf_filename)
+{
+  // init Inventor
+  const char input[] = "sphere";
+  QWidget *window = SoQt::init(input);
+  if (window == NULL) exit(1);
+
+  // Make a scene containing a sphere.
+  SoSeparator *sphere_scene = new SoSeparator;
+  SoUnits *sphere_units = new SoUnits;
+  SoMaterial *sphere_color = new SoMaterial;
+  SoTranslation *sphere_trans = new SoTranslation;
+  SoSphere *sphere = new SoSphere;
+  sphere_scene->ref();
+  sphere_units->units = SoUnits::MILLIMETERS;
+  sphere_scene->addChild(sphere_units);
+  sphere_color->diffuseColor.setValue(1.0, 1.0, 1.0);
+  sphere_scene->addChild(sphere_color);
+  SoSFVec3f sphere_trans_vec;
+  sphere_trans_vec.setValue(0.0, 0.0, 0.0);
+  sphere_trans->translation = sphere_trans_vec;
+  sphere_scene->addChild(sphere_trans);
+  sphere->radius = 10.0;
+  sphere_scene->addChild(sphere);
+
+  // Write the scene to a iv file.
+  std::string sphere_name("sphere");
+  this->write_to_iv_file_(sphere_name, sphere_scene);
+}
+
+//-------------------------------------------------------------------------------
+
 // urdf_filename looks like "package://dms_description/meshes/base_link.STL"
 std::string UrdfToSimoxXml::convert_mesh_(const std::string & urdf_filename)
 {

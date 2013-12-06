@@ -15,10 +15,21 @@
 #pragma once
 
 #include <string>
+
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/xml_parser.hpp>
 #include <boost/scoped_ptr.hpp>
 #include <boost/shared_ptr.hpp>
+
+#include <Inventor/Qt/SoQt.h>
+#include <Inventor/nodes/SoCube.h>
+#include <Inventor/nodes/SoSphere.h>
+#include <Inventor/nodes/SoMaterial.h>
+#include <Inventor/nodes/SoSeparator.h>
+#include <Inventor/nodes/SoTranslation.h>
+#include <Inventor/nodes/SoUnits.h>
+#include <Inventor/actions/SoWriteAction.h>
+
 #include <urdf/model.h>
 
 namespace gsc
@@ -92,7 +103,12 @@ private:
   void set_rollpitchyaw_node_(boost::property_tree::ptree & Translation_node,
                               double roll, double pitch, double yaw);
 
+  std::string convert_cube_(const std::string & urdf_filename);
+  std::string convert_sphere_(const std::string & urdf_filename);
   std::string convert_mesh_(const std::string & urdf_filename);
+
+  void write_to_iv_file_(std::string shape_name,
+                         SoSeparator *scene_with_shape);
 
   std::string to_string_(double x);
 
