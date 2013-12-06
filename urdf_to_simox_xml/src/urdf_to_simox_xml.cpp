@@ -39,6 +39,10 @@ using boost::property_tree::ptree;
 
 //-------------------------------------------------------------------------------
 
+const std::string UrdfToSimoxXml::mesh_dir_name_ = std::string("/meshes");
+
+//-------------------------------------------------------------------------------
+
 UrdfToSimoxXml::UrdfToSimoxXml(const bool urdf_init_param,
                                const std::string urdf_file,
                                const std::string output_dir)
@@ -268,29 +272,57 @@ void UrdfToSimoxXml::add_link_node_(boost::property_tree::ptree & hand_node,
     link_node.add_child("Transform", Transform_node);
 
     boost::shared_ptr<urdf::Geometry> geometry = visual->geometry;
-    if (geometry->type != urdf::Geometry::MESH)
+    if (geometry->type == urdf::Geometry::MESH)
     {
-      ROS_ERROR_STREAM("MESH is the only supported urdf::Geometry type.");
+      boost::shared_ptr<urdf::Mesh> mesh = boost::dynamic_pointer_cast<urdf::Mesh>(geometry);
+
+      // YILI: Add support for the scale tag.
+      // <mesh filename="package://sr_grasp_description/meshes/TH3_z.dae" scale="0.1 0.1 0.1" />
+      const double scale_x = mesh->scale.x;
+      const double scale_y = mesh->scale.y;
+      const double scale_z = mesh->scale.z;
+
+      boost::property_tree::ptree Visualization_File_node;
+      Visualization_File_node.put("<xmlattr>.type", "Inventor");
+      Visualization_File_node.put("<xmltext>", this->convert_mesh_(mesh->filename));
+
+      boost::property_tree::ptree Visualization_node;
+      Visualization_node.put("<xmlattr>.enable", "true");
+      Visualization_node.add_child("File", Visualization_File_node);
+      link_node.add_child("Visualization", Visualization_node);
+
+      boost::property_tree::ptree CollisionModel_File_node;
+      CollisionModel_File_node.put("<xmlattr>.type", "Inventor");
+      CollisionModel_File_node.put("<xmltext>", this->convert_mesh_(mesh->filename));
+
+      boost::property_tree::ptree CollisionModel_node;
+      CollisionModel_node.add_child("File", CollisionModel_File_node);
+      link_node.add_child("CollisionModel", CollisionModel_node);
+    }
+    else if (geometry->type == urdf::Geometry::SPHERE)
+    {
+      boost::shared_ptr<urdf::Sphere> sphere = boost::dynamic_pointer_cast<urdf::Sphere>(geometry);
+      this->convert_sphere_(link->name, sphere->radius);
+    }
+    else if (geometry->type == urdf::Geometry::BOX)
+    {
+      boost::shared_ptr<urdf::Box> box = boost::dynamic_pointer_cast<urdf::Box>(geometry);
+
+      std::string urdf_filename;
+      this->convert_cube_(link->name, box->dim.x, box->dim.y, box->dim.z);
+    }
+    else if (geometry->type == urdf::Geometry::CYLINDER)
+    {
+      boost::shared_ptr<urdf::Cylinder> cylinder = boost::dynamic_pointer_cast<urdf::Cylinder>(geometry);
+
+      std::string urdf_filename;
+      this->convert_cylinder_(link->name, cylinder->length, cylinder->radius);
+    }
+    else
+    {
+      ROS_ERROR_STREAM("SPHERE, BOX, CYLINDER, MESH are the 4 supported urdf::Geometry types.");
       exit (EXIT_FAILURE);
     }
-    boost::shared_ptr<urdf::Mesh> mesh = boost::dynamic_pointer_cast<urdf::Mesh>(geometry);
-
-    boost::property_tree::ptree Visualization_File_node;
-    Visualization_File_node.put("<xmlattr>.type", "Inventor");
-    Visualization_File_node.put("<xmltext>", this->convert_mesh_(mesh->filename));
-
-    boost::property_tree::ptree Visualization_node;
-    Visualization_node.put("<xmlattr>.enable", "true");
-    Visualization_node.add_child("File", Visualization_File_node);
-    link_node.add_child("Visualization", Visualization_node);
-
-    boost::property_tree::ptree CollisionModel_File_node;
-    CollisionModel_File_node.put("<xmlattr>.type", "Inventor");
-    CollisionModel_File_node.put("<xmltext>", this->convert_mesh_(mesh->filename));
-
-    boost::property_tree::ptree CollisionModel_node;
-    CollisionModel_node.add_child("File", CollisionModel_File_node);
-    link_node.add_child("CollisionModel", CollisionModel_node);
   }
 
   std::vector< boost::shared_ptr<urdf::Joint> > child_joints;
@@ -568,12 +600,17 @@ void UrdfToSimoxXml::set_rollpitchyaw_node_(boost::property_tree::ptree & Transl
 //-------------------------------------------------------------------------------
 
 // Write the scene to a iv file.
-void UrdfToSimoxXml::write_to_iv_file_(std::string shape_name,
+void UrdfToSimoxXml::write_to_iv_file_(const std::string & file_name,
                                        SoSeparator *scene_with_shape)
 {
+  std::string simox_filename;
+  std::string mesh_dir = output_dir_ + UrdfToSimoxXml::mesh_dir_name_;
+  if (!boost::filesystem::exists(mesh_dir))
+    boost::filesystem::create_directories(mesh_dir);
+  simox_filename = mesh_dir + "/" + file_name;
+
   SoWriteAction writeAction;
-  std::string file_name = shape_name + ".iv";
-  writeAction.getOutput()->openFile(file_name.c_str());
+  writeAction.getOutput()->openFile(simox_filename.c_str());
   writeAction.getOutput()->setBinary(FALSE);
   writeAction.apply(scene_with_shape);
   writeAction.getOutput()->closeFile();
@@ -581,7 +618,10 @@ void UrdfToSimoxXml::write_to_iv_file_(std::string shape_name,
 
 //-------------------------------------------------------------------------------
 
-std::string UrdfToSimoxXml::convert_cube_(const std::string & urdf_filename)
+std::string UrdfToSimoxXml::convert_cube_(const std::string & link_name,
+                                          const double & width,
+                                          const double & height,
+                                          const double & depth)
 {
   // init Inventor
   const char input[] = "cube";
@@ -603,19 +643,24 @@ std::string UrdfToSimoxXml::convert_cube_(const std::string & urdf_filename)
   cube_trans_vec.setValue(0.0, 0.0, 0.0);
   cube_trans->translation = cube_trans_vec;
   cube_scene->addChild(cube_trans);
-  cube->width  = 10.0;
-  cube->height = 10.0;
-  cube->depth  = 10.0;
+  cube->width  = width;
+  cube->height = height;
+  cube->depth  = depth;
   cube_scene->addChild(cube);
 
   // Write the scene to a iv file.
-  std::string cube_name("cube");
+  std::string cube_name(link_name + "_cube.iv");
   this->write_to_iv_file_(cube_name, cube_scene);
+
+  std::string simox_filename;
+  return simox_filename;
 }
 
 //-------------------------------------------------------------------------------
 
-std::string UrdfToSimoxXml::convert_cylinder_(const std::string & urdf_filename)
+std::string UrdfToSimoxXml::convert_cylinder_(const std::string & link_name,
+                                              const double & height,
+                                              const double & radius)
 {
   // init Inventor
   const char input[] = "cylinder";
@@ -637,18 +682,22 @@ std::string UrdfToSimoxXml::convert_cylinder_(const std::string & urdf_filename)
   cylinder_trans_vec.setValue(0.0, 0.0, 0.0);
   cylinder_trans->translation = cylinder_trans_vec;
   cylinder_scene->addChild(cylinder_trans);
-  cylinder->height = 10.0;
-  cylinder->radius = 10.0;
+  cylinder->height = height;
+  cylinder->radius = radius;
   cylinder_scene->addChild(cylinder);
 
   // Write the scene to a iv file.
-  std::string cylinder_name("cylinder");
+  std::string cylinder_name(link_name + "_cylinder.iv");
   this->write_to_iv_file_(cylinder_name, cylinder_scene);
+
+  std::string simox_filename;
+  return simox_filename;
 }
 
 //-------------------------------------------------------------------------------
 
-std::string UrdfToSimoxXml::convert_sphere_(const std::string & urdf_filename)
+std::string UrdfToSimoxXml::convert_sphere_(const std::string & link_name,
+                                            const double & radius)
 {
   // init Inventor
   const char input[] = "sphere";
@@ -670,12 +719,15 @@ std::string UrdfToSimoxXml::convert_sphere_(const std::string & urdf_filename)
   sphere_trans_vec.setValue(0.0, 0.0, 0.0);
   sphere_trans->translation = sphere_trans_vec;
   sphere_scene->addChild(sphere_trans);
-  sphere->radius = 10.0;
+  sphere->radius = radius;
   sphere_scene->addChild(sphere);
 
   // Write the scene to a iv file.
-  std::string sphere_name("sphere");
+  std::string sphere_name(link_name + "_sphere.iv");
   this->write_to_iv_file_(sphere_name, sphere_scene);
+
+  std::string simox_filename;
+  return simox_filename;
 }
 
 //-------------------------------------------------------------------------------
@@ -727,7 +779,7 @@ std::string UrdfToSimoxXml::convert_mesh_(const std::string & urdf_filename)
   simox_filename = simox_filename.substr(0, simox_filename.find_first_of('.'));
   simox_filename.append(".wrl");
 
-  std::string mesh_dir = output_dir_ + "/meshes";
+  std::string mesh_dir = output_dir_ + UrdfToSimoxXml::mesh_dir_name_;
   if (!boost::filesystem::exists(mesh_dir))
     boost::filesystem::create_directories(mesh_dir);
 

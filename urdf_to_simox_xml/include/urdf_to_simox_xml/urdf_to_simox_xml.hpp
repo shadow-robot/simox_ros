@@ -104,12 +104,18 @@ private:
   void set_rollpitchyaw_node_(boost::property_tree::ptree & Translation_node,
                               double roll, double pitch, double yaw);
 
-  std::string convert_cube_(const std::string & urdf_filename);
-  std::string convert_cylinder_(const std::string & urdf_filename);
-  std::string convert_sphere_(const std::string & urdf_filename);
+  std::string convert_cube_(const std::string & link_name,
+                            const double & width,
+                            const double & height,
+                            const double & depth);
+  std::string convert_cylinder_(const std::string & link_name,
+                                const double & height,
+                                const double & radius);
+  std::string convert_sphere_(const std::string & link_name,
+                              const double & radius);
   std::string convert_mesh_(const std::string & urdf_filename);
 
-  void write_to_iv_file_(std::string shape_name,
+  void write_to_iv_file_(const std::string & file_name,
                          SoSeparator *scene_with_shape);
 
   std::string to_string_(double x);
@@ -122,6 +128,8 @@ private:
   std::vector< boost::shared_ptr<urdf::Link> > links_;
 
   std::vector< boost::shared_ptr<urdf::Joint> > joints_;
+
+  static const std::string mesh_dir_name_;
 };
 
 }
