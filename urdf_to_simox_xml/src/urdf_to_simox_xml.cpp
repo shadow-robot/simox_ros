@@ -232,13 +232,15 @@ void UrdfToSimoxXml::add_hand_gcp_node_(boost::property_tree::ptree & hand_node,
 
 //-------------------------------------------------------------------------------
 
+// YILI: Add support for the collision tag.
 void UrdfToSimoxXml::add_link_node_(boost::property_tree::ptree & hand_node,
                                     boost::shared_ptr<const urdf::Link> link)
 {
   boost::property_tree::ptree link_node;
   link_node.put("<xmlattr>.name", link->name);
 
-  // ROS_ERROR_STREAM("YILI: link->name = " << link->name);
+  // YILI
+  ROS_ERROR_STREAM("link->name = " << link->name);
 
   boost::shared_ptr<urdf::Visual> visual = link->visual;
   urdf::Pose pose = visual->origin;
@@ -596,6 +598,39 @@ std::string UrdfToSimoxXml::convert_cube_(const std::string & urdf_filename)
   // Write the scene to a iv file.
   std::string cube_name("cube");
   this->write_to_iv_file_(cube_name, cube_scene);
+}
+
+//-------------------------------------------------------------------------------
+
+std::string UrdfToSimoxXml::convert_cylinder_(const std::string & urdf_filename)
+{
+  // init Inventor
+  const char input[] = "cylinder";
+  QWidget *window = SoQt::init(input);
+  if (window == NULL) exit(1);
+
+  // Make a scene containing a cylinder.
+  SoSeparator *cylinder_scene = new SoSeparator;
+  SoUnits *cylinder_units = new SoUnits;
+  SoMaterial *cylinder_color = new SoMaterial;
+  SoTranslation *cylinder_trans = new SoTranslation;
+  SoCylinder *cylinder = new SoCylinder;
+  cylinder_scene->ref();
+  cylinder_units->units = SoUnits::MILLIMETERS;
+  cylinder_scene->addChild(cylinder_units);
+  cylinder_color->diffuseColor.setValue(1.0, 1.0, 1.0);
+  cylinder_scene->addChild(cylinder_color);
+  SoSFVec3f cylinder_trans_vec;
+  cylinder_trans_vec.setValue(0.0, 0.0, 0.0);
+  cylinder_trans->translation = cylinder_trans_vec;
+  cylinder_scene->addChild(cylinder_trans);
+  cylinder->height = 10.0;
+  cylinder->radius = 10.0;
+  cylinder_scene->addChild(cylinder);
+
+  // Write the scene to a iv file.
+  std::string cylinder_name("cylinder");
+  this->write_to_iv_file_(cylinder_name, cylinder_scene);
 }
 
 //-------------------------------------------------------------------------------

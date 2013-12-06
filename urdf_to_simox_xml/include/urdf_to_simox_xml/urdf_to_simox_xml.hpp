@@ -23,6 +23,7 @@
 
 #include <Inventor/Qt/SoQt.h>
 #include <Inventor/nodes/SoCube.h>
+#include <Inventor/nodes/SoCylinder.h>
 #include <Inventor/nodes/SoSphere.h>
 #include <Inventor/nodes/SoMaterial.h>
 #include <Inventor/nodes/SoSeparator.h>
@@ -104,6 +105,7 @@ private:
                               double roll, double pitch, double yaw);
 
   std::string convert_cube_(const std::string & urdf_filename);
+  std::string convert_cylinder_(const std::string & urdf_filename);
   std::string convert_sphere_(const std::string & urdf_filename);
   std::string convert_mesh_(const std::string & urdf_filename);
 
