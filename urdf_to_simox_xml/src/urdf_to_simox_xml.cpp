@@ -271,6 +271,9 @@ void UrdfToSimoxXml::add_link_node_(boost::property_tree::ptree & hand_node,
     Transform_node.add_child("rollpitchyaw", rollpitchyaw_node);
     link_node.add_child("Transform", Transform_node);
 
+    std::string simox_visua_filename;
+    std::string simox_colli_filename;
+
     boost::shared_ptr<urdf::Geometry> geometry = visual->geometry;
     if (geometry->type == urdf::Geometry::MESH)
     {
@@ -282,47 +285,53 @@ void UrdfToSimoxXml::add_link_node_(boost::property_tree::ptree & hand_node,
       const double scale_y = mesh->scale.y;
       const double scale_z = mesh->scale.z;
 
-      boost::property_tree::ptree Visualization_File_node;
-      Visualization_File_node.put("<xmlattr>.type", "Inventor");
-      Visualization_File_node.put("<xmltext>", this->convert_mesh_(mesh->filename));
-
-      boost::property_tree::ptree Visualization_node;
-      Visualization_node.put("<xmlattr>.enable", "true");
-      Visualization_node.add_child("File", Visualization_File_node);
-      link_node.add_child("Visualization", Visualization_node);
-
-      boost::property_tree::ptree CollisionModel_File_node;
-      CollisionModel_File_node.put("<xmlattr>.type", "Inventor");
-      CollisionModel_File_node.put("<xmltext>", this->convert_mesh_(mesh->filename));
-
-      boost::property_tree::ptree CollisionModel_node;
-      CollisionModel_node.add_child("File", CollisionModel_File_node);
-      link_node.add_child("CollisionModel", CollisionModel_node);
+      simox_visua_filename = this->convert_mesh_(mesh->filename);
+      simox_colli_filename = simox_visua_filename;
     }
     else if (geometry->type == urdf::Geometry::SPHERE)
     {
       boost::shared_ptr<urdf::Sphere> sphere = boost::dynamic_pointer_cast<urdf::Sphere>(geometry);
-      this->convert_sphere_(link->name, sphere->radius);
+      simox_visua_filename = this->convert_sphere_(link->name, sphere->radius);
+      simox_colli_filename = simox_visua_filename;
     }
     else if (geometry->type == urdf::Geometry::BOX)
     {
       boost::shared_ptr<urdf::Box> box = boost::dynamic_pointer_cast<urdf::Box>(geometry);
 
       std::string urdf_filename;
-      this->convert_cube_(link->name, box->dim.x, box->dim.y, box->dim.z);
+      simox_visua_filename = this->convert_cube_(link->name, box->dim.x, box->dim.y, box->dim.z);
+      simox_colli_filename = simox_visua_filename;
     }
     else if (geometry->type == urdf::Geometry::CYLINDER)
     {
       boost::shared_ptr<urdf::Cylinder> cylinder = boost::dynamic_pointer_cast<urdf::Cylinder>(geometry);
 
       std::string urdf_filename;
-      this->convert_cylinder_(link->name, cylinder->length, cylinder->radius);
+      simox_visua_filename = this->convert_cylinder_(link->name, cylinder->length, cylinder->radius);
+      simox_colli_filename = simox_visua_filename;
     }
     else
     {
       ROS_ERROR_STREAM("SPHERE, BOX, CYLINDER, MESH are the 4 supported urdf::Geometry types.");
       exit (EXIT_FAILURE);
     }
+
+    boost::property_tree::ptree Visualization_File_node;
+    Visualization_File_node.put("<xmlattr>.type", "Inventor");
+    Visualization_File_node.put("<xmltext>", simox_visua_filename);
+
+    boost::property_tree::ptree Visualization_node;
+    Visualization_node.put("<xmlattr>.enable", "true");
+    Visualization_node.add_child("File", Visualization_File_node);
+    link_node.add_child("Visualization", Visualization_node);
+
+    boost::property_tree::ptree CollisionModel_File_node;
+    CollisionModel_File_node.put("<xmlattr>.type", "Inventor");
+    CollisionModel_File_node.put("<xmltext>", simox_colli_filename);
+
+    boost::property_tree::ptree CollisionModel_node;
+    CollisionModel_node.add_child("File", CollisionModel_File_node);
+    link_node.add_child("CollisionModel", CollisionModel_node);
   }
 
   std::vector< boost::shared_ptr<urdf::Joint> > child_joints;
@@ -635,7 +644,7 @@ std::string UrdfToSimoxXml::convert_cube_(const std::string & link_name,
   SoTranslation *cube_trans = new SoTranslation;
   SoCube *cube = new SoCube;
   cube_scene->ref();
-  cube_units->units = SoUnits::MILLIMETERS;
+  cube_units->units = SoUnits::METERS;
   cube_scene->addChild(cube_units);
   cube_color->diffuseColor.setValue(1.0, 1.0, 1.0);
   cube_scene->addChild(cube_color);
@@ -674,7 +683,7 @@ std::string UrdfToSimoxXml::convert_cylinder_(const std::string & link_name,
   SoTranslation *cylinder_trans = new SoTranslation;
   SoCylinder *cylinder = new SoCylinder;
   cylinder_scene->ref();
-  cylinder_units->units = SoUnits::MILLIMETERS;
+  cylinder_units->units = SoUnits::METERS;
   cylinder_scene->addChild(cylinder_units);
   cylinder_color->diffuseColor.setValue(1.0, 1.0, 1.0);
   cylinder_scene->addChild(cylinder_color);
@@ -711,7 +720,7 @@ std::string UrdfToSimoxXml::convert_sphere_(const std::string & link_name,
   SoTranslation *sphere_trans = new SoTranslation;
   SoSphere *sphere = new SoSphere;
   sphere_scene->ref();
-  sphere_units->units = SoUnits::MILLIMETERS;
+  sphere_units->units = SoUnits::METERS;
   sphere_scene->addChild(sphere_units);
   sphere_color->diffuseColor.setValue(1.0, 1.0, 1.0);
   sphere_scene->addChild(sphere_color);
