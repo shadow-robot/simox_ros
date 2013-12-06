@@ -27,10 +27,11 @@
 #include <Inventor/nodes/SoSphere.h>
 #include <Inventor/nodes/SoMaterial.h>
 #include <Inventor/nodes/SoSeparator.h>
-#include <Inventor/nodes/SoScale.h>
 #include <Inventor/nodes/SoTranslation.h>
 #include <Inventor/nodes/SoUnits.h>
 #include <Inventor/actions/SoWriteAction.h>
+#include <Inventor/actions/SoToVRML2Action.h>
+#include <Inventor/VRMLnodes/SoVRMLTransform.h>
 
 #include <urdf/model.h>
 

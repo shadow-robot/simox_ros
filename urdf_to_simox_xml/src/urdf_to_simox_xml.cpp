@@ -873,27 +873,40 @@ void UrdfToSimoxXml::scale_wrl_scene_(const std::string & filename,
   // Close the file.
   scene.closeFile();
 
-  // YILI
-  /*
   // Reference root node so that the graph will not be deleted.
   root->ref();
-  // Scale it.
-  SoScale *scale = new SoScale();
-  SoSFVec3f scale_factor;
-  scale_factor.setValue(scale_x, scale_y, scale_z);
-  scale->scaleFactor = scale_factor;
-  root->addChild(scale);
 
-  // Output to file after scaling.
-  SoWriteAction writeAction;
-  writeAction.getOutput()->openFile(filename.c_str());
-  writeAction.getOutput()->setBinary(FALSE);
-  writeAction.apply(root);
-  writeAction.getOutput()->closeFile();
+  // Scale and then save to file.
+  for (int i = 0; i < root->getNumChildren(); i++)
+  {
+    SoNode *child = root->getChild(i);
+    if (child->isOfType(SoVRMLTransform::getClassTypeId()))
+    {
+      SoVRMLTransform *tran = (SoVRMLTransform*)child;
+      SoSFVec3f scale_factor;
+      scale_factor.setValue(scale_x, scale_y, scale_z);
+      tran->scale = scale_factor;
 
-  ROS_ERROR("Problem reading file %s\n", filename.c_str());
+      SoToVRML2Action tovrml2;
+      tovrml2.apply(root);
+      SoVRMLGroup *newroot = tovrml2.getVRML2SceneGraph();
+      newroot->ref();
+      root->unref();
+
+      SoOutput out;
+      out.openFile(filename.c_str());
+      out.setHeaderString("#VRML V2.0 utf8");
+      SoWriteAction wra(&out);
+      wra.apply(newroot);
+      out.closeFile();
+
+      newroot->unref();
+      return;
+    }
+  }
+
+  ROS_ERROR_STREAM("UrdfToSimoxXml::scale_wrl_scene_ failed. Should not reach here.");
   exit (EXIT_FAILURE);
-  */
 }
 
 //-------------------------------------------------------------------------------
