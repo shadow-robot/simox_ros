@@ -6,6 +6,74 @@
     </plugin>
   </gazebo>
 
+  <gazebo reference="ffdistal">
+    <sensor type="contact" name="ffdistal_contact" >
+      <plugin name="ffdistal_gazebo_ros_bumper_controller" filename="libgazebo_ros_bumper.so">
+	<alwaysOn>true</alwaysOn>
+	<updateRate>100.0</updateRate>
+	<frameName>ffdistal</frameName>
+	<bumperTopicName>/sh/contacts/ffdistal</bumperTopicName>
+      </plugin>
+    </sensor>
+    <material>Gazebo/Orange</material>
+  </gazebo>
+
+  <gazebo reference="mfdistal">
+    <sensor type="contact" name="mf_contact" >
+
+      <plugin name="mf_gazebo_ros_bumper_controller" filename="libgazebo_ros_bumper.so">
+	<alwaysOn>true</alwaysOn>
+	<updateRate>100.0</updateRate>
+	<frameName>mfdistal</frameName>
+	<bumperTopicName>/sh/contacts/mf</bumperTopicName>
+      </plugin>
+    </sensor>
+
+    <material>Gazebo/Orange</material>
+  </gazebo>
+
+  <gazebo reference="rfdistal">
+    <sensor type="contact" name="mf_contact" >
+
+      <plugin name="mf_gazebo_ros_bumper_controller" filename="libgazebo_ros_bumper.so">
+	<alwaysOn>true</alwaysOn>
+	<updateRate>100.0</updateRate>
+	<frameName>rfdistal</frameName>
+	<bumperTopicName>/sh/contacts/mf</bumperTopicName>
+      </plugin>
+    </sensor>
+
+    <material>Gazebo/Orange</material>
+  </gazebo>
+
+  <gazebo reference="lfdistal">
+    <sensor type="contact" name="lf_contact" >
+
+      <plugin name="lf_gazebo_ros_bumper_controller" filename="libgazebo_ros_bumper.so">
+	<alwaysOn>true</alwaysOn>
+	<updateRate>100.0</updateRate>
+	<frameName>lfdistal</frameName>
+	<bumperTopicName>/sh/contacts/lf</bumperTopicName>
+      </plugin>
+    </sensor>
+
+    <material>Gazebo/Orange</material>
+  </gazebo>
+
+  <gazebo reference="thdistal">
+    <sensor type="contact" name="th_contact" >
+
+      <plugin name="th_gazebo_ros_bumper_controller" filename="libgazebo_ros_bumper.so">
+	<alwaysOn>true</alwaysOn>
+	<updateRate>100.0</updateRate>
+	<frameName>thdistal</frameName>
+	<bumperTopicName>/sh/contacts/th</bumperTopicName>
+      </plugin>
+    </sensor>
+
+    <material>Gazebo/Orange</material>
+  </gazebo>
+
   <transmission name="trans_wrj1">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="WRJ1"/>

@@ -40,7 +40,7 @@
   <link name="wrist">
     <inertial>
       <origin rpy="0 0 0" xyz="0 0.0 0.0" />
-
+      
       <mass value="0.1" />
       <inertia ixx="0.120" ixy="0.0" ixz="0.0" iyy="0.148" iyz="0.0" izz="0.0438" />
     </inertial>
@@ -61,7 +61,7 @@
   <joint name="WRJ2" type="revolute">
     <parent link="forearm" />
     <child link="wrist" />
-
+    
     <origin rpy="0 0 0" xyz="0 -0.010 0.213" />
     <axis xyz="0 1 0" />
     <limit effort="5" lower="-0.52359877559829882" upper="0.17453292519943295" velocity="1.0" />
@@ -98,7 +98,7 @@
   <link name="ffknuckle">
     <inertial>
       <origin rpy="0 0 0" xyz="0 0 0" />
-
+      
       <mass value="0.008" />
       <inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.0" />
     </inertial>
@@ -119,10 +119,10 @@
   <joint name="FFJ4" type="revolute">
     <parent link="palm" />
     <child link="ffknuckle" />
-
+    
     <origin rpy="0 0 0" xyz="0.033 0 0.095" />
     <axis xyz="0 -1 0" />
-    <limit effort="10" lower="-0.43633231299858238" upper="0.43633231299858238" velocity="1.0" />
+    <limit effort="100" lower="-0.43633231299858238" upper="0.43633231299858238" velocity="1.0" />
     <dynamics damping="50.5" />
   </joint>
   <link name="ffproximal">
@@ -150,7 +150,7 @@
     <child link="ffproximal" />
     <origin rpy="0 0 0" xyz="0 0 0" />
     <axis xyz="1 0 0" />
-    <limit effort="10" lower="0" upper="1.57079632679" velocity="1.0" />
+    <limit effort="100" lower="0" upper="1.57079632679" velocity="1.0" />
     <dynamics damping="50.5" />
   </joint>
   <link name="ffmiddle">
@@ -178,7 +178,7 @@
     <child link="ffmiddle" />
     <origin rpy="0 0 0" xyz="0 0 0.045" />
     <axis xyz="1 0 0" />
-    <limit effort="10" lower="0" upper="1.57079632679" velocity="1.0" />
+    <limit effort="100" lower="0" upper="1.57079632679" velocity="1.0" />
     <dynamics damping="50.5" />
   </joint>
   <link name="ffdistal">
@@ -194,7 +194,7 @@
       </geometry>
       <material name="Grey" />
     </visual>
-
+    
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0" />
       <geometry name="distal_collision_geom">
@@ -207,7 +207,7 @@
     <child link="ffdistal" />
     <origin rpy="0 0 0" xyz="0 0 0.025" />
     <axis xyz="1 0 0" />
-    <limit effort="10" lower="0" upper="1.57079632679" velocity="1.0" />
+    <limit effort="100" lower="0" upper="1.57079632679" velocity="1.0" />
     <dynamics damping="50.5" />
   </joint>
   <link name="fftip">
@@ -224,7 +224,7 @@
   <link name="mfknuckle">
     <inertial>
       <origin rpy="0 0 0" xyz="0 0 0" />
-
+      
       <mass value="0.008" />
       <inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.0" />
     </inertial>
@@ -245,10 +245,10 @@
   <joint name="MFJ4" type="revolute">
     <parent link="palm" />
     <child link="mfknuckle" />
-
+    
     <origin rpy="0 0 0" xyz="0.011 0 0.099" />
     <axis xyz="0 -1 0" />
-    <limit effort="10" lower="-0.43633231299858238" upper="0.43633231299858238" velocity="1.0" />
+    <limit effort="100" lower="-0.43633231299858238" upper="0.43633231299858238" velocity="1.0" />
     <dynamics damping="50.5" />
   </joint>
   <link name="mfproximal">
@@ -276,7 +276,7 @@
     <child link="mfproximal" />
     <origin rpy="0 0 0" xyz="0 0 0" />
     <axis xyz="1 0 0" />
-    <limit effort="10" lower="0" upper="1.57079632679" velocity="1.0" />
+    <limit effort="100" lower="0" upper="1.57079632679" velocity="1.0" />
     <dynamics damping="50.5" />
   </joint>
   <link name="mfmiddle">
@@ -304,7 +304,7 @@
     <child link="mfmiddle" />
     <origin rpy="0 0 0" xyz="0 0 0.045" />
     <axis xyz="1 0 0" />
-    <limit effort="10" lower="0" upper="1.57079632679" velocity="1.0" />
+    <limit effort="100" lower="0" upper="1.57079632679" velocity="1.0" />
     <dynamics damping="50.5" />
   </joint>
   <link name="mfdistal">
@@ -320,7 +320,7 @@
       </geometry>
       <material name="Grey" />
     </visual>
-
+    
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0" />
       <geometry name="distal_collision_geom">
@@ -333,7 +333,7 @@
     <child link="mfdistal" />
     <origin rpy="0 0 0" xyz="0 0 0.025" />
     <axis xyz="1 0 0" />
-    <limit effort="10" lower="0" upper="1.57079632679" velocity="1.0" />
+    <limit effort="100" lower="0" upper="1.57079632679" velocity="1.0" />
     <dynamics damping="50.5" />
   </joint>
   <link name="mftip">
@@ -350,7 +350,7 @@
   <link name="rfknuckle">
     <inertial>
       <origin rpy="0 0 0" xyz="0 0 0" />
-
+      
       <mass value="0.008" />
       <inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.0" />
     </inertial>
@@ -371,10 +371,10 @@
   <joint name="RFJ4" type="revolute">
     <parent link="palm" />
     <child link="rfknuckle" />
-
+    
     <origin rpy="0 0 0" xyz="-0.011 0 0.095" />
     <axis xyz="0 1 0" />
-    <limit effort="10" lower="-0.43633231299858238" upper="0.43633231299858238" velocity="1.0" />
+    <limit effort="100" lower="-0.43633231299858238" upper="0.43633231299858238" velocity="1.0" />
     <dynamics damping="50.5" />
   </joint>
   <link name="rfproximal">
@@ -402,7 +402,7 @@
     <child link="rfproximal" />
     <origin rpy="0 0 0" xyz="0 0 0" />
     <axis xyz="1 0 0" />
-    <limit effort="10" lower="0" upper="1.57079632679" velocity="1.0" />
+    <limit effort="100" lower="0" upper="1.57079632679" velocity="1.0" />
     <dynamics damping="50.5" />
   </joint>
   <link name="rfmiddle">
@@ -430,7 +430,7 @@
     <child link="rfmiddle" />
     <origin rpy="0 0 0" xyz="0 0 0.045" />
     <axis xyz="1 0 0" />
-    <limit effort="10" lower="0" upper="1.57079632679" velocity="1.0" />
+    <limit effort="100" lower="0" upper="1.57079632679" velocity="1.0" />
     <dynamics damping="50.5" />
   </joint>
   <link name="rfdistal">
@@ -446,7 +446,7 @@
       </geometry>
       <material name="Grey" />
     </visual>
-
+    
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0" />
       <geometry name="distal_collision_geom">
@@ -459,7 +459,7 @@
     <child link="rfdistal" />
     <origin rpy="0 0 0" xyz="0 0 0.025" />
     <axis xyz="1 0 0" />
-    <limit effort="10" lower="0" upper="1.57079632679" velocity="1.0" />
+    <limit effort="100" lower="0" upper="1.57079632679" velocity="1.0" />
     <dynamics damping="50.5" />
   </joint>
   <link name="rftip">
@@ -498,7 +498,7 @@
     <child link="lfmetacarpal" />
     <origin rpy="0 0 0" xyz="-0.033 0 0.02071" />
     <axis xyz="0.573576436 0 0.819152044" />
-    <limit effort="10" lower="0" upper="0.69813170079773179" velocity="1.0" />
+    <limit effort="100" lower="0" upper="0.69813170079773179" velocity="1.0" />
     <dynamics damping="50.5" />
   </joint>
   <link name="lfknuckle">
@@ -526,7 +526,7 @@
     <child link="lfknuckle" />
     <origin rpy="0 0 0" xyz="0 0 0.06579" />
     <axis xyz="0 1 0" />
-    <limit effort="10" lower="-0.43633231299858238" upper="0.43633231299858238" velocity="1.0" />
+    <limit effort="100" lower="-0.43633231299858238" upper="0.43633231299858238" velocity="1.0" />
     <dynamics damping="50.5" />
   </joint>
   <link name="lfproximal">
@@ -554,7 +554,7 @@
     <child link="lfproximal" />
     <origin rpy="0 0 0" xyz="0 0 0" />
     <axis xyz="1 0 0" />
-    <limit effort="10" lower="0" upper="1.57079632679" velocity="1.0" />
+    <limit effort="100" lower="0" upper="1.57079632679" velocity="1.0" />
     <dynamics damping="50.5" />
   </joint>
   <link name="lfmiddle">
@@ -582,7 +582,7 @@
     <child link="lfmiddle" />
     <origin rpy="0 0 0" xyz="0 0 0.045" />
     <axis xyz="1 0 0" />
-    <limit effort="10" lower="0" upper="1.57079632679" velocity="1.0" />
+    <limit effort="100" lower="0" upper="1.57079632679" velocity="1.0" />
     <dynamics damping="50.5" />
   </joint>
   <link name="lfdistal">
@@ -598,7 +598,7 @@
       </geometry>
       <material name="Grey" />
     </visual>
-
+    
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0" />
       <geometry name="distal_collision_geom">
@@ -611,7 +611,7 @@
     <child link="lfdistal" />
     <origin rpy="0 0 0" xyz="0 0 0.025" />
     <axis xyz="1 0 0" />
-    <limit effort="10" lower="0" upper="1.57079632679" velocity="1.0" />
+    <limit effort="100" lower="0" upper="1.57079632679" velocity="1.0" />
     <dynamics damping="50.5" />
   </joint>
   <link name="lftip">
@@ -652,7 +652,7 @@
     <child link="thbase" />
     <origin rpy="0 0.785398163397 0" xyz="0.034 -0.0085 0.029" />
     <axis xyz="0 0 -1.0" />
-    <limit effort="10" lower="-1.047" upper="1.047" velocity="1.0" />
+    <limit effort="100" lower="-1.047" upper="1.047" velocity="1.0" />
     <dynamics damping="50.5" />
   </joint>
   <link name="thproximal">
@@ -682,7 +682,7 @@
     <child link="thproximal" />
     <origin rpy="0 0 0" xyz="0 0 0" />
     <axis xyz="1.0 0 0" />
-    <limit effort="10" lower="0" upper="1.309" velocity="1.0" />
+    <limit effort="100" lower="0" upper="1.309" velocity="1.0" />
     <dynamics damping="50.5" />
   </joint>
   <link name="thhub">
@@ -712,7 +712,7 @@
     <child link="thhub" />
     <origin rpy="0 0 0" xyz="0 0 0.038" />
     <axis xyz="1 0 0" />
-    <limit effort="10" lower="-0.2618" upper="0.2618" velocity="1.0" />
+    <limit effort="100" lower="-0.2618" upper="0.2618" velocity="1.0" />
     <dynamics damping="50.5" />
   </joint>
   <link name="thmiddle">
@@ -742,7 +742,7 @@
     <child link="thmiddle" />
     <origin rpy="0 0 0" xyz="0 0 0" />
     <axis xyz="0 -1 0" />
-    <limit effort="10" lower="-0.5237" upper="0.5237" velocity="1.0" />
+    <limit effort="100" lower="-0.5237" upper="0.5237" velocity="1.0" />
     <dynamics damping="50.5" />
   </joint>
   <link name="thdistal">
@@ -772,7 +772,7 @@
     <child link="thdistal" />
     <origin rpy="0 0 -1.570796327" xyz="0 0 0.032" />
     <axis xyz="1 0 0" />
-    <limit effort="10" lower="0" upper="1.571" velocity="1.0" />
+    <limit effort="100" lower="0" upper="1.571" velocity="1.0" />
     <dynamics damping="50.5" />
   </joint>
   <link name="thtip">
@@ -786,74 +786,4 @@
     <child link="thtip" />
     <origin rpy="0 0 0" xyz="0 0 0.0275" />
   </joint>
-
-
-  <gazebo reference="ffdistal">
-    <sensor type="contact" name="ffdistal_contact" >
-      <plugin name="ffdistal_gazebo_ros_bumper_controller" filename="libgazebo_ros_bumper.so">
-	<alwaysOn>true</alwaysOn>
-	<updateRate>100.0</updateRate>
-	<frameName>ffdistal</frameName>
-	<bumperTopicName>/sh/contacts/ffdistal</bumperTopicName>
-      </plugin>
-    </sensor>
-    <material>Gazebo/Orange</material>
-  </gazebo>
-
-  <gazebo reference="mfdistal">
-    <sensor type="contact" name="mf_contact" >
-
-      <plugin name="mf_gazebo_ros_bumper_controller" filename="libgazebo_ros_bumper.so">
-	<alwaysOn>true</alwaysOn>
-	<updateRate>100.0</updateRate>
-	<frameName>mfdistal</frameName>
-	<bumperTopicName>/sh/contacts/mf</bumperTopicName>
-      </plugin>
-    </sensor>
-
-    <material>Gazebo/Orange</material>
-  </gazebo>
-
-  <gazebo reference="rfdistal">
-    <sensor type="contact" name="mf_contact" >
-
-      <plugin name="mf_gazebo_ros_bumper_controller" filename="libgazebo_ros_bumper.so">
-	<alwaysOn>true</alwaysOn>
-	<updateRate>100.0</updateRate>
-	<frameName>rfdistal</frameName>
-	<bumperTopicName>/sh/contacts/mf</bumperTopicName>
-      </plugin>
-    </sensor>
-
-    <material>Gazebo/Orange</material>
-  </gazebo>
-
-  <gazebo reference="lfdistal">
-    <sensor type="contact" name="lf_contact" >
-
-      <plugin name="lf_gazebo_ros_bumper_controller" filename="libgazebo_ros_bumper.so">
-	<alwaysOn>true</alwaysOn>
-	<updateRate>100.0</updateRate>
-	<frameName>lfdistal</frameName>
-	<bumperTopicName>/sh/contacts/lf</bumperTopicName>
-      </plugin>
-    </sensor>
-
-    <material>Gazebo/Orange</material>
-  </gazebo>
-
-  <gazebo reference="thdistal">
-    <sensor type="contact" name="th_contact" >
-
-      <plugin name="th_gazebo_ros_bumper_controller" filename="libgazebo_ros_bumper.so">
-	<alwaysOn>true</alwaysOn>
-	<updateRate>100.0</updateRate>
-	<frameName>thdistal</frameName>
-	<bumperTopicName>/sh/contacts/th</bumperTopicName>
-      </plugin>
-    </sensor>
-
-    <material>Gazebo/Orange</material>
-  </gazebo>
-
   </robot>

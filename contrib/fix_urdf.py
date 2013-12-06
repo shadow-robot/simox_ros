@@ -68,9 +68,19 @@ for tag in root.findall('.//sensor:contact/..', namespaces=namespaces):
 for tag in root.findall('.//gazebo', namespaces=namespaces):
     root.remove(tag)
 
-# remove all transmissions
+# remove all transmissions, we add gazebo ones in a different file
 for tag in root.findall('.//transmission', namespaces=namespaces):
     root.remove(tag)
+
+for tag in root.findall('.//material[@name="BiotacGreen"]', namespaces=namespaces):
+    root.remove(tag)
+
+# Increase the joint effort limits. Can't seem to get the simulated motors to
+# go any faster, so we increase the limit here so we can have large P values in
+# the controllers and get the hand moving at a speed close to the real hand,
+# Otherwise it moves too slowley.
+for tag in root.findall('.//joint/limit[@effort="10"]', namespaces=namespaces):
+    tag.attrib['effort'] = "100"
 
 # Write it back out
 tree.write(out_file)
