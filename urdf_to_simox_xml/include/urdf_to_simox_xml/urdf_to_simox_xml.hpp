@@ -118,6 +118,11 @@ private:
   void write_to_iv_file_(const std::string & file_name,
                          SoSeparator *scene_with_shape);
 
+  void scale_wrl_scene_(const std::string & fileName,
+                        const double & scale_x,
+                        const double & scale_y,
+                        const double & scale_z);
+
   std::string to_string_(double x);
 
 private:
@@ -128,6 +133,8 @@ private:
   std::vector< boost::shared_ptr<urdf::Link> > links_;
 
   std::vector< boost::shared_ptr<urdf::Joint> > joints_;
+
+  QWidget *window_;
 
   static const std::string mesh_dir_name_;
 };

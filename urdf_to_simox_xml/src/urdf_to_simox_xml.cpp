@@ -49,6 +49,15 @@ UrdfToSimoxXml::UrdfToSimoxXml(const bool urdf_init_param,
   : urdf_model_(new urdf::Model()),
     output_dir_(output_dir)
 {
+  // Init Inventor.
+  const char input[] = "UrdfToSimoxXml";
+  window_ = SoQt::init(input);
+  if (window_ == NULL)
+  {
+    ROS_ERROR_STREAM("Failed to init Inventor.");
+    exit (EXIT_FAILURE);
+  }
+
   if (urdf_init_param)
   {
     // Parse the the robot_description parameter and then construct the model.
@@ -279,14 +288,16 @@ void UrdfToSimoxXml::add_link_node_(boost::property_tree::ptree & hand_node,
     {
       boost::shared_ptr<urdf::Mesh> mesh = boost::dynamic_pointer_cast<urdf::Mesh>(geometry);
 
+      simox_visua_filename = this->convert_mesh_(mesh->filename);
+      simox_colli_filename = simox_visua_filename;
+
       // YILI: Add support for the scale tag.
       // <mesh filename="package://sr_grasp_description/meshes/TH3_z.dae" scale="0.1 0.1 0.1" />
       const double scale_x = mesh->scale.x;
       const double scale_y = mesh->scale.y;
       const double scale_z = mesh->scale.z;
-
-      simox_visua_filename = this->convert_mesh_(mesh->filename);
-      simox_colli_filename = simox_visua_filename;
+      if (scale_x != 1.0 || scale_y != 1.0 || scale_z != 1.0)
+        this->scale_wrl_scene_(simox_visua_filename, scale_x, scale_y, scale_z);
     }
     else if (geometry->type == urdf::Geometry::SPHERE)
     {
@@ -632,11 +643,6 @@ std::string UrdfToSimoxXml::convert_cube_(const std::string & link_name,
                                           const double & height,
                                           const double & depth)
 {
-  // init Inventor
-  const char input[] = "cube";
-  QWidget *window = SoQt::init(input);
-  if (window == NULL) exit(1);
-
   // Make a scene containing a cube.
   SoSeparator *cube_scene = new SoSeparator;
   SoUnits *cube_units = new SoUnits;
@@ -671,11 +677,6 @@ std::string UrdfToSimoxXml::convert_cylinder_(const std::string & link_name,
                                               const double & height,
                                               const double & radius)
 {
-  // init Inventor
-  const char input[] = "cylinder";
-  QWidget *window = SoQt::init(input);
-  if (window == NULL) exit(1);
-
   // Make a scene containing a cylinder.
   SoSeparator *cylinder_scene = new SoSeparator;
   SoUnits *cylinder_units = new SoUnits;
@@ -708,11 +709,6 @@ std::string UrdfToSimoxXml::convert_cylinder_(const std::string & link_name,
 std::string UrdfToSimoxXml::convert_sphere_(const std::string & link_name,
                                             const double & radius)
 {
-  // init Inventor
-  const char input[] = "sphere";
-  QWidget *window = SoQt::init(input);
-  if (window == NULL) exit(1);
-
   // Make a scene containing a sphere.
   SoSeparator *sphere_scene = new SoSeparator;
   SoUnits *sphere_units = new SoUnits;
@@ -843,3 +839,39 @@ bool UrdfToSimoxXml::compareUrdfJoint(boost::shared_ptr<urdf::Joint> j1, boost::
 //-------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------
 
+void UrdfToSimoxXml::scale_wrl_scene_(const std::string & filename,
+                                      const double & scale_x,
+                                      const double & scale_y,
+                                      const double & scale_z)
+{
+  SoSeparator *root = new SoSeparator;
+  SoInput scene;
+
+  // Try to open the file.
+  if (!scene.openFile(filename.c_str()))
+  {
+    ROS_ERROR("Could not open %s for reading\n", filename.c_str());
+    exit (EXIT_FAILURE);
+  }
+
+  // Check if the file is valid.
+  if (!scene.isValidFile())
+  {
+    ROS_ERROR("File %s is not a valid Inventor file\n", filename.c_str());
+    exit (EXIT_FAILURE);
+  }
+
+  // Try to read the file.
+  root = SoDB::readAll(&scene);
+  if (root == NULL)
+  {
+    ROS_ERROR("Problem reading file %s\n", filename.c_str());
+    scene.closeFile();
+    exit (EXIT_FAILURE);
+  }
+
+  // Close the file.
+  scene.closeFile();
+}
+
+//-------------------------------------------------------------------------------
