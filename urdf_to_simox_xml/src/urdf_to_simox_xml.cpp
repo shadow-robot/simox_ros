@@ -139,8 +139,17 @@ void UrdfToSimoxXml::write_xml(const std::string& output_dir,
   // Add RobotNode name="${hand_name_lower}_hand_gcp".
   this->add_hand_gcp_node_(hand_node, hand_gcp);
 
+  // YILI
+  unsigned short link_i = 1;
+  BOOST_FOREACH(boost::shared_ptr<const urdf::Link> link, links_)
+  {
+    ROS_INFO_STREAM("Link " << link_i++ << " : " << link->name);
+    this->add_link_node_(hand_node, link);
+  }
+
+  // YILI
   // Add RobotNode for the base/first link.
-  this->add_link_node_(hand_node, links_[0]);
+  // this->add_link_node_(hand_node, links_[0]);
 
   // Add Endeffector name="${hand_name_upper}" base="${hand_name_lower}_hand_base"
   // tcp="${hand_name_lower}_hand_tcp" gcp="${hand_name_lower}_hand_gcp".
@@ -240,46 +249,49 @@ void UrdfToSimoxXml::add_link_node_(boost::property_tree::ptree & hand_node,
   link_node.put("<xmlattr>.name", link->name);
 
   // YILI
-  ROS_ERROR_STREAM("link->name = " << link->name);
+  ROS_INFO_STREAM("Processing link->name = " << link->name);
 
   boost::shared_ptr<urdf::Visual> visual = link->visual;
-  urdf::Pose pose = visual->origin;
-
-  boost::property_tree::ptree Translation_node;
-  this->set_translation_node_(Translation_node, pose.position);
-
-  boost::property_tree::ptree rollpitchyaw_node;
-  this->set_rollpitchyaw_node_(rollpitchyaw_node, pose.rotation);
-
-  boost::property_tree::ptree Transform_node;
-  Transform_node.add_child("Translation", Translation_node);
-  Transform_node.add_child("rollpitchyaw", rollpitchyaw_node);
-  link_node.add_child("Transform", Transform_node);
-
-  boost::shared_ptr<urdf::Geometry> geometry = visual->geometry;
-  if (geometry->type != urdf::Geometry::MESH)
+  if (visual)
   {
-    ROS_ERROR_STREAM("MESH is the only supported urdf::Geometry type.");
-    exit (EXIT_FAILURE);
+    urdf::Pose pose = visual->origin;
+
+    boost::property_tree::ptree Translation_node;
+    this->set_translation_node_(Translation_node, pose.position);
+
+    boost::property_tree::ptree rollpitchyaw_node;
+    this->set_rollpitchyaw_node_(rollpitchyaw_node, pose.rotation);
+
+    boost::property_tree::ptree Transform_node;
+    Transform_node.add_child("Translation", Translation_node);
+    Transform_node.add_child("rollpitchyaw", rollpitchyaw_node);
+    link_node.add_child("Transform", Transform_node);
+
+    boost::shared_ptr<urdf::Geometry> geometry = visual->geometry;
+    if (geometry->type != urdf::Geometry::MESH)
+    {
+      ROS_ERROR_STREAM("MESH is the only supported urdf::Geometry type.");
+      exit (EXIT_FAILURE);
+    }
+    boost::shared_ptr<urdf::Mesh> mesh = boost::dynamic_pointer_cast<urdf::Mesh>(geometry);
+
+    boost::property_tree::ptree Visualization_File_node;
+    Visualization_File_node.put("<xmlattr>.type", "Inventor");
+    Visualization_File_node.put("<xmltext>", this->convert_mesh_(mesh->filename));
+
+    boost::property_tree::ptree Visualization_node;
+    Visualization_node.put("<xmlattr>.enable", "true");
+    Visualization_node.add_child("File", Visualization_File_node);
+    link_node.add_child("Visualization", Visualization_node);
+
+    boost::property_tree::ptree CollisionModel_File_node;
+    CollisionModel_File_node.put("<xmlattr>.type", "Inventor");
+    CollisionModel_File_node.put("<xmltext>", this->convert_mesh_(mesh->filename));
+
+    boost::property_tree::ptree CollisionModel_node;
+    CollisionModel_node.add_child("File", CollisionModel_File_node);
+    link_node.add_child("CollisionModel", CollisionModel_node);
   }
-  boost::shared_ptr<urdf::Mesh> mesh = boost::dynamic_pointer_cast<urdf::Mesh>(geometry);
-
-  boost::property_tree::ptree Visualization_File_node;
-  Visualization_File_node.put("<xmlattr>.type", "Inventor");
-  Visualization_File_node.put("<xmltext>", this->convert_mesh_(mesh->filename));
-
-  boost::property_tree::ptree Visualization_node;
-  Visualization_node.put("<xmlattr>.enable", "true");
-  Visualization_node.add_child("File", Visualization_File_node);
-  link_node.add_child("Visualization", Visualization_node);
-
-  boost::property_tree::ptree CollisionModel_File_node;
-  CollisionModel_File_node.put("<xmlattr>.type", "Inventor");
-  CollisionModel_File_node.put("<xmltext>", this->convert_mesh_(mesh->filename));
-
-  boost::property_tree::ptree CollisionModel_node;
-  CollisionModel_node.add_child("File", CollisionModel_File_node);
-  link_node.add_child("CollisionModel", CollisionModel_node);
 
   std::vector< boost::shared_ptr<urdf::Joint> > child_joints;
   child_joints = link->child_joints;
@@ -353,8 +365,9 @@ void UrdfToSimoxXml::add_joint_node_(boost::property_tree::ptree & hand_node,
 
   hand_node.add_child("RobotNode", child_joint_node);
 
+  // YILI
   // Add the child link.
-  this->add_link_node_(hand_node, child_link);
+  // this->add_link_node_(hand_node, child_link);
 }
 
 //-------------------------------------------------------------------------------
