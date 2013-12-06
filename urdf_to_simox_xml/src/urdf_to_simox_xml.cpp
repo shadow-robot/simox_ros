@@ -872,6 +872,28 @@ void UrdfToSimoxXml::scale_wrl_scene_(const std::string & filename,
 
   // Close the file.
   scene.closeFile();
+
+  // YILI
+  /*
+  // Reference root node so that the graph will not be deleted.
+  root->ref();
+  // Scale it.
+  SoScale *scale = new SoScale();
+  SoSFVec3f scale_factor;
+  scale_factor.setValue(scale_x, scale_y, scale_z);
+  scale->scaleFactor = scale_factor;
+  root->addChild(scale);
+
+  // Output to file after scaling.
+  SoWriteAction writeAction;
+  writeAction.getOutput()->openFile(filename.c_str());
+  writeAction.getOutput()->setBinary(FALSE);
+  writeAction.apply(root);
+  writeAction.getOutput()->closeFile();
+
+  ROS_ERROR("Problem reading file %s\n", filename.c_str());
+  exit (EXIT_FAILURE);
+  */
 }
 
 //-------------------------------------------------------------------------------
