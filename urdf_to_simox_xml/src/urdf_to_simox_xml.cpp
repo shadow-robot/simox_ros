@@ -297,6 +297,7 @@ void UrdfToSimoxXml::add_link_node_(boost::property_tree::ptree & hand_node,
     {
       boost::shared_ptr<urdf::Mesh> mesh = boost::dynamic_pointer_cast<urdf::Mesh>(geometry);
 
+      // Note that variable scale_ may be reset inside method convert_mesh_.
       simox_visua_filename = this->convert_mesh_(mesh->filename);
       simox_colli_filename = simox_visua_filename;
 
@@ -776,6 +777,12 @@ std::string UrdfToSimoxXml::convert_mesh_(const std::string & urdf_filename)
       original_filename += ("/" + token);
   }
 
+  // Is the input file a .dae file?
+  if (original_filename.find_last_of(".dae") != std::string::npos)
+  {
+    this->read_dae_file_(original_filename);
+  }
+
   std::string simox_filename;
   size_t sp = urdf_filename.find_first_of( '/' );
   if ( sp != std::string::npos ) {
@@ -917,6 +924,27 @@ void UrdfToSimoxXml::set_base_link_(void)
   {
     ROS_ERROR_STREAM("There are multiple base links.");
     exit (EXIT_FAILURE);
+  }
+}
+
+//-------------------------------------------------------------------------------
+
+void UrdfToSimoxXml::read_dae_file_(const std::string & dae_filename)
+{
+  // Create an empty property tree object.
+  ptree pt;
+
+  // Load the XML file into the property tree. If reading fails
+  // (cannot open file, parse error), an exception is thrown.
+  read_xml(dae_filename, pt);
+
+  // Get the unit. There should be one and only one "COLLADA.asset.unit".
+  BOOST_FOREACH(boost::property_tree::ptree::value_type &v, pt.get_child("COLLADA.asset.unit"))
+  {
+    std::string unit_name = v.second.get<std::string>("name");
+    double to_meter = boost::lexical_cast<double>(v.second.get<std::string>("meter"));
+    scale_ = to_meter;
+    return;
   }
 }
 

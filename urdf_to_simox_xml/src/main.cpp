@@ -67,7 +67,8 @@ int main(int argc, char** argv)
       ("xml", po::value<std::string>(&simox_xml_filename)->default_value("shadowhand.xml"),
        "set the filename of the Simox XML file (output)")
       ("scale", po::value<double>(&scale)->default_value(1.0),
-       "set the default scale (used when converting to WRL files)")
+       "set the default scale (used when converting to WRL files)\n"
+       "note that the units in VRML (i.e., .WRL files) are assumed to be meters.")
       ;
 
     po::variables_map vm;

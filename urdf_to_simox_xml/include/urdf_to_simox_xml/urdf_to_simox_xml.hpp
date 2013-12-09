@@ -130,6 +130,8 @@ private:
 
   void set_base_link_(void);
 
+  void read_dae_file_(const std::string & dae_filename);
+
 private:
   boost::scoped_ptr<urdf::Model> urdf_model_;
 
