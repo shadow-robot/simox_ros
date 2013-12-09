@@ -160,7 +160,7 @@ void UrdfToSimoxXml::write_xml(const std::string& output_dir,
     this->add_link_node_(hand_node, link);
   }
 
-  // YILI
+  // YILI: Remove the following two lines.
   // Add RobotNode for the base/first link.
   // this->add_link_node_(hand_node, links_[0]);
 
@@ -173,8 +173,9 @@ void UrdfToSimoxXml::write_xml(const std::string& output_dir,
                               hand_gcp,
                               base_link);
 
+  // YILI
   // Add RobotNodeSet name="${hand_name_upper} Joints".
-  this->add_hand_joints_node_(hand_node, hand_name_upper);
+  // this->add_hand_joints_node_(hand_node, hand_name_upper);
 
   // Add the ${hand_name_upper} to the tree.
   pt.add_child("Robot", hand_node);
@@ -620,7 +621,7 @@ void UrdfToSimoxXml::set_rollpitchyaw_node_(boost::property_tree::ptree & Transl
 //-------------------------------------------------------------------------------
 
 // Write the scene to a iv file.
-void UrdfToSimoxXml::write_to_iv_file_(const std::string & file_name,
+std::string UrdfToSimoxXml::write_to_iv_file_(const std::string & file_name,
                                        SoSeparator *scene_with_shape)
 {
   std::string simox_filename;
@@ -634,6 +635,8 @@ void UrdfToSimoxXml::write_to_iv_file_(const std::string & file_name,
   writeAction.getOutput()->setBinary(FALSE);
   writeAction.apply(scene_with_shape);
   writeAction.getOutput()->closeFile();
+
+  return simox_filename;
 }
 
 //-------------------------------------------------------------------------------
@@ -665,9 +668,7 @@ std::string UrdfToSimoxXml::convert_cube_(const std::string & link_name,
 
   // Write the scene to a iv file.
   std::string cube_name(link_name + "_cube.iv");
-  this->write_to_iv_file_(cube_name, cube_scene);
-
-  std::string simox_filename;
+  std::string simox_filename = this->write_to_iv_file_(cube_name, cube_scene);
   return simox_filename;
 }
 
@@ -698,9 +699,7 @@ std::string UrdfToSimoxXml::convert_cylinder_(const std::string & link_name,
 
   // Write the scene to a iv file.
   std::string cylinder_name(link_name + "_cylinder.iv");
-  this->write_to_iv_file_(cylinder_name, cylinder_scene);
-
-  std::string simox_filename;
+  std::string simox_filename = this->write_to_iv_file_(cylinder_name, cylinder_scene);
   return simox_filename;
 }
 
@@ -729,9 +728,7 @@ std::string UrdfToSimoxXml::convert_sphere_(const std::string & link_name,
 
   // Write the scene to a iv file.
   std::string sphere_name(link_name + "_sphere.iv");
-  this->write_to_iv_file_(sphere_name, sphere_scene);
-
-  std::string simox_filename;
+  std::string simox_filename = this->write_to_iv_file_(sphere_name, sphere_scene);
   return simox_filename;
 }
 

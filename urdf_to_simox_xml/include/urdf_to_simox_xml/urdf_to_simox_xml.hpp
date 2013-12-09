@@ -117,8 +117,8 @@ private:
                               const double & radius);
   std::string convert_mesh_(const std::string & urdf_filename);
 
-  void write_to_iv_file_(const std::string & file_name,
-                         SoSeparator *scene_with_shape);
+  std::string  write_to_iv_file_(const std::string & file_name,
+                                 SoSeparator *scene_with_shape);
 
   void scale_wrl_scene_(const std::string & fileName,
                         const double & scale_x,
