@@ -86,6 +86,9 @@ UrdfToSimoxXml::UrdfToSimoxXml(const bool urdf_init_param,
     exit (EXIT_FAILURE);
   }
 
+  // Set the base link.
+  this->set_base_link_();
+
   // Get all joints in the model.
   joints_.clear();
   BOOST_FOREACH(boost::shared_ptr<urdf::Link> link, links_)
@@ -97,6 +100,7 @@ UrdfToSimoxXml::UrdfToSimoxXml(const bool urdf_init_param,
       joints_.push_back(child_joint);
     }
   }
+
   // Sort the joints by their names.
   std::sort(joints_.begin(), joints_.end(), UrdfToSimoxXml::compareUrdfJoint);
 }
@@ -132,7 +136,7 @@ void UrdfToSimoxXml::write_xml(const std::string& output_dir,
   std::string hand_base(hand_name_lower + "_hand_base");
   std::string hand_tcp(hand_name_lower + "_hand_tcp");
   std::string hand_gcp(hand_name_lower + "_hand_gcp");
-  std::string base_link(links_[0]->name);
+  std::string base_link(base_link_->name);
 
   // Create the ${hand_name_upper} node.
   boost::property_tree::ptree hand_node;
@@ -153,16 +157,18 @@ void UrdfToSimoxXml::write_xml(const std::string& output_dir,
   this->add_hand_gcp_node_(hand_node, hand_gcp);
 
   // YILI
+  /*
   unsigned short link_i = 1;
   BOOST_FOREACH(boost::shared_ptr<const urdf::Link> link, links_)
   {
     ROS_INFO_STREAM("Link " << link_i++ << " : " << link->name);
     this->add_link_node_(hand_node, link);
   }
+  */
 
   // YILI: Remove the following two lines.
-  // Add RobotNode for the base/first link.
-  // this->add_link_node_(hand_node, links_[0]);
+  // Add RobotNode for the base link.
+  this->add_link_node_(hand_node, base_link_);
 
   // Add Endeffector name="${hand_name_upper}" base="${hand_name_lower}_hand_base"
   // tcp="${hand_name_lower}_hand_tcp" gcp="${hand_name_lower}_hand_gcp".
@@ -175,7 +181,7 @@ void UrdfToSimoxXml::write_xml(const std::string& output_dir,
 
   // YILI
   // Add RobotNodeSet name="${hand_name_upper} Joints".
-  // this->add_hand_joints_node_(hand_node, hand_name_upper);
+  this->add_hand_joints_node_(hand_node, hand_name_upper);
 
   // Add the ${hand_name_upper} to the tree.
   pt.add_child("Robot", hand_node);
@@ -420,7 +426,7 @@ void UrdfToSimoxXml::add_joint_node_(boost::property_tree::ptree & hand_node,
 
   // YILI
   // Add the child link.
-  // this->add_link_node_(hand_node, child_link);
+  this->add_link_node_(hand_node, child_link);
 }
 
 //-------------------------------------------------------------------------------
@@ -815,27 +821,6 @@ std::string UrdfToSimoxXml::convert_mesh_(const std::string & urdf_filename)
 
 //-------------------------------------------------------------------------------
 
-std::string UrdfToSimoxXml::to_string_(double x)
-{
-  // http://stackoverflow.com/questions/5016464/boostlexical-cast-conversion-double-to-string-c
-  std::ostringstream ss;
-  ss << std::fixed << std::setprecision(3);
-  ss << x;
-  std::string s = ss.str();
-  return s;
-}
-
-//-------------------------------------------------------------------------------
-//-------------------------------------------------------------------------------
-
-bool UrdfToSimoxXml::compareUrdfJoint(boost::shared_ptr<urdf::Joint> j1, boost::shared_ptr<urdf::Joint> j2)
-{
-  return (j1->name < j2->name);
-}
-
-//-------------------------------------------------------------------------------
-//-------------------------------------------------------------------------------
-
 void UrdfToSimoxXml::scale_wrl_scene_(const std::string & filename,
                                       const double & scale_x,
                                       const double & scale_y,
@@ -904,6 +889,53 @@ void UrdfToSimoxXml::scale_wrl_scene_(const std::string & filename,
 
   ROS_ERROR_STREAM("UrdfToSimoxXml::scale_wrl_scene_ failed. Should not reach here.");
   exit (EXIT_FAILURE);
+}
+
+//-------------------------------------------------------------------------------
+
+// Set the base link.
+void UrdfToSimoxXml::set_base_link_(void)
+{
+  unsigned short n = 0;
+  BOOST_FOREACH(boost::shared_ptr<urdf::Link> link, links_)
+  {
+    boost::shared_ptr<urdf::Link> parent_link = link->getParent();
+    if (!parent_link) {
+      base_link_ = link;
+      ROS_INFO_STREAM("The base link is set to " << base_link_->name);
+      n++;
+    }
+  }
+  if (n == 0)
+  {
+    ROS_ERROR_STREAM("Failed to set the base link.");
+    exit (EXIT_FAILURE);
+  }
+  if (n > 1)
+  {
+    ROS_ERROR_STREAM("There are multiple base links.");
+    exit (EXIT_FAILURE);
+  }
+}
+
+//-------------------------------------------------------------------------------
+
+std::string UrdfToSimoxXml::to_string_(double x)
+{
+  // http://stackoverflow.com/questions/5016464/boostlexical-cast-conversion-double-to-string-c
+  std::ostringstream ss;
+  ss << std::fixed << std::setprecision(3);
+  ss << x;
+  std::string s = ss.str();
+  return s;
+}
+
+//-------------------------------------------------------------------------------
+
+bool UrdfToSimoxXml::compareUrdfJoint(boost::shared_ptr<urdf::Joint> j1,
+                                      boost::shared_ptr<urdf::Joint> j2)
+{
+  return (j1->name < j2->name);
 }
 
 //-------------------------------------------------------------------------------

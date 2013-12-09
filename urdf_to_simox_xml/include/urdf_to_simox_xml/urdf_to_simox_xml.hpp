@@ -127,6 +127,8 @@ private:
 
   std::string to_string_(double x);
 
+  void set_base_link_(void);
+
 private:
   boost::scoped_ptr<urdf::Model> urdf_model_;
 
@@ -135,6 +137,8 @@ private:
   std::vector< boost::shared_ptr<urdf::Link> > links_;
 
   std::vector< boost::shared_ptr<urdf::Joint> > joints_;
+
+  boost::shared_ptr<urdf::Link> base_link_;
 
   QWidget *window_;
 
