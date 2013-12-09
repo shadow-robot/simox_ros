@@ -51,6 +51,7 @@ int main(int argc, char** argv)
   std::string urdf_filename;
   std::string output_dir;
   std::string simox_xml_filename;
+  double scale;
 
   try {
     po::options_description desc("Allowed options");
@@ -65,6 +66,8 @@ int main(int argc, char** argv)
        "set the output directory")
       ("xml", po::value<std::string>(&simox_xml_filename)->default_value("shadowhand.xml"),
        "set the filename of the Simox XML file (output)")
+      ("scale", po::value<double>(&scale)->default_value(1.0),
+       "set the default scale (used when converting to WRL files)")
       ;
 
     po::variables_map vm;
@@ -93,7 +96,7 @@ int main(int argc, char** argv)
   if (!boost::filesystem::exists(output_dir))
     boost::filesystem::create_directories(output_dir);
 
-  gsc::UrdfToSimoxXml urdf2xml(urdf_init_param, urdf_filename, output_dir);
+  gsc::UrdfToSimoxXml urdf2xml(urdf_init_param, urdf_filename, output_dir, scale);
 
   urdf2xml.write_xml(output_dir, simox_xml_filename);
 

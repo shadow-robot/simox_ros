@@ -45,9 +45,11 @@ const std::string UrdfToSimoxXml::mesh_dir_name_ = std::string("/meshes");
 
 UrdfToSimoxXml::UrdfToSimoxXml(const bool urdf_init_param,
                                const std::string urdf_file,
-                               const std::string output_dir)
+                               const std::string output_dir,
+                               const double scale)
   : urdf_model_(new urdf::Model()),
-    output_dir_(output_dir)
+    output_dir_(output_dir),
+    scale_(scale)
 {
   // Init Inventor.
   const char input[] = "UrdfToSimoxXml";
@@ -300,9 +302,9 @@ void UrdfToSimoxXml::add_link_node_(boost::property_tree::ptree & hand_node,
 
       // YILI: Add support for the scale tag.
       // <mesh filename="package://sr_grasp_description/meshes/TH3_z.dae" scale="0.1 0.1 0.1" />
-      const double scale_x = mesh->scale.x;
-      const double scale_y = mesh->scale.y;
-      const double scale_z = mesh->scale.z;
+      const double scale_x = mesh->scale.x * scale_;
+      const double scale_y = mesh->scale.y * scale_;
+      const double scale_z = mesh->scale.z * scale_;
       if (scale_x != 1.0 || scale_y != 1.0 || scale_z != 1.0)
         this->scale_wrl_scene_(simox_visua_filename, scale_x, scale_y, scale_z);
     }

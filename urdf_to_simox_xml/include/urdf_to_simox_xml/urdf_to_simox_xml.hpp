@@ -43,7 +43,8 @@ class UrdfToSimoxXml
 public:
   UrdfToSimoxXml(const bool urdf_init_param,
                  const std::string urdf_file,
-                 const std::string output_dir);
+                 const std::string output_dir,
+                 double scale);
   ~UrdfToSimoxXml();
 
   void write_xml(const std::string& output_dir,
@@ -133,6 +134,8 @@ private:
   boost::scoped_ptr<urdf::Model> urdf_model_;
 
   std::string output_dir_;
+
+  double scale_;
 
   std::vector< boost::shared_ptr<urdf::Link> > links_;
 
