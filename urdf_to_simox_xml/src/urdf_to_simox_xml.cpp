@@ -81,6 +81,7 @@ UrdfToSimoxXml::UrdfToSimoxXml(const bool urdf_init_param,
   }
 
   // Get all materials in the model.
+  // Simox does not support materials though.
   materials_ = urdf_model_->materials_;
 
   // Get all links in the model.
@@ -332,34 +333,45 @@ void UrdfToSimoxXml::add_visual_node(boost::shared_ptr<urdf::Visual> visual,
   Transform_node.add_child("rollpitchyaw", rollpitchyaw_node);
   link_node.add_child("Transform", Transform_node);
 
-  // Parse the visualization node.
-  // Note that collision node is the parsed, because inside URDF,
+  // *** Parse the visual node ***
+  // Note that collision node is NOT parsed, because inside URDF,
   // a visual node and a collision node can have different positions
   // and orientations. But in Simox XML files, the two nodes share
   // the same position and the same orientation.
+  std::string simox_visua_filename;
+  std::string simox_colli_filename;
   boost::shared_ptr<urdf::Geometry> geometry = visual->geometry;
-  std::string simox_visua_filename = this->parse_geometry(link, geometry);
-  std::string simox_colli_filename = simox_visua_filename;
+  if (geometry)
+  {
+    simox_visua_filename = this->parse_geometry(link, geometry);
+    simox_colli_filename = simox_visua_filename;
+  }
 
   // Add the visualization node.
-  boost::property_tree::ptree Visualization_File_node;
-  Visualization_File_node.put("<xmlattr>.type", "Inventor");
-  Visualization_File_node.put("<xmltext>", simox_visua_filename);
+  if (!simox_visua_filename.empty())
+  {
+    boost::property_tree::ptree Visualization_File_node;
+    Visualization_File_node.put("<xmlattr>.type", "Inventor");
+    Visualization_File_node.put("<xmltext>", simox_visua_filename);
 
-  boost::property_tree::ptree Visualization_node;
-  Visualization_node.put("<xmlattr>.enable", "true");
-  Visualization_node.add_child("File", Visualization_File_node);
-  link_node.add_child("Visualization", Visualization_node);
+    boost::property_tree::ptree Visualization_node;
+    Visualization_node.put("<xmlattr>.enable", "true");
+    Visualization_node.add_child("File", Visualization_File_node);
+    link_node.add_child("Visualization", Visualization_node);
+  }
 
   // Add the collision model node.
-  // Note that the collision model node is identical to the visualization node.
-  boost::property_tree::ptree CollisionModel_File_node;
-  CollisionModel_File_node.put("<xmlattr>.type", "Inventor");
-  CollisionModel_File_node.put("<xmltext>", simox_colli_filename);
+  if (!simox_colli_filename.empty())
+  {
+    // Note that the collision model node is identical to the visualization node.
+    boost::property_tree::ptree CollisionModel_File_node;
+    CollisionModel_File_node.put("<xmlattr>.type", "Inventor");
+    CollisionModel_File_node.put("<xmltext>", simox_colli_filename);
 
-  boost::property_tree::ptree CollisionModel_node;
-  CollisionModel_node.add_child("File", CollisionModel_File_node);
-  link_node.add_child("CollisionModel", CollisionModel_node);
+    boost::property_tree::ptree CollisionModel_node;
+    CollisionModel_node.add_child("File", CollisionModel_File_node);
+    link_node.add_child("CollisionModel", CollisionModel_node);
+  }
 }
 
 //-------------------------------------------------------------------------------

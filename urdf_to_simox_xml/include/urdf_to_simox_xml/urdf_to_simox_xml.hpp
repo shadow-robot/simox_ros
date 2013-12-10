@@ -150,6 +150,7 @@ private:
 
   std::vector< boost::shared_ptr<urdf::Joint> > joints_;
 
+  // Simox does not support materials though.
   typedef std::map< std::string, boost::shared_ptr<urdf::Material> > name2material;
   name2material materials_;
 
