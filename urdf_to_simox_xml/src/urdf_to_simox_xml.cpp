@@ -263,6 +263,105 @@ void UrdfToSimoxXml::add_hand_gcp_node_(boost::property_tree::ptree & hand_node,
 
 //-------------------------------------------------------------------------------
 
+std::string UrdfToSimoxXml::parse_geometry(boost::shared_ptr<const urdf::Link> link,
+                                           boost::shared_ptr<urdf::Geometry> geometry)
+{
+  std::string simox_filename;
+
+  if (geometry->type == urdf::Geometry::MESH)
+  {
+    boost::shared_ptr<urdf::Mesh> mesh = boost::dynamic_pointer_cast<urdf::Mesh>(geometry);
+
+    // Note that variable scale_ may be reset inside method convert_mesh_.
+    simox_filename = this->convert_mesh_(mesh->filename);
+
+    // <mesh filename="package://sr_grasp_description/meshes/TH3_z.dae" scale="0.1 0.1 0.1" />
+    const double scale_x = mesh->scale.x * scale_;
+    const double scale_y = mesh->scale.y * scale_;
+    const double scale_z = mesh->scale.z * scale_;
+    if (scale_x != 1.0 || scale_y != 1.0 || scale_z != 1.0)
+      this->scale_wrl_scene_(simox_filename, scale_x, scale_y, scale_z);
+  }
+  else if (geometry->type == urdf::Geometry::SPHERE)
+  {
+    boost::shared_ptr<urdf::Sphere> sphere = boost::dynamic_pointer_cast<urdf::Sphere>(geometry);
+    simox_filename = this->convert_sphere_(link->name, sphere->radius);
+  }
+  else if (geometry->type == urdf::Geometry::BOX)
+  {
+    boost::shared_ptr<urdf::Box> box = boost::dynamic_pointer_cast<urdf::Box>(geometry);
+
+    std::string urdf_filename;
+    simox_filename = this->convert_cube_(link->name, box->dim.x, box->dim.y, box->dim.z);
+  }
+  else if (geometry->type == urdf::Geometry::CYLINDER)
+  {
+    boost::shared_ptr<urdf::Cylinder> cylinder = boost::dynamic_pointer_cast<urdf::Cylinder>(geometry);
+
+    std::string urdf_filename;
+    simox_filename = this->convert_cylinder_(link->name, cylinder->length, cylinder->radius);
+  }
+  else
+  {
+    ROS_ERROR_STREAM("SPHERE, BOX, CYLINDER, MESH are the 4 supported urdf::Geometry types.");
+    exit (EXIT_FAILURE);
+  }
+
+  return simox_filename;
+}
+
+//-------------------------------------------------------------------------------
+
+void UrdfToSimoxXml::add_visual_node(boost::shared_ptr<urdf::Visual> visual,
+                                     boost::shared_ptr<const urdf::Link> link,
+                                     boost::property_tree::ptree &link_node)
+{
+  urdf::Pose pose = visual->origin;
+
+  boost::property_tree::ptree Translation_node;
+  this->set_translation_node_(Translation_node, pose.position);
+
+  boost::property_tree::ptree rollpitchyaw_node;
+  this->set_rollpitchyaw_node_(rollpitchyaw_node, pose.rotation);
+
+  boost::property_tree::ptree Transform_node;
+  Transform_node.add_child("Translation", Translation_node);
+  Transform_node.add_child("rollpitchyaw", rollpitchyaw_node);
+  link_node.add_child("Transform", Transform_node);
+
+  boost::shared_ptr<urdf::Geometry> geometry = visual->geometry;
+  std::string simox_visua_filename = this->parse_geometry(link, geometry);
+  std::string simox_colli_filename = simox_visua_filename;
+
+  boost::property_tree::ptree Visualization_File_node;
+  Visualization_File_node.put("<xmlattr>.type", "Inventor");
+  Visualization_File_node.put("<xmltext>", simox_visua_filename);
+
+  boost::property_tree::ptree Visualization_node;
+  Visualization_node.put("<xmlattr>.enable", "true");
+  Visualization_node.add_child("File", Visualization_File_node);
+  link_node.add_child("Visualization", Visualization_node);
+
+  boost::property_tree::ptree CollisionModel_File_node;
+  CollisionModel_File_node.put("<xmlattr>.type", "Inventor");
+  CollisionModel_File_node.put("<xmltext>", simox_colli_filename);
+
+  boost::property_tree::ptree CollisionModel_node;
+  CollisionModel_node.add_child("File", CollisionModel_File_node);
+  link_node.add_child("CollisionModel", CollisionModel_node);
+}
+
+//-------------------------------------------------------------------------------
+
+void UrdfToSimoxXml::add_collision_node(boost::shared_ptr<urdf::Collision> collision,
+                                        boost::shared_ptr<const urdf::Link> link,
+                                        boost::property_tree::ptree &link_node)
+{
+
+}
+
+//-------------------------------------------------------------------------------
+
 // YILI: Add support for the collision tag.
 void UrdfToSimoxXml::add_link_node_(boost::property_tree::ptree & hand_node,
                                     boost::shared_ptr<const urdf::Link> link)
@@ -270,90 +369,15 @@ void UrdfToSimoxXml::add_link_node_(boost::property_tree::ptree & hand_node,
   boost::property_tree::ptree link_node;
   link_node.put("<xmlattr>.name", link->name);
 
-  // YILI
-  ROS_INFO_STREAM("Processing link->name = " << link->name);
-
+  // Add the visual node.
   boost::shared_ptr<urdf::Visual> visual = link->visual;
   if (visual)
-  {
-    urdf::Pose pose = visual->origin;
+    this->add_visual_node(visual, link, link_node);
 
-    boost::property_tree::ptree Translation_node;
-    this->set_translation_node_(Translation_node, pose.position);
-
-    boost::property_tree::ptree rollpitchyaw_node;
-    this->set_rollpitchyaw_node_(rollpitchyaw_node, pose.rotation);
-
-    boost::property_tree::ptree Transform_node;
-    Transform_node.add_child("Translation", Translation_node);
-    Transform_node.add_child("rollpitchyaw", rollpitchyaw_node);
-    link_node.add_child("Transform", Transform_node);
-
-    std::string simox_visua_filename;
-    std::string simox_colli_filename;
-
-    boost::shared_ptr<urdf::Geometry> geometry = visual->geometry;
-    if (geometry->type == urdf::Geometry::MESH)
-    {
-      boost::shared_ptr<urdf::Mesh> mesh = boost::dynamic_pointer_cast<urdf::Mesh>(geometry);
-
-      // Note that variable scale_ may be reset inside method convert_mesh_.
-      simox_visua_filename = this->convert_mesh_(mesh->filename);
-      simox_colli_filename = simox_visua_filename;
-
-      // YILI: Add support for the scale tag.
-      // <mesh filename="package://sr_grasp_description/meshes/TH3_z.dae" scale="0.1 0.1 0.1" />
-      const double scale_x = mesh->scale.x * scale_;
-      const double scale_y = mesh->scale.y * scale_;
-      const double scale_z = mesh->scale.z * scale_;
-      if (scale_x != 1.0 || scale_y != 1.0 || scale_z != 1.0)
-        this->scale_wrl_scene_(simox_visua_filename, scale_x, scale_y, scale_z);
-    }
-    else if (geometry->type == urdf::Geometry::SPHERE)
-    {
-      boost::shared_ptr<urdf::Sphere> sphere = boost::dynamic_pointer_cast<urdf::Sphere>(geometry);
-      simox_visua_filename = this->convert_sphere_(link->name, sphere->radius);
-      simox_colli_filename = simox_visua_filename;
-    }
-    else if (geometry->type == urdf::Geometry::BOX)
-    {
-      boost::shared_ptr<urdf::Box> box = boost::dynamic_pointer_cast<urdf::Box>(geometry);
-
-      std::string urdf_filename;
-      simox_visua_filename = this->convert_cube_(link->name, box->dim.x, box->dim.y, box->dim.z);
-      simox_colli_filename = simox_visua_filename;
-    }
-    else if (geometry->type == urdf::Geometry::CYLINDER)
-    {
-      boost::shared_ptr<urdf::Cylinder> cylinder = boost::dynamic_pointer_cast<urdf::Cylinder>(geometry);
-
-      std::string urdf_filename;
-      simox_visua_filename = this->convert_cylinder_(link->name, cylinder->length, cylinder->radius);
-      simox_colli_filename = simox_visua_filename;
-    }
-    else
-    {
-      ROS_ERROR_STREAM("SPHERE, BOX, CYLINDER, MESH are the 4 supported urdf::Geometry types.");
-      exit (EXIT_FAILURE);
-    }
-
-    boost::property_tree::ptree Visualization_File_node;
-    Visualization_File_node.put("<xmlattr>.type", "Inventor");
-    Visualization_File_node.put("<xmltext>", simox_visua_filename);
-
-    boost::property_tree::ptree Visualization_node;
-    Visualization_node.put("<xmlattr>.enable", "true");
-    Visualization_node.add_child("File", Visualization_File_node);
-    link_node.add_child("Visualization", Visualization_node);
-
-    boost::property_tree::ptree CollisionModel_File_node;
-    CollisionModel_File_node.put("<xmlattr>.type", "Inventor");
-    CollisionModel_File_node.put("<xmltext>", simox_colli_filename);
-
-    boost::property_tree::ptree CollisionModel_node;
-    CollisionModel_node.add_child("File", CollisionModel_File_node);
-    link_node.add_child("CollisionModel", CollisionModel_node);
-  }
+  // Add the collision node.
+  boost::shared_ptr<urdf::Collision> collision = link->collision;
+  if (collision)
+    this->add_collision_node(collision, link, link_node);
 
   std::vector< boost::shared_ptr<urdf::Joint> > child_joints;
   child_joints = link->child_joints;

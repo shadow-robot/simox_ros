@@ -72,6 +72,17 @@ private:
   void add_joint_node_(boost::property_tree::ptree & hand_node,
                        boost::shared_ptr<const urdf::Joint> child_joint);
 
+  void add_visual_node(boost::shared_ptr<urdf::Visual> visual,
+                       boost::shared_ptr<const urdf::Link> link,
+                       boost::property_tree::ptree &link_node);
+
+  void add_collision_node(boost::shared_ptr<urdf::Collision> collision,
+                          boost::shared_ptr<const urdf::Link> link,
+                          boost::property_tree::ptree &link_node);
+
+  std::string parse_geometry(boost::shared_ptr<const urdf::Link> link,
+                             boost::shared_ptr<urdf::Geometry> geometry);
+
 private:
   void add_endeffector_node_(boost::property_tree::ptree & hand_node,
                              const std::string & hand_name_upper,
