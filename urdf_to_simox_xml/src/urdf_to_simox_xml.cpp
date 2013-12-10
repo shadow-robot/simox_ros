@@ -145,6 +145,8 @@ void UrdfToSimoxXml::write_xml(const std::string& output_dir,
   // Create empty property tree object
   ptree pt;
 
+  // TCP = Tool Center Point
+  // GCP = Grasp Center Point
   std::string hand_base(hand_name_lower_case + "_hand_base");
   std::string hand_tcp(hand_name_lower_case + "_hand_tcp");
   std::string hand_gcp(hand_name_lower_case + "_hand_gcp");
