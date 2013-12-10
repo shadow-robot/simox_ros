@@ -274,8 +274,8 @@ void UrdfToSimoxXml::add_hand_gcp_node_(boost::property_tree::ptree & hand_node,
   }
   else if (model_name.compare(robot_name_in_shadowhand_urdf_) == 0) // Shadow Hand
   {
-    this->set_translation_node_(Translation_node, 0.0, 0.0, 0.1);
-    this->set_rollpitchyaw_node_(rollpitchyaw_node, 1.0, 0.0, 0.0);
+    this->set_translation_node_(Translation_node, 0.0, -0.05, 0.30);
+    this->set_rollpitchyaw_node_(rollpitchyaw_node, 0.75, 0.0, 0.0);
   }
   else // Other Hand
   {
