@@ -1,1 +1,6 @@
-Yi Li: File dms.xml in this directory was converted from dms.urdf and the conversion was done by hand. Furthermore, note that the pregrasp values were also set by hand (instead of zero).
+File dms.xml was converted from dms.urdf, but some modifications have been done by hand.
+For example, the pregrasp values were set by hand.
+
+To test dms.xml with GraspPlanner (part of Simox):
+
+$ GraspPlanner --robot dms.xml --endeffector DMS --preshape "Grasp Preshape"
