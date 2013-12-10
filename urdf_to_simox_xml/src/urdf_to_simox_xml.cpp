@@ -443,12 +443,15 @@ void UrdfToSimoxXml::add_joint_node_(boost::property_tree::ptree & hand_node,
   boost::property_tree::ptree Child_node;
   boost::shared_ptr<const urdf::Link> child_link = urdf_model_->getLink(child_joint->child_link_name);
   Child_node.put("<xmlattr>.name", child_link->name);
-  child_joint_node.add_child("Child", Child_node);
+  // Add to child_joint_node iff child_link contains a visual node.
+  if (child_link->visual)
+    child_joint_node.add_child("Child", Child_node);
 
   hand_node.add_child("RobotNode", child_joint_node);
 
-  // Add the child link.
-  this->add_link_node_(hand_node, child_link);
+  // Continue with the child link iff it contains a visual node.
+  if (child_link->visual)
+    this->add_link_node_(hand_node, child_link);
 }
 
 //-------------------------------------------------------------------------------
