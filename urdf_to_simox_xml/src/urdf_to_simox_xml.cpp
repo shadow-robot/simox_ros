@@ -364,7 +364,6 @@ void UrdfToSimoxXml::add_visual_node(boost::shared_ptr<urdf::Visual> visual,
 
 //-------------------------------------------------------------------------------
 
-// YILI: Add support for the collision tag.
 void UrdfToSimoxXml::add_link_node_(boost::property_tree::ptree & hand_node,
                                     boost::shared_ptr<const urdf::Link> link)
 {
@@ -448,7 +447,6 @@ void UrdfToSimoxXml::add_joint_node_(boost::property_tree::ptree & hand_node,
 
   hand_node.add_child("RobotNode", child_joint_node);
 
-  // YILI
   // Add the child link.
   this->add_link_node_(hand_node, child_link);
 }
