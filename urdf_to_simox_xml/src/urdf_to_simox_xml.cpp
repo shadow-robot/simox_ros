@@ -800,9 +800,13 @@ std::string UrdfToSimoxXml::convert_mesh_(const std::string & urdf_filename)
   }
 
   // Is the input file a .dae file?
-  if (original_filename.find_last_of(".dae") != std::string::npos)
+  // Note that pos must be defined as std::size_t, not unsigned int.
+  std::size_t pos = original_filename.find(".dae");
+  if (pos != std::string::npos)
   {
-    this->read_dae_file_(original_filename);
+    std::string dot_str = original_filename.substr(pos);
+    if (dot_str.compare(".dae") == 0)
+      this->read_dae_file_(original_filename);
   }
 
   std::string simox_filename;
