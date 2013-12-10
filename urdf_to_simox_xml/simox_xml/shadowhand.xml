@@ -680,6 +680,7 @@
 			<Node name="WRJ2"/>
 			<Node name="FFJ4"/>
 			<Node name="LFJ4"/>
+			<Node name="LFJ5"/>
 			<Node name="MFJ4"/>
 			<Node name="RFJ4"/>
 		</Static>
@@ -698,7 +699,6 @@
 			<Node name="LFJ1" considerCollisions="None"/>
 			<Node name="LFJ2" considerCollisions="None"/>
 			<Node name="LFJ3" considerCollisions="None"/>
-			<Node name="LFJ5" considerCollisions="None"/>
 			<Node name="lfdistal" considerCollisions="All"/>
 			<Node name="lfknuckle" considerCollisions="None"/>
 			<Node name="lfmetacarpal" considerCollisions="Actors"/>
