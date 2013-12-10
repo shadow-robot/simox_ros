@@ -41,6 +41,12 @@ using boost::property_tree::ptree;
 
 const std::string UrdfToSimoxXml::mesh_dir_name_ = std::string("/meshes");
 
+// The name of the robot node inside dms.urdf.
+const std::string UrdfToSimoxXml::robot_name_in_dms_urdf_ = std::string("four_dof_thumb");
+
+// The name of the robot ndoe inside shadowhand.urdf.
+const std::string UrdfToSimoxXml::robot_name_in_shadowhand_urdf_ = std::string("shadowhand");
+
 //-------------------------------------------------------------------------------
 
 UrdfToSimoxXml::UrdfToSimoxXml(const bool urdf_init_param,
@@ -223,7 +229,20 @@ void UrdfToSimoxXml::add_hand_tcp_node_(boost::property_tree::ptree & hand_node,
   hand_tcp_node.put("<xmlcomment>", "Translation values were set manually!");
 
   boost::property_tree::ptree Translation_node;
-  this->set_translation_node_(Translation_node, -0.01, -0.035, 0.07);
+
+  const std::string model_name = urdf_model_->getName();
+  if (model_name.compare(robot_name_in_dms_urdf_) == 0) // DMS Hand
+  {
+    this->set_translation_node_(Translation_node, -0.01, -0.035, 0.07);
+  }
+  else if (model_name.compare(robot_name_in_shadowhand_urdf_) == 0) // Shadow Hand
+  {
+    this->set_translation_node_(Translation_node, 0.0, .0, 0.1);
+  }
+  else // Other Hand
+  {
+    this->set_translation_node_(Translation_node, 0.0, 0.0, 0.0);
+  }
 
   boost::property_tree::ptree Transform_node;
   Transform_node.add_child("Translation", Translation_node);
@@ -241,10 +260,24 @@ void UrdfToSimoxXml::add_hand_gcp_node_(boost::property_tree::ptree & hand_node,
   hand_gcp_node.put("<xmlcomment>", "Translation and rollpitchyaw values were set manually!");
 
   boost::property_tree::ptree Translation_node;
-  this->set_translation_node_(Translation_node, -0.01, -0.035, 0.07);
-
   boost::property_tree::ptree rollpitchyaw_node;
-  this->set_rollpitchyaw_node_(rollpitchyaw_node, 1.0, 0.0, 0.0);
+
+  const std::string model_name = urdf_model_->getName();
+  if (model_name.compare(robot_name_in_dms_urdf_) == 0) // DMS Hand
+  {
+    this->set_translation_node_(Translation_node, -0.01, -0.035, 0.07);
+    this->set_rollpitchyaw_node_(rollpitchyaw_node, 1.0, 0.0, 0.0);
+  }
+  else if (model_name.compare(robot_name_in_shadowhand_urdf_) == 0) // Shadow Hand
+  {
+    this->set_translation_node_(Translation_node, 0.0, 0.0, 0.1);
+    this->set_rollpitchyaw_node_(rollpitchyaw_node, 1.0, 0.0, 0.0);
+  }
+  else // Other Hand
+  {
+    this->set_translation_node_(Translation_node, 0.0, 0.0, 0.0);
+    this->set_rollpitchyaw_node_(rollpitchyaw_node, 1.0, 0.0, 0.0);
+  }
 
   boost::property_tree::ptree Transform_node;
   Transform_node.add_child("Translation", Translation_node);

@@ -159,6 +159,9 @@ private:
   QWidget *window_;
 
   static const std::string mesh_dir_name_;
+
+  static const std::string robot_name_in_dms_urdf_;
+  static const std::string robot_name_in_shadowhand_urdf_;
 };
 
 }
