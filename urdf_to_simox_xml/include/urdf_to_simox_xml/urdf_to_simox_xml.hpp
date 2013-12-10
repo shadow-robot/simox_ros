@@ -76,10 +76,6 @@ private:
                        boost::shared_ptr<const urdf::Link> link,
                        boost::property_tree::ptree &link_node);
 
-  void add_collision_node(boost::shared_ptr<urdf::Collision> collision,
-                          boost::shared_ptr<const urdf::Link> link,
-                          boost::property_tree::ptree &link_node);
-
   std::string parse_geometry(boost::shared_ptr<const urdf::Link> link,
                              boost::shared_ptr<urdf::Geometry> geometry);
 

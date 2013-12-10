@@ -329,10 +329,16 @@ void UrdfToSimoxXml::add_visual_node(boost::shared_ptr<urdf::Visual> visual,
   Transform_node.add_child("rollpitchyaw", rollpitchyaw_node);
   link_node.add_child("Transform", Transform_node);
 
+  // Parse the visualization node.
+  // Note that collision node is the parsed, because inside URDF,
+  // a visual node and a collision node can have different positions
+  // and orientations. But in Simox XML files, the two nodes share
+  // the same position and the same orientation.
   boost::shared_ptr<urdf::Geometry> geometry = visual->geometry;
   std::string simox_visua_filename = this->parse_geometry(link, geometry);
   std::string simox_colli_filename = simox_visua_filename;
 
+  // Add the visualization node.
   boost::property_tree::ptree Visualization_File_node;
   Visualization_File_node.put("<xmlattr>.type", "Inventor");
   Visualization_File_node.put("<xmltext>", simox_visua_filename);
@@ -342,6 +348,8 @@ void UrdfToSimoxXml::add_visual_node(boost::shared_ptr<urdf::Visual> visual,
   Visualization_node.add_child("File", Visualization_File_node);
   link_node.add_child("Visualization", Visualization_node);
 
+  // Add the collision model node.
+  // Note that the collision model node is identical to the visualization node.
   boost::property_tree::ptree CollisionModel_File_node;
   CollisionModel_File_node.put("<xmlattr>.type", "Inventor");
   CollisionModel_File_node.put("<xmltext>", simox_colli_filename);
@@ -349,15 +357,6 @@ void UrdfToSimoxXml::add_visual_node(boost::shared_ptr<urdf::Visual> visual,
   boost::property_tree::ptree CollisionModel_node;
   CollisionModel_node.add_child("File", CollisionModel_File_node);
   link_node.add_child("CollisionModel", CollisionModel_node);
-}
-
-//-------------------------------------------------------------------------------
-
-void UrdfToSimoxXml::add_collision_node(boost::shared_ptr<urdf::Collision> collision,
-                                        boost::shared_ptr<const urdf::Link> link,
-                                        boost::property_tree::ptree &link_node)
-{
-
 }
 
 //-------------------------------------------------------------------------------
@@ -373,11 +372,6 @@ void UrdfToSimoxXml::add_link_node_(boost::property_tree::ptree & hand_node,
   boost::shared_ptr<urdf::Visual> visual = link->visual;
   if (visual)
     this->add_visual_node(visual, link, link_node);
-
-  // Add the collision node.
-  boost::shared_ptr<urdf::Collision> collision = link->collision;
-  if (collision)
-    this->add_collision_node(collision, link, link_node);
 
   std::vector< boost::shared_ptr<urdf::Joint> > child_joints;
   child_joints = link->child_joints;
