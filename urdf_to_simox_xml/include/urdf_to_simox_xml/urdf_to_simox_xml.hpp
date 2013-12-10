@@ -81,14 +81,14 @@ private:
 
 private:
   void add_endeffector_node_(boost::property_tree::ptree & hand_node,
-                             const std::string & hand_name_upper,
+                             const std::string & hand_name_upper_case,
                              const std::string & hand_base,
                              const std::string & hand_tcp,
                              const std::string & hand_gcp,
                              const std::string & base_link);
 
   void add_hand_joints_node_(boost::property_tree::ptree & hand_node,
-                             const std::string & hand_name_upper);
+                             const std::string & hand_name_upper_case);
 
   void get_actors(std::map<int, bool>& actors);
 
