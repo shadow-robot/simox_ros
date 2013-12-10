@@ -156,6 +156,10 @@ private:
 
   boost::shared_ptr<urdf::Link> base_link_;
 
+  // All joints and links that have been converted to Simox.
+  std::vector< boost::shared_ptr<const urdf::Link> > simox_links_;
+  std::vector< boost::shared_ptr<const urdf::Joint> > simox_joints_;
+
   QWidget *window_;
 
   static const std::string mesh_dir_name_;

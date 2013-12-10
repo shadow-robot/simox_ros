@@ -129,6 +129,9 @@ UrdfToSimoxXml::~UrdfToSimoxXml()
 void UrdfToSimoxXml::write_xml(const std::string& output_dir,
                                const std::string& simox_xml_filename)
 {
+  // No link has been converted to Simox.
+  simox_links_.clear();
+
   // Obtain the name of the hand from simox_xml_filename.
   std::list<std::string> stringList;
   boost::iter_split(stringList, simox_xml_filename, boost::first_finder("."));
@@ -404,6 +407,8 @@ void UrdfToSimoxXml::add_visual_node(boost::shared_ptr<urdf::Visual> visual,
 void UrdfToSimoxXml::add_link_node_(boost::property_tree::ptree & hand_node,
                                     boost::shared_ptr<const urdf::Link> link)
 {
+  simox_links_.push_back(link);
+
   boost::property_tree::ptree link_node;
   link_node.put("<xmlattr>.name", link->name);
 
@@ -435,6 +440,8 @@ void UrdfToSimoxXml::add_link_node_(boost::property_tree::ptree & hand_node,
 void UrdfToSimoxXml::add_joint_node_(boost::property_tree::ptree & hand_node,
                                      boost::shared_ptr<const urdf::Joint> child_joint)
 {
+  simox_joints_.push_back(child_joint);
+
   boost::property_tree::ptree child_joint_node;
   child_joint_node.put("<xmlattr>.name", child_joint->name);
 
@@ -539,17 +546,17 @@ void UrdfToSimoxXml::add_endeffector_node_(boost::property_tree::ptree & hand_no
   this->get_actors(actors);
   for(std::map<int,bool>::iterator iter = actors.begin(); iter != actors.end(); ++iter)
   {
-    char actor_name = static_cast<char>(iter->first);
+    char actor_name = toupper(static_cast<char>(iter->first));
 
     boost::property_tree::ptree Actor_node;
     Actor_node.put("<xmlattr>.name", actor_name);
     Actor_node.put("<xmlcomment>", "This is just a template. Please set values manually!");
     Actor_node.put("<xmlcomment>", "Note that considerCollisions = None, Actors, or All!");
 
-    BOOST_FOREACH(boost::shared_ptr<const urdf::Link> link, links_)
+    BOOST_FOREACH(boost::shared_ptr<const urdf::Link> link, simox_links_)
     {
       const char& first_char = link->name.at(0);
-      if (actor_name == first_char)
+      if (actor_name == toupper(first_char))
       {
         boost::property_tree::ptree Node_node;
         Node_node.put("<xmlattr>.name", link->name);
@@ -558,10 +565,10 @@ void UrdfToSimoxXml::add_endeffector_node_(boost::property_tree::ptree & hand_no
       }
     }
 
-    BOOST_FOREACH(boost::shared_ptr<const urdf::Joint> joint, joints_)
+    BOOST_FOREACH(boost::shared_ptr<const urdf::Joint> joint, simox_joints_)
     {
       const char& first_char = joint->name.at(0);
-      if (actor_name ==  first_char)
+      if (actor_name == toupper(first_char))
       {
         boost::property_tree::ptree Node_node;
         Node_node.put("<xmlattr>.name", joint->name);
@@ -599,10 +606,10 @@ void UrdfToSimoxXml::add_hand_joints_node_(boost::property_tree::ptree & hand_no
 void UrdfToSimoxXml::get_actors(std::map<int, bool>& actors)
 {
   actors.clear();
-  BOOST_FOREACH(boost::shared_ptr<const urdf::Joint> joint, joints_)
+  BOOST_FOREACH(boost::shared_ptr<const urdf::Joint> joint, simox_joints_)
   {
     const char& first_char = joint->name.at(0);
-    const int first_int = static_cast<int>(first_char);
+    const int first_int = toupper(static_cast<int>(first_char));
     if (actors.find(first_int) == actors.end())
       actors[first_int] = true;
   }
