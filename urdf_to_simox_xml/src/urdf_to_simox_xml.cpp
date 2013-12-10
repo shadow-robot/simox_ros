@@ -237,11 +237,11 @@ void UrdfToSimoxXml::add_hand_tcp_node_(boost::property_tree::ptree & hand_node,
   const std::string model_name = urdf_model_->getName();
   if (model_name.compare(robot_name_in_dms_urdf_) == 0) // DMS Hand
   {
-    this->set_translation_node_(Translation_node, -0.01, -0.035, 0.07);
+    this->set_translation_node_(Translation_node, 0.0, 0.0, 0.12);
   }
   else if (model_name.compare(robot_name_in_shadowhand_urdf_) == 0) // Shadow Hand
   {
-    this->set_translation_node_(Translation_node, 0.0, .0, 0.1);
+    this->set_translation_node_(Translation_node, 0.0, 0.0, 0.375);
   }
   else // Other Hand
   {
