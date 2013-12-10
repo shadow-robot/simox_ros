@@ -150,6 +150,9 @@ private:
 
   std::vector< boost::shared_ptr<urdf::Joint> > joints_;
 
+  typedef std::map< std::string, boost::shared_ptr<urdf::Material> > name2material;
+  name2material materials_;
+
   boost::shared_ptr<urdf::Link> base_link_;
 
   QWidget *window_;

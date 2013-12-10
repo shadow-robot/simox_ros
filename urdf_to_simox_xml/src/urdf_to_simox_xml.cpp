@@ -80,6 +80,9 @@ UrdfToSimoxXml::UrdfToSimoxXml(const bool urdf_init_param,
     }
   }
 
+  // Get all materials in the model.
+  materials_ = urdf_model_->materials_;
+
   // Get all links in the model.
   urdf_model_->getLinks(links_);
   if (links_.empty())
