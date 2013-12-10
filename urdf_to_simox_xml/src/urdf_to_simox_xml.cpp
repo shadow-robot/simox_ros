@@ -146,7 +146,9 @@ void UrdfToSimoxXml::write_xml(const std::string& output_dir,
   ptree pt;
 
   // TCP = Tool Center Point
-  // GCP = Grasp Center Point
+  //   TCP is the point in relation to which all robot positioning is defined.
+  // GCP = Grasp Center Point.
+  //   GCP defines the favorite grasping position and an approach direction.
   std::string hand_base(hand_name_lower_case + "_hand_base");
   std::string hand_tcp(hand_name_lower_case + "_hand_tcp");
   std::string hand_gcp(hand_name_lower_case + "_hand_gcp");
