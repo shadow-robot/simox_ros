@@ -1,4 +1,3 @@
-#include "sr_grasp_mesh_planner/mesh_obstacle.hpp"
 #include "sr_grasp_mesh_planner/read_ply.hpp"
 #include <sr_grasp_msgs/PlanGraspAction.h>
 #include <geometry_msgs/Point.h>
@@ -14,7 +13,7 @@
 
 //-------------------------------------------------------------------------------
 
-using namespace sr_grasp_mesh_planner;
+using sr_grasp_mesh_planner::ReadPLY;
 
 //-------------------------------------------------------------------------------
 
