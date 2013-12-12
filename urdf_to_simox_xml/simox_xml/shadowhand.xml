@@ -24,10 +24,10 @@
 			<rollpitchyaw roll="0.000" pitch="-0.000" yaw="0.000" unitsAngle="radian"/>
 		</Transform>
 		<Visualization enable="true">
-			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/meshes/forearm.wrl</File>
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/forearm.wrl</File>
 		</Visualization>
 		<CollisionModel>
-			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/meshes/forearm.wrl</File>
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/forearm.wrl</File>
 		</CollisionModel>
 		<Child name="WRJ2"/>
 	</RobotNode>
@@ -48,10 +48,10 @@
 			<rollpitchyaw roll="0.000" pitch="-0.000" yaw="0.000" unitsAngle="radian"/>
 		</Transform>
 		<Visualization enable="true">
-			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/meshes/wrist.wrl</File>
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/wrist.wrl</File>
 		</Visualization>
 		<CollisionModel>
-			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/meshes/wrist.wrl</File>
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/wrist.wrl</File>
 		</CollisionModel>
 		<Child name="WRJ1"/>
 	</RobotNode>
@@ -72,10 +72,10 @@
 			<rollpitchyaw roll="0.000" pitch="-0.000" yaw="0.000" unitsAngle="radian"/>
 		</Transform>
 		<Visualization enable="true">
-			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/meshes/palm.wrl</File>
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/palm.wrl</File>
 		</Visualization>
 		<CollisionModel>
-			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/meshes/palm.wrl</File>
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/palm.wrl</File>
 		</CollisionModel>
 		<Child name="FFJ4"/>
 		<Child name="LFJ5"/>
@@ -100,10 +100,10 @@
 			<rollpitchyaw roll="0.000" pitch="-0.000" yaw="0.000" unitsAngle="radian"/>
 		</Transform>
 		<Visualization enable="true">
-			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/meshes/knuckle.wrl</File>
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/knuckle.wrl</File>
 		</Visualization>
 		<CollisionModel>
-			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/meshes/knuckle.wrl</File>
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/knuckle.wrl</File>
 		</CollisionModel>
 		<Child name="FFJ3"/>
 	</RobotNode>
@@ -124,10 +124,10 @@
 			<rollpitchyaw roll="0.000" pitch="-0.000" yaw="0.000" unitsAngle="radian"/>
 		</Transform>
 		<Visualization enable="true">
-			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/meshes/F3.wrl</File>
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/F3.wrl</File>
 		</Visualization>
 		<CollisionModel>
-			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/meshes/F3.wrl</File>
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/F3.wrl</File>
 		</CollisionModel>
 		<Child name="FFJ2"/>
 	</RobotNode>
@@ -148,10 +148,10 @@
 			<rollpitchyaw roll="0.000" pitch="-0.000" yaw="0.000" unitsAngle="radian"/>
 		</Transform>
 		<Visualization enable="true">
-			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/meshes/F2.wrl</File>
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/F2.wrl</File>
 		</Visualization>
 		<CollisionModel>
-			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/meshes/F2.wrl</File>
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/F2.wrl</File>
 		</CollisionModel>
 		<Child name="FFJ1"/>
 	</RobotNode>
@@ -172,10 +172,10 @@
 			<rollpitchyaw roll="0.000" pitch="-0.000" yaw="0.000" unitsAngle="radian"/>
 		</Transform>
 		<Visualization enable="true">
-			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/meshes/distal_ellipsoid.wrl</File>
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/distal_ellipsoid.wrl</File>
 		</Visualization>
 		<CollisionModel>
-			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/meshes/distal_ellipsoid.wrl</File>
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/distal_ellipsoid.wrl</File>
 		</CollisionModel>
 		<Child name="FFtip"/>
 	</RobotNode>
@@ -203,10 +203,10 @@
 			<rollpitchyaw roll="0.000" pitch="-0.000" yaw="0.000" unitsAngle="radian"/>
 		</Transform>
 		<Visualization enable="true">
-			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/meshes/lfmetacarpal.wrl</File>
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/lfmetacarpal.wrl</File>
 		</Visualization>
 		<CollisionModel>
-			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/meshes/lfmetacarpal.wrl</File>
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/lfmetacarpal.wrl</File>
 		</CollisionModel>
 		<Child name="LFJ4"/>
 	</RobotNode>
@@ -227,10 +227,10 @@
 			<rollpitchyaw roll="0.000" pitch="-0.000" yaw="0.000" unitsAngle="radian"/>
 		</Transform>
 		<Visualization enable="true">
-			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/meshes/knuckle.wrl</File>
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/knuckle.wrl</File>
 		</Visualization>
 		<CollisionModel>
-			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/meshes/knuckle.wrl</File>
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/knuckle.wrl</File>
 		</CollisionModel>
 		<Child name="LFJ3"/>
 	</RobotNode>
@@ -251,10 +251,10 @@
 			<rollpitchyaw roll="0.000" pitch="-0.000" yaw="0.000" unitsAngle="radian"/>
 		</Transform>
 		<Visualization enable="true">
-			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/meshes/F3.wrl</File>
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/F3.wrl</File>
 		</Visualization>
 		<CollisionModel>
-			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/meshes/F3.wrl</File>
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/F3.wrl</File>
 		</CollisionModel>
 		<Child name="LFJ2"/>
 	</RobotNode>
@@ -275,10 +275,10 @@
 			<rollpitchyaw roll="0.000" pitch="-0.000" yaw="0.000" unitsAngle="radian"/>
 		</Transform>
 		<Visualization enable="true">
-			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/meshes/F2.wrl</File>
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/F2.wrl</File>
 		</Visualization>
 		<CollisionModel>
-			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/meshes/F2.wrl</File>
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/F2.wrl</File>
 		</CollisionModel>
 		<Child name="LFJ1"/>
 	</RobotNode>
@@ -299,10 +299,10 @@
 			<rollpitchyaw roll="0.000" pitch="-0.000" yaw="0.000" unitsAngle="radian"/>
 		</Transform>
 		<Visualization enable="true">
-			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/meshes/distal_ellipsoid.wrl</File>
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/distal_ellipsoid.wrl</File>
 		</Visualization>
 		<CollisionModel>
-			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/meshes/distal_ellipsoid.wrl</File>
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/distal_ellipsoid.wrl</File>
 		</CollisionModel>
 		<Child name="LFtip"/>
 	</RobotNode>
@@ -330,10 +330,10 @@
 			<rollpitchyaw roll="0.000" pitch="-0.000" yaw="0.000" unitsAngle="radian"/>
 		</Transform>
 		<Visualization enable="true">
-			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/meshes/knuckle.wrl</File>
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/knuckle.wrl</File>
 		</Visualization>
 		<CollisionModel>
-			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/meshes/knuckle.wrl</File>
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/knuckle.wrl</File>
 		</CollisionModel>
 		<Child name="MFJ3"/>
 	</RobotNode>
@@ -354,10 +354,10 @@
 			<rollpitchyaw roll="0.000" pitch="-0.000" yaw="0.000" unitsAngle="radian"/>
 		</Transform>
 		<Visualization enable="true">
-			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/meshes/F3.wrl</File>
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/F3.wrl</File>
 		</Visualization>
 		<CollisionModel>
-			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/meshes/F3.wrl</File>
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/F3.wrl</File>
 		</CollisionModel>
 		<Child name="MFJ2"/>
 	</RobotNode>
@@ -378,10 +378,10 @@
 			<rollpitchyaw roll="0.000" pitch="-0.000" yaw="0.000" unitsAngle="radian"/>
 		</Transform>
 		<Visualization enable="true">
-			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/meshes/F2.wrl</File>
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/F2.wrl</File>
 		</Visualization>
 		<CollisionModel>
-			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/meshes/F2.wrl</File>
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/F2.wrl</File>
 		</CollisionModel>
 		<Child name="MFJ1"/>
 	</RobotNode>
@@ -402,10 +402,10 @@
 			<rollpitchyaw roll="0.000" pitch="-0.000" yaw="0.000" unitsAngle="radian"/>
 		</Transform>
 		<Visualization enable="true">
-			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/meshes/distal_ellipsoid.wrl</File>
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/distal_ellipsoid.wrl</File>
 		</Visualization>
 		<CollisionModel>
-			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/meshes/distal_ellipsoid.wrl</File>
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/distal_ellipsoid.wrl</File>
 		</CollisionModel>
 		<Child name="MFtip"/>
 	</RobotNode>
@@ -433,10 +433,10 @@
 			<rollpitchyaw roll="0.000" pitch="-0.000" yaw="0.000" unitsAngle="radian"/>
 		</Transform>
 		<Visualization enable="true">
-			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/meshes/knuckle.wrl</File>
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/knuckle.wrl</File>
 		</Visualization>
 		<CollisionModel>
-			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/meshes/knuckle.wrl</File>
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/knuckle.wrl</File>
 		</CollisionModel>
 		<Child name="RFJ3"/>
 	</RobotNode>
@@ -457,10 +457,10 @@
 			<rollpitchyaw roll="0.000" pitch="-0.000" yaw="0.000" unitsAngle="radian"/>
 		</Transform>
 		<Visualization enable="true">
-			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/meshes/F3.wrl</File>
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/F3.wrl</File>
 		</Visualization>
 		<CollisionModel>
-			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/meshes/F3.wrl</File>
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/F3.wrl</File>
 		</CollisionModel>
 		<Child name="RFJ2"/>
 	</RobotNode>
@@ -481,10 +481,10 @@
 			<rollpitchyaw roll="0.000" pitch="-0.000" yaw="0.000" unitsAngle="radian"/>
 		</Transform>
 		<Visualization enable="true">
-			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/meshes/F2.wrl</File>
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/F2.wrl</File>
 		</Visualization>
 		<CollisionModel>
-			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/meshes/F2.wrl</File>
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/F2.wrl</File>
 		</CollisionModel>
 		<Child name="RFJ1"/>
 	</RobotNode>
@@ -505,10 +505,10 @@
 			<rollpitchyaw roll="0.000" pitch="-0.000" yaw="0.000" unitsAngle="radian"/>
 		</Transform>
 		<Visualization enable="true">
-			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/meshes/distal_ellipsoid.wrl</File>
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/distal_ellipsoid.wrl</File>
 		</Visualization>
 		<CollisionModel>
-			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/meshes/distal_ellipsoid.wrl</File>
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/distal_ellipsoid.wrl</File>
 		</CollisionModel>
 		<Child name="RFtip"/>
 	</RobotNode>
@@ -536,10 +536,10 @@
 			<rollpitchyaw roll="0.000" pitch="-0.000" yaw="0.000" unitsAngle="radian"/>
 		</Transform>
 		<Visualization enable="true">
-			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/meshes/thbase_cube.iv</File>
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/thbase_cube.iv</File>
 		</Visualization>
 		<CollisionModel>
-			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/meshes/thbase_cube.iv</File>
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/thbase_cube.iv</File>
 		</CollisionModel>
 		<Child name="THJ4"/>
 	</RobotNode>
@@ -560,10 +560,10 @@
 			<rollpitchyaw roll="0.000" pitch="-0.000" yaw="0.000" unitsAngle="radian"/>
 		</Transform>
 		<Visualization enable="true">
-			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/meshes/TH3_z.wrl</File>
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/TH3_z.wrl</File>
 		</Visualization>
 		<CollisionModel>
-			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/meshes/TH3_z.wrl</File>
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/TH3_z.wrl</File>
 		</CollisionModel>
 		<Child name="THJ3"/>
 	</RobotNode>
@@ -584,10 +584,10 @@
 			<rollpitchyaw roll="0.000" pitch="-0.000" yaw="0.000" unitsAngle="radian"/>
 		</Transform>
 		<Visualization enable="true">
-			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/meshes/thhub_cube.iv</File>
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/thhub_cube.iv</File>
 		</Visualization>
 		<CollisionModel>
-			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/meshes/thhub_cube.iv</File>
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/thhub_cube.iv</File>
 		</CollisionModel>
 		<Child name="THJ2"/>
 	</RobotNode>
@@ -608,10 +608,10 @@
 			<rollpitchyaw roll="0.000" pitch="-0.000" yaw="0.000" unitsAngle="radian"/>
 		</Transform>
 		<Visualization enable="true">
-			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/meshes/TH2_z.wrl</File>
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/TH2_z.wrl</File>
 		</Visualization>
 		<CollisionModel>
-			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/meshes/TH2_z.wrl</File>
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/TH2_z.wrl</File>
 		</CollisionModel>
 		<Child name="THJ1"/>
 	</RobotNode>
@@ -632,10 +632,10 @@
 			<rollpitchyaw roll="0.000" pitch="-0.000" yaw="0.000" unitsAngle="radian"/>
 		</Transform>
 		<Visualization enable="true">
-			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/meshes/distal_ellipsoid.wrl</File>
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/distal_ellipsoid.wrl</File>
 		</Visualization>
 		<CollisionModel>
-			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/meshes/distal_ellipsoid.wrl</File>
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/distal_ellipsoid.wrl</File>
 		</CollisionModel>
 		<Child name="thtip"/>
 	</RobotNode>
