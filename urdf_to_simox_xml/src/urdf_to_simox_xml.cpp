@@ -39,7 +39,7 @@ using boost::property_tree::ptree;
 
 //-------------------------------------------------------------------------------
 
-const std::string UrdfToSimoxXml::mesh_dir_name_ = std::string("/meshes");
+const std::string UrdfToSimoxXml::model_dir_name_ = std::string("/model");
 
 // The name of the robot node inside dms.urdf.
 const std::string UrdfToSimoxXml::robot_name_in_dms_urdf_ = std::string("four_dof_thumb");
@@ -700,10 +700,10 @@ std::string UrdfToSimoxXml::write_to_iv_file_(const std::string & file_name,
                                        SoSeparator *scene_with_shape)
 {
   std::string simox_filename;
-  std::string mesh_dir = output_dir_ + UrdfToSimoxXml::mesh_dir_name_;
-  if (!boost::filesystem::exists(mesh_dir))
-    boost::filesystem::create_directories(mesh_dir);
-  simox_filename = mesh_dir + "/" + file_name;
+  std::string model_dir = output_dir_ + UrdfToSimoxXml::model_dir_name_;
+  if (!boost::filesystem::exists(model_dir))
+    boost::filesystem::create_directories(model_dir);
+  simox_filename = model_dir + "/" + file_name;
 
   SoWriteAction writeAction;
   writeAction.getOutput()->openFile(simox_filename.c_str());
@@ -866,14 +866,14 @@ std::string UrdfToSimoxXml::convert_mesh_(const std::string & urdf_filename)
   simox_filename = simox_filename.substr(0, simox_filename.find_first_of('.'));
   simox_filename.append(".wrl");
 
-  std::string mesh_dir = output_dir_ + UrdfToSimoxXml::mesh_dir_name_;
-  if (!boost::filesystem::exists(mesh_dir))
-    boost::filesystem::create_directories(mesh_dir);
+  std::string model_dir = output_dir_ + UrdfToSimoxXml::model_dir_name_;
+  if (!boost::filesystem::exists(model_dir))
+    boost::filesystem::create_directories(model_dir);
 
   // Call meshlabserver to convert meshes to wrl.
   // http://en.wikipedia.org/wiki/VRML
   std::stringstream stream;
-  simox_filename = mesh_dir + "/" + simox_filename;
+  simox_filename = model_dir + "/" + simox_filename;
   stream <<"meshlabserver -i " << original_filename << " -o " << simox_filename;
   FILE *fp = popen(stream.str().c_str(), "r");
 
