@@ -3,18 +3,11 @@
 #include "sr_grasp_mesh_planner/sr_approach_movement_surface_normal.hpp"
 #include "sr_grasp_mesh_planner/mesh_obstacle.hpp"
 
-#include <cmath>
-#include <ctime>
-#include <iostream>
-#include <sstream>
-#include <vector>
-
 #include <ros/ros.h>
 
 #include <boost/lexical_cast.hpp>
 #include <boost/thread.hpp>
 #include <Eigen/Geometry>
-#include <QFileDialog>
 
 #include <Inventor/actions/SoLineHighlightRenderAction.h>
 #include <Inventor/nodes/SoShapeHints.h>
@@ -47,13 +40,26 @@ int main(int argc, char** argv)
 
   SoDB::init();
   SoQt::init(argc, argv, "sr_grasp_mesh_planner");
-  std::cout << " --- START --- " << std::endl;
+  ROS_INFO_STREAM(" --- START --- ");
 
+  // You can choose a different robot / endeffector / preshape with command-line arguments:
   // --robot robots/iCub/iCub.xml --endeffector "Left Hand" --preshape "Grasp Preshape"
-  std::string robot("robots/ArmarIII/ArmarIII.xml");
-  VirtualRobot::RuntimeEnvironment::getDataFileAbsolute(robot);
-  std::string eef("Hand R");
-  std::string preshape("");
+  std::string robot("robots/ShadowHand/shadowhand.xml");
+  std::string eef("SHADOWHAND");
+  std::string preshape("Grasp Preshape");
+  if (!VirtualRobot::RuntimeEnvironment::getDataFileAbsolute(robot))
+  {
+    // Shadow hand not found -> Try ArmarIII.
+    ROS_ERROR_STREAM("Shadow hand not found. Try ArmarIII.");
+    robot = std::string("robots/ArmarIII/ArmarIII.xml");
+    eef = std::string("Hand R");
+    preshape = std::string("");
+    if (!VirtualRobot::RuntimeEnvironment::getDataFileAbsolute(robot))
+    {
+      ROS_ERROR_STREAM("Backup robot ArmarIII not found.");
+      return EXIT_FAILURE;
+    }
+  }
 
   VirtualRobot::RuntimeEnvironment::considerKey("robot");
   VirtualRobot::RuntimeEnvironment::considerKey("endeffector");
@@ -73,11 +79,11 @@ int main(int argc, char** argv)
   if (!ps.empty())
     preshape = ps;
 
-  std::cout << "-----------------" << std::endl;
-  std::cout << "Using robot from " << robot <<std:: endl;
-  std::cout << "End effector: " << eef << std::endl;
-  std::cout << "Preshape: " << preshape << std::endl;
-  std::cout << "-----------------" << std::endl;
+  ROS_INFO_STREAM("-----------------");
+  ROS_INFO_STREAM("Using robot from " << robot);
+  ROS_INFO_STREAM("End effector: " << eef);
+  ROS_INFO_STREAM("Preshape: " << preshape);
+  ROS_INFO_STREAM("-----------------");
 
   TriMeshModelPtr skybox = MeshObstacle::create_tri_mesh_skybox();
 
@@ -93,7 +99,7 @@ int main(int argc, char** argv)
   ros::shutdown();
   spin_thread.join();
 
-  return 0;
+  return EXIT_SUCCESS;
 }
 
 //-------------------------------------------------------------------------------
