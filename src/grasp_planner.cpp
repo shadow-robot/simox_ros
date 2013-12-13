@@ -4,6 +4,7 @@
 #include "sr_grasp_mesh_planner/mesh_obstacle.hpp"
 
 #include <ros/ros.h>
+#include <ros/package.h>
 
 //-------------------------------------------------------------------------------
 
@@ -28,13 +29,15 @@ int main(int argc, char** argv)
 
   // You can choose a different robot / endeffector / preshape with command-line arguments:
   // --robot robots/iCub/iCub.xml --endeffector "Left Hand" --preshape "Grasp Preshape"
-  std::string robot("robots/ShadowHand/shadowhand.xml");
+  std::string robot = ros::package::getPath("sr_grasp_description");
+  robot.append("/simox/shadowhand.xml");
   std::string eef("SHADOWHAND");
   std::string preshape("Grasp Preshape");
   if (!VirtualRobot::RuntimeEnvironment::getDataFileAbsolute(robot))
   {
     // Shadow hand not found -> Try ArmarIII.
     ROS_ERROR_STREAM("Shadow hand not found. Try ArmarIII.");
+    // The folder robots should be inside /usr/local/data.
     robot = std::string("robots/ArmarIII/ArmarIII.xml");
     eef = std::string("Hand R");
     preshape = std::string("");
