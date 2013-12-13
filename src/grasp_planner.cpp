@@ -5,22 +5,6 @@
 
 #include <ros/ros.h>
 
-#include <boost/lexical_cast.hpp>
-#include <boost/thread.hpp>
-#include <Eigen/Geometry>
-
-#include <Inventor/actions/SoLineHighlightRenderAction.h>
-#include <Inventor/nodes/SoShapeHints.h>
-#include <Inventor/nodes/SoLightModel.h>
-#include <Inventor/sensors/SoTimerSensor.h>
-#include <Inventor/nodes/SoEventCallback.h>
-#include <Inventor/nodes/SoMatrixTransform.h>
-#include <Inventor/nodes/SoScale.h>
-#include <Inventor/nodes/SoSphere.h>
-#include <Inventor/nodes/SoTransformation.h>
-#include <Inventor/nodes/SoTransform.h>
-#include <Inventor/nodes/SoUnits.h>
-
 //-------------------------------------------------------------------------------
 
 using namespace sr_grasp_mesh_planner;
