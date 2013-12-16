@@ -42,9 +42,11 @@ using boost::property_tree::ptree;
 const std::string UrdfToSimoxXml::model_dir_name_ = std::string("/model");
 
 // The name of the robot node inside dms.urdf.
+// Will be used later when checking which hand model we are actually parsing.
 const std::string UrdfToSimoxXml::robot_name_in_dms_urdf_ = std::string("four_dof_thumb");
 
 // The name of the robot ndoe inside shadowhand.urdf.
+// Will be used later when checking which hand model we are actually parsing.
 const std::string UrdfToSimoxXml::robot_name_in_shadowhand_urdf_ = std::string("shadowhand");
 
 //-------------------------------------------------------------------------------
