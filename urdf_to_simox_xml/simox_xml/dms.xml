@@ -1,563 +1,505 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-
-<Robot Type="DMSHand" RootNode="dms_hand_base">
-
-  <RobotNode name="dms_hand_base">
-    <Child name="dms_hand_tcp"/>
-    <Child name="dms_hand_gcp"/>
-    <Child name="base_link"/>
-  </RobotNode>
-
-  <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-
-  <RobotNode name="dms_hand_tcp">
-    <Transform>
-      <Translation x="-0.01" y="-0.035" z="0.07" unitsLength="m"/>
-    </Transform>
-  </RobotNode>
-
-  <RobotNode name="dms_hand_gcp">
-    <Transform>
-      <Translation x="-0.01" y="-0.035" z="0.07" unitsLength="m"/>
-      <rollpitchyaw roll="1.0" pitch="0" yaw="0" unitsAngle="radian"/>
-    </Transform>
-  </RobotNode>
-
-  <RobotNode name="base_link">
-    <Transform>
-      <Translation x="0" y="0" z="0" unitsLength="m"/>
-      <rollpitchyaw roll="0" pitch="0" yaw="0" unitsAngle="radian"/>
-    </Transform>
-    <Visualization enable="true">
-      <File type="Inventor">../../meshes/wrl/base_link.wrl</File>
-    </Visualization>
-    <CollisionModel>
-      <File type="Inventor">../../meshes/wrl/base_link.wrl</File>
-    </CollisionModel>
-    <Child name="ffj1"/>
-    <Child name="mfj1"/>
-    <Child name="lfj1"/>
-    <Child name="thj1"/>
-  </RobotNode>
-
-  <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-
-  <RobotNode name="ffj1">
-    <Transform>
-      <Translation x="0.015" y="0" z="0.085" unitsLength="m"/>
-      <rollpitchyaw roll="0" pitch="0" yaw="0" unitsAngle="radian"/>
-    </Transform>
-    <Joint type="revolute">
-      <Axis x="0" y="1" z="0"/>
-      <!--Limits unit="radian" lo="-0.35" hi="0.523"/-->
-      <Limits unit="radian" lo="0" hi="0"/>
-    </Joint>
-    <Child name="fk"/>
-  </RobotNode>
-
-  <RobotNode name="fk">
-    <Transform>
-      <Translation x="0" y="0" z="0" unitsLength="m"/>
-      <rollpitchyaw roll="0" pitch="0" yaw="0" unitsAngle="radian"/>
-    </Transform>
-    <Visualization enable="true">
-      <File type="Inventor">../../meshes/wrl/fk.wrl</File>
-    </Visualization>
-    <CollisionModel>
-      <File type="Inventor">../../meshes/wrl/fk.wrl</File>
-    </CollisionModel>
-    <Child name="ffj2"/>
-  </RobotNode>
-
-  <RobotNode name="ffj2">
-    <Transform>
-      <Translation x="0" y="0" z="0" unitsLength="m"/>
-      <rollpitchyaw roll="0" pitch="0" yaw="0" unitsAngle="radian"/>
-    </Transform>
-    <Joint type="revolute">
-      <Axis x="1" y="0" z="0"/>
-      <Limits unit="radian" lo="0" hi="1.7"/>
-    </Joint>
-    <Child name="fp"/>
-  </RobotNode>
-
-  <RobotNode name="fp">
-    <Transform>
-      <Translation x="0" y="0" z="0" unitsLength="m"/>
-      <rollpitchyaw roll="0" pitch="0" yaw="0" unitsAngle="radian"/>
-    </Transform>
-    <Visualization enable="true">
-      <File type="Inventor">../../meshes/wrl/fp.wrl</File>
-    </Visualization>
-    <CollisionModel>
-      <File type="Inventor">../../meshes/wrl/fp.wrl</File>
-    </CollisionModel>
-    <Child name="ffj3"/>
-  </RobotNode>
-
-  <RobotNode name="ffj3">
-    <Transform>
-      <Translation x="0" y="0" z="0.045" unitsLength="m"/>
-      <rollpitchyaw roll="0" pitch="0" yaw="0" unitsAngle="radian"/>
-    </Transform>
-    <Joint type="revolute">
-      <Axis x="1" y="0" z="0"/>
-      <Limits unit="radian" lo="0" hi="1.7"/>
-    </Joint>
-    <Child name="fm"/>
-  </RobotNode>
-
-  <RobotNode name="fm">
-    <Transform>
-      <Translation x="0" y="0" z="0" unitsLength="m"/>
-      <rollpitchyaw roll="0" pitch="0" yaw="0" unitsAngle="radian"/>
-    </Transform>
-    <Visualization enable="true">
-      <File type="Inventor">../../meshes/wrl/fm.wrl</File>
-    </Visualization>
-    <CollisionModel>
-      <File type="Inventor">../../meshes/wrl/fm.wrl</File>
-    </CollisionModel>
-    <Child name="ffj4"/>
-  </RobotNode>
-
-  <RobotNode name="ffj4">
-    <Transform>
-      <Translation x="0" y="0" z="0.02" unitsLength="m"/>
-      <rollpitchyaw roll="0" pitch="0" yaw="0" unitsAngle="radian"/>
-    </Transform>
-    <Joint type="revolute">
-      <Axis x="1" y="0" z="0"/>
-      <Limits unit="radian" lo="0" hi="1.7"/>
-    </Joint>
-    <Child name="fd"/>
-  </RobotNode>
-
-  <RobotNode name="fd">
-    <Transform>
-      <Translation x="0" y="0" z="0" unitsLength="m"/>
-      <rollpitchyaw roll="0" pitch="0" yaw="0" unitsAngle="radian"/>
-    </Transform>
-    <Visualization enable="true">
-      <File type="Inventor">../../meshes/wrl/fd.wrl</File>
-    </Visualization>
-    <CollisionModel>
-      <File type="Inventor">../../meshes/wrl/fd.wrl</File>
-    </CollisionModel>
-  </RobotNode>
-
-  <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-
-  <RobotNode name="mfj1">
-    <Transform>
-      <Translation x="-0.015" y="0" z="0.09" unitsLength="m"/>
-      <rollpitchyaw roll="0" pitch="0" yaw="0" unitsAngle="radian"/>
-    </Transform>
-    <Joint type="revolute">
-      <Axis x="0" y="1" z="0"/>
-      <!--Limits unit="radian" lo="-0.4" hi="0.4"/-->
-      <Limits unit="radian" lo="0" hi="0"/>
-    </Joint>
-    <Child name="mk"/>
-  </RobotNode>
-
-  <RobotNode name="mk">
-    <Transform>
-      <Translation x="0" y="0" z="0" unitsLength="m"/>
-      <rollpitchyaw roll="0" pitch="0" yaw="0" unitsAngle="radian"/>
-    </Transform>
-    <Visualization enable="true">
-      <File type="Inventor">../../meshes/wrl/mk.wrl</File>
-    </Visualization>
-    <CollisionModel>
-      <File type="Inventor">../../meshes/wrl/mk.wrl</File>
-    </CollisionModel>
-    <Child name="mfj2"/>
-  </RobotNode>
-
-  <RobotNode name="mfj2">
-    <Transform>
-      <Translation x="0" y="0" z="0" unitsLength="m"/>
-      <rollpitchyaw roll="0" pitch="0" yaw="0" unitsAngle="radian"/>
-    </Transform>
-    <Joint type="revolute">
-      <Axis x="1" y="0" z="0"/>
-      <Limits unit="radian" lo="0" hi="1.7"/>
-    </Joint>
-    <Child name="mp"/>
-  </RobotNode>
-
-  <RobotNode name="mp">
-    <Transform>
-      <Translation x="0" y="0" z="0" unitsLength="m"/>
-      <rollpitchyaw roll="0" pitch="0" yaw="0" unitsAngle="radian"/>
-    </Transform>
-    <Visualization enable="true">
-      <File type="Inventor">../../meshes/wrl/mp.wrl</File>
-    </Visualization>
-    <CollisionModel>
-      <File type="Inventor">../../meshes/wrl/mp.wrl</File>
-    </CollisionModel>
-    <Child name="mfj3"/>
-  </RobotNode>
-
-  <RobotNode name="mfj3">
-    <Transform>
-      <Translation x="0" y="0" z="0.045" unitsLength="m"/>
-      <rollpitchyaw roll="0" pitch="0" yaw="0" unitsAngle="radian"/>
-    </Transform>
-    <Joint type="revolute">
-      <Axis x="1" y="0" z="0"/>
-      <Limits unit="radian" lo="0" hi="1.7"/>
-    </Joint>
-    <Child name="mm"/>
-  </RobotNode>
-
-  <RobotNode name="mm">
-    <Transform>
-      <Translation x="0" y="0" z="0" unitsLength="m"/>
-      <rollpitchyaw roll="0" pitch="0" yaw="0" unitsAngle="radian"/>
-    </Transform>
-    <Visualization enable="true">
-      <File type="Inventor">../../meshes/wrl/mm.wrl</File>
-    </Visualization>
-    <CollisionModel>
-      <File type="Inventor">../../meshes/wrl/mm.wrl</File>
-    </CollisionModel>
-    <Child name="mfj4"/>
-  </RobotNode>
-
-  <RobotNode name="mfj4">
-    <Transform>
-      <Translation x="0" y="0.00089137" z="0.01998" unitsLength="m"/>
-      <rollpitchyaw roll="0" pitch="0" yaw="0" unitsAngle="radian"/>
-    </Transform>
-    <Joint type="revolute">
-      <Axis x="1" y="0" z="0"/>
-      <Limits unit="radian" lo="0" hi="1.7"/>
-    </Joint>
-    <Child name="md"/>
-  </RobotNode>
-
-  <RobotNode name="md">
-    <Transform>
-      <Translation x="0" y="0" z="0" unitsLength="m"/>
-      <rollpitchyaw roll="0" pitch="0" yaw="0" unitsAngle="radian"/>
-    </Transform>
-    <Visualization enable="true">
-      <File type="Inventor">../../meshes/wrl/md.wrl</File>
-    </Visualization>
-    <CollisionModel>
-      <File type="Inventor">../../meshes/wrl/md.wrl</File>
-    </CollisionModel>
-  </RobotNode>
-
-  <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-
-  <RobotNode name="lfj1">
-    <Transform>
-      <Translation x="-0.045" y="0" z="0.085" unitsLength="m"/>
-      <rollpitchyaw roll="0" pitch="0" yaw="0" unitsAngle="radian"/>
-    </Transform>
-    <Joint type="revolute">
-      <Axis x="0" y="1" z="0"/>
-      <!--Limits unit="radian" lo="-0.4" hi="0.4"/-->
-      <Limits unit="radian" lo="0" hi="0"/>
-    </Joint>
-    <Child name="lk"/>
-  </RobotNode>
-
-  <RobotNode name="lk">
-    <Transform>
-      <Translation x="0" y="0" z="0" unitsLength="m"/>
-      <rollpitchyaw roll="0" pitch="0" yaw="0" unitsAngle="radian"/>
-    </Transform>
-    <Visualization enable="true">
-      <File type="Inventor">../../meshes/wrl/lk.wrl</File>
-    </Visualization>
-    <CollisionModel>
-      <File type="Inventor">../../meshes/wrl/lk.wrl</File>
-    </CollisionModel>
-    <Child name="lfj2"/>
-  </RobotNode>
-
-  <RobotNode name="lfj2">
-    <Transform>
-      <Translation x="0" y="0" z="0" unitsLength="m"/>
-      <rollpitchyaw roll="0" pitch="0" yaw="0" unitsAngle="radian"/>
-    </Transform>
-    <Joint type="revolute">
-      <Axis x="1" y="0" z="0"/>
-      <Limits unit="radian" lo="0" hi="1.7"/>
-    </Joint>
-    <Child name="lp"/>
-  </RobotNode>
-
-  <RobotNode name="lp">
-    <Transform>
-      <Translation x="0" y="0" z="0" unitsLength="m"/>
-      <rollpitchyaw roll="0" pitch="0" yaw="0" unitsAngle="radian"/>
-    </Transform>
-    <Visualization enable="true">
-      <File type="Inventor">../../meshes/wrl/lp.wrl</File>
-    </Visualization>
-    <CollisionModel>
-      <File type="Inventor">../../meshes/wrl/lp.wrl</File>
-    </CollisionModel>
-    <Child name="lfj3"/>
-  </RobotNode>
-
-  <RobotNode name="lfj3">
-    <Transform>
-      <Translation x="0" y="0" z="0.045" unitsLength="m"/>
-      <rollpitchyaw roll="0" pitch="0" yaw="0" unitsAngle="radian"/>
-    </Transform>
-    <Joint type="revolute">
-      <Axis x="1" y="0" z="0"/>
-      <Limits unit="radian" lo="0" hi="1.7"/>
-    </Joint>
-    <Child name="lm"/>
-  </RobotNode>
-
-  <RobotNode name="lm">
-    <Transform>
-      <Translation x="0" y="0" z="0" unitsLength="m"/>
-      <rollpitchyaw roll="0" pitch="0" yaw="0" unitsAngle="radian"/>
-    </Transform>
-    <Visualization enable="true">
-      <File type="Inventor">../../meshes/wrl/lm.wrl</File>
-    </Visualization>
-    <CollisionModel>
-      <File type="Inventor">../../meshes/wrl/lm.wrl</File>
-    </CollisionModel>
-    <Child name="lfj4"/>
-  </RobotNode>
-
-  <RobotNode name="lfj4">
-    <Transform>
-      <Translation x="0" y="0.00089137" z="0.01998" unitsLength="m"/>
-      <rollpitchyaw roll="0" pitch="0" yaw="0" unitsAngle="radian"/>
-    </Transform>
-    <Joint type="revolute">
-      <Axis x="1" y="0" z="0"/>
-      <Limits unit="radian" lo="0" hi="1.7"/>
-    </Joint>
-    <Child name="ld"/>
-  </RobotNode>
-
-  <RobotNode name="ld">
-    <Transform>
-      <Translation x="0" y="0" z="0" unitsLength="m"/>
-      <rollpitchyaw roll="0" pitch="0" yaw="0" unitsAngle="radian"/>
-    </Transform>
-    <Visualization enable="true">
-      <File type="Inventor">../../meshes/wrl/ld.wrl</File>
-    </Visualization>
-    <CollisionModel>
-      <File type="Inventor">../../meshes/wrl/ld.wrl</File>
-    </CollisionModel>
-  </RobotNode>
-
-  <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-
-  <RobotNode name="thj1">
-    <Transform>
-      <Translation x="0.015" y="0" z="0.02" unitsLength="m"/>
-      <rollpitchyaw roll="0" pitch="0" yaw="0" unitsAngle="radian"/>
-    </Transform>
-    <Joint type="revolute">
-      <Axis x="0" y="0" z="-1"/>
-      <Limits unit="radian" lo="0" hi="1.7"/>
-    </Joint>
-    <Child name="tb"/>
-  </RobotNode>
-
-  <RobotNode name="tb">
-    <Transform>
-      <Translation x="0" y="0" z="0" unitsLength="m"/>
-      <rollpitchyaw roll="0" pitch="0" yaw="0" unitsAngle="radian"/>
-    </Transform>
-    <Visualization enable="true">
-      <File type="Inventor">../../meshes/wrl/tb.wrl</File>
-    </Visualization>
-    <CollisionModel>
-      <File type="Inventor">../../meshes/wrl/tb.wrl</File>
-    </CollisionModel>
-    <Child name="thj2"/>
-  </RobotNode>
-
-  <RobotNode name="thj2">
-    <Transform>
-      <Translation x="0.03" y="0" z="0.015" unitsLength="m"/>
-      <rollpitchyaw roll="-0.98805" pitch="0.19487" yaw="-0.8" unitsAngle="radian"/>
-    </Transform>
-    <Joint type="revolute">
-      <Axis x="0" y="1" z="0"/>
-      <Limits unit="radian" lo="-0.26" hi="1"/>
-    </Joint>
-    <Child name="tk"/>
-  </RobotNode>
-
-  <RobotNode name="tk">
-    <Transform>
-      <Translation x="0" y="0" z="0" unitsLength="m"/>
-      <rollpitchyaw roll="0" pitch="0" yaw="0" unitsAngle="radian"/>
-    </Transform>
-    <Visualization enable="true">
-      <File type="Inventor">../../meshes/wrl/tk.wrl</File>
-    </Visualization>
-    <CollisionModel>
-      <File type="Inventor">../../meshes/wrl/tk.wrl</File>
-    </CollisionModel>
-    <Child name="thj3"/>
-  </RobotNode>
-
-  <RobotNode name="thj3">
-    <Transform>
-      <Translation x="0" y="0" z="0" unitsLength="m"/>
-      <rollpitchyaw roll="0" pitch="0" yaw="0" unitsAngle="radian"/>
-    </Transform>
-    <Joint type="revolute">
-      <Axis x="1" y="0" z="0"/>
-      <Limits unit="radian" lo="-1.5" hi="0.7"/>
-    </Joint>
-    <Child name="tp"/>
-  </RobotNode>
-
-  <RobotNode name="tp">
-    <Transform>
-      <Translation x="0" y="0" z="0" unitsLength="m"/>
-      <rollpitchyaw roll="0" pitch="0" yaw="0" unitsAngle="radian"/>
-    </Transform>
-    <Visualization enable="true">
-      <File type="Inventor">../../meshes/wrl/tp.wrl</File>
-    </Visualization>
-    <CollisionModel>
-      <File type="Inventor">../../meshes/wrl/tp.wrl</File>
-    </CollisionModel>
-    <Child name="thj4"/>
-  </RobotNode>
-
-  <RobotNode name="thj4">
-    <Transform>
-      <Translation x="0" y="0" z="0.045" unitsLength="m"/>
-      <rollpitchyaw roll="0.055584" pitch="0" yaw="0" unitsAngle="radian"/>
-    </Transform>
-    <Joint type="revolute">
-      <Axis x="1" y="0" z="0"/>
-      <Limits unit="radian" lo="-0.3" hi="1.7"/>
-    </Joint>
-    <Child name="td"/>
-  </RobotNode>
-
-  <RobotNode name="td">
-    <Transform>
-      <Translation x="0" y="0" z="0" unitsLength="m"/>
-      <rollpitchyaw roll="0" pitch="0" yaw="0" unitsAngle="radian"/>
-    </Transform>
-    <Visualization enable="true">
-      <File type="Inventor">../../meshes/wrl/td.wrl</File>
-    </Visualization>
-    <CollisionModel>
-      <File type="Inventor">../../meshes/wrl/td.wrl</File>
-    </CollisionModel>
-  </RobotNode>
-
-  <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-
-  <!-- END EFFECTOR -->
-  <Endeffector name="DMS Hand" base="dms_hand_base" tcp="dms_hand_tcp" gcp="dms_hand_gcp">
-
-    <Preshape name="Grasp Preshape">
-      <Node name="ffj1" unit="radian" value="0"/>
-      <Node name="ffj2" unit="radian" value="0"/>
-      <Node name="ffj3" unit="radian" value="0"/>
-      <Node name="ffj4" unit="radian" value="0"/>
-
-      <Node name="mfj1" unit="radian" value="0"/>
-      <Node name="mfj2" unit="radian" value="0"/>
-      <Node name="mfj3" unit="radian" value="0"/>
-      <Node name="mfj4" unit="radian" value="0"/>
-
-      <Node name="lfj1" unit="radian" value="0"/>
-      <Node name="lfj2" unit="radian" value="0"/>
-      <Node name="lfj3" unit="radian" value="0"/>
-      <Node name="lfj4" unit="radian" value="0"/>
-
-      <Node name="thj1" unit="radian" value="1.7"/>
-      <Node name="thj2" unit="radian" value="1.0"/>
-      <Node name="thj3" unit="radian" value="-1.5"/>
-      <Node name="thj4" unit="radian" value="0"/>
-    </Preshape>
-
-    <Static>
-      <Node name="base_link"/>
-    </Static>
-    <Actor name="ff">
-      <Node name="ffj1" considerCollisions="None"/>
-      <Node name="ffj2" considerCollisions="None"/>
-      <Node name="ffj3" considerCollisions="None"/>
-      <Node name="ffj4" considerCollisions="None"/>
-      <Node name="fk" considerCollisions="None"/>
-      <Node name="fp" considerCollisions="Actors"/>
-      <Node name="fm" considerCollisions="All"/>
-      <Node name="fd" considerCollisions="All"/>
-    </Actor>
-    <Actor name="mf">
-      <Node name="mfj1" considerCollisions="None"/>
-      <Node name="mfj2" considerCollisions="None"/>
-      <Node name="mfj3" considerCollisions="None"/>
-      <Node name="mfj4" considerCollisions="None"/>
-      <Node name="mk" considerCollisions="None"/>
-      <Node name="mp" considerCollisions="Actors"/>
-      <Node name="mm" considerCollisions="All"/>
-      <Node name="md" considerCollisions="All"/>
-    </Actor>
-    <Actor name="lf">
-      <Node name="lfj1" considerCollisions="None"/>
-      <Node name="lfj2" considerCollisions="None"/>
-      <Node name="lfj3" considerCollisions="None"/>
-      <Node name="lfj4" considerCollisions="None"/>
-      <Node name="lk" considerCollisions="None"/>
-      <Node name="lp" considerCollisions="Actors"/>
-      <Node name="lm" considerCollisions="All"/>
-      <Node name="ld" considerCollisions="All"/>
-    </Actor>
-    <Actor name="th">
-      <Node name="thj1" considerCollisions="None"/>
-      <Node name="thj2" considerCollisions="None"/>
-      <Node name="thj3" considerCollisions="None"/>
-      <Node name="thj4" considerCollisions="None"/>
-      <Node name="tb" considerCollisions="None"/>
-      <Node name="tk" considerCollisions="None"/>
-      <Node name="tp" considerCollisions="Actors"/>
-      <Node name="td" considerCollisions="All"/>
-    </Actor>
-
-  </Endeffector>
-
-  <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-
-  <!-- Robot Node Sets -->
-  <RobotNodeSet name="DMS Hand Joints">
-    <Node name="ffj1"/>
-    <Node name="ffj2"/>
-    <Node name="ffj3"/>
-    <Node name="ffj4"/>
-    <Node name="mfj1"/>
-    <Node name="mfj2"/>
-    <Node name="mfj3"/>
-    <Node name="mfj4"/>
-    <Node name="lfj1"/>
-    <Node name="lfj2"/>
-    <Node name="lfj3"/>
-    <Node name="lfj4"/>
-    <Node name="thj1"/>
-    <Node name="thj2"/>
-    <Node name="thj3"/>
-    <Node name="thj4"/>
-  </RobotNodeSet>
-
-  <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-
+<?xml version="1.0" encoding="utf-8"?>
+<Robot Type="DMS" RootNode="dms_hand_base">
+	<RobotNode name="dms_hand_base">
+		<Child name="dms_hand_tcp"/>
+		<Child name="dms_hand_gcp"/>
+		<Child name="base_link"/>
+	</RobotNode>
+	<RobotNode name="dms_hand_tcp">
+		<!--Translation values were set manually!-->
+		<Transform>
+			<Translation x="0.000" y="0.000" z="0.120" unitsLength="m"/>
+		</Transform>
+	</RobotNode>
+	<RobotNode name="dms_hand_gcp">
+		<!--Translation and rollpitchyaw values were set manually!-->
+		<Transform>
+			<Translation x="-0.010" y="-0.035" z="0.070" unitsLength="m"/>
+			<rollpitchyaw roll="1.000" pitch="0.000" yaw="0.000" unitsAngle="radian"/>
+		</Transform>
+	</RobotNode>
+	<RobotNode name="base_link">
+		<Transform>
+			<Translation x="0.000" y="0.000" z="0.000" unitsLength="m"/>
+			<rollpitchyaw roll="0.000" pitch="-0.000" yaw="0.000" unitsAngle="radian"/>
+		</Transform>
+		<Visualization enable="true">
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/base_link.wrl</File>
+		</Visualization>
+		<CollisionModel>
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/base_link.wrl</File>
+		</CollisionModel>
+		<Child name="ffj1"/>
+		<Child name="lfj1"/>
+		<Child name="mfj1"/>
+		<Child name="thj1"/>
+	</RobotNode>
+	<RobotNode name="ffj1">
+		<Transform>
+			<Translation x="0.015" y="0.000" z="0.085" unitsLength="m"/>
+			<rollpitchyaw roll="0.000" pitch="-0.000" yaw="0.000" unitsAngle="radian"/>
+		</Transform>
+		<Joint type="revolute">
+			<Axis x="0.000" y="1.000" z="0.000"/>
+			<Limits unit="radian" lo="-0.350" hi="0.523"/>
+		</Joint>
+		<Child name="fk"/>
+	</RobotNode>
+	<RobotNode name="fk">
+		<Transform>
+			<Translation x="0.000" y="0.000" z="0.000" unitsLength="m"/>
+			<rollpitchyaw roll="0.000" pitch="-0.000" yaw="0.000" unitsAngle="radian"/>
+		</Transform>
+		<Visualization enable="true">
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/fk.wrl</File>
+		</Visualization>
+		<CollisionModel>
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/fk.wrl</File>
+		</CollisionModel>
+		<Child name="ffj2"/>
+	</RobotNode>
+	<RobotNode name="ffj2">
+		<Transform>
+			<Translation x="0.000" y="0.000" z="0.000" unitsLength="m"/>
+			<rollpitchyaw roll="0.000" pitch="-0.000" yaw="0.000" unitsAngle="radian"/>
+		</Transform>
+		<Joint type="revolute">
+			<Axis x="1.000" y="0.000" z="0.000"/>
+			<Limits unit="radian" lo="0.000" hi="1.700"/>
+		</Joint>
+		<Child name="fp"/>
+	</RobotNode>
+	<RobotNode name="fp">
+		<Transform>
+			<Translation x="0.000" y="0.000" z="0.000" unitsLength="m"/>
+			<rollpitchyaw roll="0.000" pitch="-0.000" yaw="0.000" unitsAngle="radian"/>
+		</Transform>
+		<Visualization enable="true">
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/fp.wrl</File>
+		</Visualization>
+		<CollisionModel>
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/fp.wrl</File>
+		</CollisionModel>
+		<Child name="ffj3"/>
+	</RobotNode>
+	<RobotNode name="ffj3">
+		<Transform>
+			<Translation x="0.000" y="0.000" z="0.045" unitsLength="m"/>
+			<rollpitchyaw roll="0.000" pitch="-0.000" yaw="0.000" unitsAngle="radian"/>
+		</Transform>
+		<Joint type="revolute">
+			<Axis x="1.000" y="0.000" z="0.000"/>
+			<Limits unit="radian" lo="0.000" hi="1.700"/>
+		</Joint>
+		<Child name="fm"/>
+	</RobotNode>
+	<RobotNode name="fm">
+		<Transform>
+			<Translation x="0.000" y="0.000" z="0.000" unitsLength="m"/>
+			<rollpitchyaw roll="0.000" pitch="-0.000" yaw="0.000" unitsAngle="radian"/>
+		</Transform>
+		<Visualization enable="true">
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/fm.wrl</File>
+		</Visualization>
+		<CollisionModel>
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/fm.wrl</File>
+		</CollisionModel>
+		<Child name="ffj4"/>
+	</RobotNode>
+	<RobotNode name="ffj4">
+		<Transform>
+			<Translation x="0.000" y="0.000" z="0.020" unitsLength="m"/>
+			<rollpitchyaw roll="0.000" pitch="-0.000" yaw="0.000" unitsAngle="radian"/>
+		</Transform>
+		<Joint type="revolute">
+			<Axis x="1.000" y="0.000" z="0.000"/>
+			<Limits unit="radian" lo="0.000" hi="1.700"/>
+		</Joint>
+		<Child name="fd"/>
+	</RobotNode>
+	<RobotNode name="fd">
+		<Transform>
+			<Translation x="0.000" y="0.000" z="0.000" unitsLength="m"/>
+			<rollpitchyaw roll="0.000" pitch="-0.000" yaw="0.000" unitsAngle="radian"/>
+		</Transform>
+		<Visualization enable="true">
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/fd.wrl</File>
+		</Visualization>
+		<CollisionModel>
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/fd.wrl</File>
+		</CollisionModel>
+	</RobotNode>
+	<RobotNode name="lfj1">
+		<Transform>
+			<Translation x="-0.045" y="0.000" z="0.085" unitsLength="m"/>
+			<rollpitchyaw roll="0.000" pitch="-0.000" yaw="0.000" unitsAngle="radian"/>
+		</Transform>
+		<Joint type="revolute">
+			<Axis x="0.000" y="1.000" z="0.000"/>
+			<Limits unit="radian" lo="-0.400" hi="0.400"/>
+		</Joint>
+		<Child name="lk"/>
+	</RobotNode>
+	<RobotNode name="lk">
+		<Transform>
+			<Translation x="0.000" y="0.000" z="0.000" unitsLength="m"/>
+			<rollpitchyaw roll="0.000" pitch="-0.000" yaw="0.000" unitsAngle="radian"/>
+		</Transform>
+		<Visualization enable="true">
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/lk.wrl</File>
+		</Visualization>
+		<CollisionModel>
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/lk.wrl</File>
+		</CollisionModel>
+		<Child name="lfj2"/>
+	</RobotNode>
+	<RobotNode name="lfj2">
+		<Transform>
+			<Translation x="0.000" y="0.000" z="0.000" unitsLength="m"/>
+			<rollpitchyaw roll="0.000" pitch="-0.000" yaw="0.000" unitsAngle="radian"/>
+		</Transform>
+		<Joint type="revolute">
+			<Axis x="1.000" y="0.000" z="0.000"/>
+			<Limits unit="radian" lo="0.000" hi="1.700"/>
+		</Joint>
+		<Child name="lp"/>
+	</RobotNode>
+	<RobotNode name="lp">
+		<Transform>
+			<Translation x="0.000" y="0.000" z="0.000" unitsLength="m"/>
+			<rollpitchyaw roll="0.000" pitch="-0.000" yaw="0.000" unitsAngle="radian"/>
+		</Transform>
+		<Visualization enable="true">
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/lp.wrl</File>
+		</Visualization>
+		<CollisionModel>
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/lp.wrl</File>
+		</CollisionModel>
+		<Child name="lfj3"/>
+	</RobotNode>
+	<RobotNode name="lfj3">
+		<Transform>
+			<Translation x="0.000" y="0.000" z="0.045" unitsLength="m"/>
+			<rollpitchyaw roll="0.000" pitch="-0.000" yaw="0.000" unitsAngle="radian"/>
+		</Transform>
+		<Joint type="revolute">
+			<Axis x="1.000" y="0.000" z="0.000"/>
+			<Limits unit="radian" lo="0.000" hi="1.700"/>
+		</Joint>
+		<Child name="lm"/>
+	</RobotNode>
+	<RobotNode name="lm">
+		<Transform>
+			<Translation x="0.000" y="0.000" z="0.000" unitsLength="m"/>
+			<rollpitchyaw roll="0.000" pitch="-0.000" yaw="0.000" unitsAngle="radian"/>
+		</Transform>
+		<Visualization enable="true">
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/lm.wrl</File>
+		</Visualization>
+		<CollisionModel>
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/lm.wrl</File>
+		</CollisionModel>
+		<Child name="lfj4"/>
+	</RobotNode>
+	<RobotNode name="lfj4">
+		<Transform>
+			<Translation x="0.000" y="0.001" z="0.020" unitsLength="m"/>
+			<rollpitchyaw roll="0.000" pitch="-0.000" yaw="0.000" unitsAngle="radian"/>
+		</Transform>
+		<Joint type="revolute">
+			<Axis x="1.000" y="0.000" z="0.000"/>
+			<Limits unit="radian" lo="0.000" hi="1.700"/>
+		</Joint>
+		<Child name="ld"/>
+	</RobotNode>
+	<RobotNode name="ld">
+		<Transform>
+			<Translation x="0.000" y="0.000" z="0.000" unitsLength="m"/>
+			<rollpitchyaw roll="0.000" pitch="-0.000" yaw="0.000" unitsAngle="radian"/>
+		</Transform>
+		<Visualization enable="true">
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/ld.wrl</File>
+		</Visualization>
+		<CollisionModel>
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/ld.wrl</File>
+		</CollisionModel>
+	</RobotNode>
+	<RobotNode name="mfj1">
+		<Transform>
+			<Translation x="-0.015" y="0.000" z="0.090" unitsLength="m"/>
+			<rollpitchyaw roll="0.000" pitch="-0.000" yaw="0.000" unitsAngle="radian"/>
+		</Transform>
+		<Joint type="revolute">
+			<Axis x="0.000" y="1.000" z="0.000"/>
+			<Limits unit="radian" lo="-0.400" hi="0.400"/>
+		</Joint>
+		<Child name="mk"/>
+	</RobotNode>
+	<RobotNode name="mk">
+		<Transform>
+			<Translation x="0.000" y="0.000" z="0.000" unitsLength="m"/>
+			<rollpitchyaw roll="0.000" pitch="-0.000" yaw="0.000" unitsAngle="radian"/>
+		</Transform>
+		<Visualization enable="true">
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/mk.wrl</File>
+		</Visualization>
+		<CollisionModel>
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/mk.wrl</File>
+		</CollisionModel>
+		<Child name="mfj2"/>
+	</RobotNode>
+	<RobotNode name="mfj2">
+		<Transform>
+			<Translation x="0.000" y="0.000" z="0.000" unitsLength="m"/>
+			<rollpitchyaw roll="0.000" pitch="-0.000" yaw="0.000" unitsAngle="radian"/>
+		</Transform>
+		<Joint type="revolute">
+			<Axis x="1.000" y="0.000" z="0.000"/>
+			<Limits unit="radian" lo="0.000" hi="1.700"/>
+		</Joint>
+		<Child name="mp"/>
+	</RobotNode>
+	<RobotNode name="mp">
+		<Transform>
+			<Translation x="0.000" y="0.000" z="0.000" unitsLength="m"/>
+			<rollpitchyaw roll="0.000" pitch="-0.000" yaw="0.000" unitsAngle="radian"/>
+		</Transform>
+		<Visualization enable="true">
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/mp.wrl</File>
+		</Visualization>
+		<CollisionModel>
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/mp.wrl</File>
+		</CollisionModel>
+		<Child name="mfj3"/>
+	</RobotNode>
+	<RobotNode name="mfj3">
+		<Transform>
+			<Translation x="0.000" y="0.000" z="0.045" unitsLength="m"/>
+			<rollpitchyaw roll="0.000" pitch="-0.000" yaw="0.000" unitsAngle="radian"/>
+		</Transform>
+		<Joint type="revolute">
+			<Axis x="1.000" y="0.000" z="0.000"/>
+			<Limits unit="radian" lo="0.000" hi="1.700"/>
+		</Joint>
+		<Child name="mm"/>
+	</RobotNode>
+	<RobotNode name="mm">
+		<Transform>
+			<Translation x="0.000" y="0.000" z="0.000" unitsLength="m"/>
+			<rollpitchyaw roll="0.000" pitch="-0.000" yaw="0.000" unitsAngle="radian"/>
+		</Transform>
+		<Visualization enable="true">
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/mm.wrl</File>
+		</Visualization>
+		<CollisionModel>
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/mm.wrl</File>
+		</CollisionModel>
+		<Child name="mfj4"/>
+	</RobotNode>
+	<RobotNode name="mfj4">
+		<Transform>
+			<Translation x="0.000" y="0.001" z="0.020" unitsLength="m"/>
+			<rollpitchyaw roll="0.000" pitch="-0.000" yaw="0.000" unitsAngle="radian"/>
+		</Transform>
+		<Joint type="revolute">
+			<Axis x="1.000" y="0.000" z="0.000"/>
+			<Limits unit="radian" lo="0.000" hi="1.700"/>
+		</Joint>
+		<Child name="md"/>
+	</RobotNode>
+	<RobotNode name="md">
+		<Transform>
+			<Translation x="0.000" y="0.000" z="0.000" unitsLength="m"/>
+			<rollpitchyaw roll="0.000" pitch="-0.000" yaw="0.000" unitsAngle="radian"/>
+		</Transform>
+		<Visualization enable="true">
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/md.wrl</File>
+		</Visualization>
+		<CollisionModel>
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/md.wrl</File>
+		</CollisionModel>
+	</RobotNode>
+	<RobotNode name="thj1">
+		<Transform>
+			<Translation x="0.015" y="0.000" z="0.020" unitsLength="m"/>
+			<rollpitchyaw roll="0.000" pitch="-0.000" yaw="0.000" unitsAngle="radian"/>
+		</Transform>
+		<Joint type="revolute">
+			<Axis x="0.000" y="0.000" z="-1.000"/>
+			<Limits unit="radian" lo="0.000" hi="1.700"/>
+		</Joint>
+		<Child name="tb"/>
+	</RobotNode>
+	<RobotNode name="tb">
+		<Transform>
+			<Translation x="0.000" y="0.000" z="0.000" unitsLength="m"/>
+			<rollpitchyaw roll="0.000" pitch="-0.000" yaw="0.000" unitsAngle="radian"/>
+		</Transform>
+		<Visualization enable="true">
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/tb.wrl</File>
+		</Visualization>
+		<CollisionModel>
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/tb.wrl</File>
+		</CollisionModel>
+		<Child name="thj2"/>
+	</RobotNode>
+	<RobotNode name="thj2">
+		<Transform>
+			<Translation x="0.030" y="0.000" z="0.015" unitsLength="m"/>
+			<rollpitchyaw roll="-0.988" pitch="0.195" yaw="-0.800" unitsAngle="radian"/>
+		</Transform>
+		<Joint type="revolute">
+			<Axis x="0.000" y="1.000" z="0.000"/>
+			<Limits unit="radian" lo="-0.260" hi="1.000"/>
+		</Joint>
+		<Child name="tk"/>
+	</RobotNode>
+	<RobotNode name="tk">
+		<Transform>
+			<Translation x="0.000" y="0.000" z="0.000" unitsLength="m"/>
+			<rollpitchyaw roll="0.000" pitch="-0.000" yaw="0.000" unitsAngle="radian"/>
+		</Transform>
+		<Visualization enable="true">
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/tk.wrl</File>
+		</Visualization>
+		<CollisionModel>
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/tk.wrl</File>
+		</CollisionModel>
+		<Child name="thj3"/>
+	</RobotNode>
+	<RobotNode name="thj3">
+		<Transform>
+			<Translation x="0.000" y="0.000" z="0.000" unitsLength="m"/>
+			<rollpitchyaw roll="0.000" pitch="-0.000" yaw="0.000" unitsAngle="radian"/>
+		</Transform>
+		<Joint type="revolute">
+			<Axis x="1.000" y="0.000" z="0.000"/>
+			<Limits unit="radian" lo="-1.500" hi="0.700"/>
+		</Joint>
+		<Child name="tp"/>
+	</RobotNode>
+	<RobotNode name="tp">
+		<Transform>
+			<Translation x="0.000" y="0.000" z="0.000" unitsLength="m"/>
+			<rollpitchyaw roll="0.000" pitch="-0.000" yaw="0.000" unitsAngle="radian"/>
+		</Transform>
+		<Visualization enable="true">
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/tp.wrl</File>
+		</Visualization>
+		<CollisionModel>
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/tp.wrl</File>
+		</CollisionModel>
+		<Child name="thj4"/>
+	</RobotNode>
+	<RobotNode name="thj4">
+		<Transform>
+			<Translation x="0.000" y="0.000" z="0.045" unitsLength="m"/>
+			<rollpitchyaw roll="0.056" pitch="-0.000" yaw="0.000" unitsAngle="radian"/>
+		</Transform>
+		<Joint type="revolute">
+			<Axis x="1.000" y="0.000" z="0.000"/>
+			<Limits unit="radian" lo="-0.300" hi="1.700"/>
+		</Joint>
+		<Child name="td"/>
+	</RobotNode>
+	<RobotNode name="td">
+		<Transform>
+			<Translation x="0.000" y="0.000" z="0.000" unitsLength="m"/>
+			<rollpitchyaw roll="0.000" pitch="-0.000" yaw="0.000" unitsAngle="radian"/>
+		</Transform>
+		<Visualization enable="true">
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/td.wrl</File>
+		</Visualization>
+		<CollisionModel>
+			<File type="Inventor">/home/liyi/urdf_to_simox_xml_output/model/td.wrl</File>
+		</CollisionModel>
+	</RobotNode>
+	<Endeffector name="DMS" base="dms_hand_base" tcp="dms_hand_tcp" gcp="dms_hand_gcp">
+		<!--This node is for Simox (e.g., GraspPlanner in Simox)!-->
+		<Preshape name="Grasp Preshape">
+			<!--This is just a template. Please set values manually!-->
+			<Node name="ffj1" unit="radian" value="0.0"/>
+			<Node name="ffj2" unit="radian" value="0.0"/>
+			<Node name="ffj3" unit="radian" value="0.0"/>
+			<Node name="ffj4" unit="radian" value="0.0"/>
+			<Node name="lfj1" unit="radian" value="0.0"/>
+			<Node name="lfj2" unit="radian" value="0.0"/>
+			<Node name="lfj3" unit="radian" value="0.0"/>
+			<Node name="lfj4" unit="radian" value="0.0"/>
+			<Node name="mfj1" unit="radian" value="0.0"/>
+			<Node name="mfj2" unit="radian" value="0.0"/>
+			<Node name="mfj3" unit="radian" value="0.0"/>
+			<Node name="mfj4" unit="radian" value="0.0"/>
+			<Node name="thj1" unit="radian" value="1.7"/>
+			<Node name="thj2" unit="radian" value="1.0"/>
+			<Node name="thj3" unit="radian" value="-1.5"/>
+			<Node name="thj4" unit="radian" value="0"/>
+		</Preshape>
+		<Static>
+			<Node name="base_link"/>
+			<Node name="ffj1"/>
+			<Node name="lfj1"/>
+			<Node name="mfj1"/>
+		</Static>
+		<Actor name="f">
+			<!--Note that considerCollisions = None, Actors, or All!-->
+			<Node name="ffj2" considerCollisions="None"/>
+			<Node name="ffj3" considerCollisions="None"/>
+			<Node name="ffj4" considerCollisions="None"/>
+			<Node name="fd" considerCollisions="All"/>
+			<Node name="fk" considerCollisions="None"/>
+			<Node name="fm" considerCollisions="Actors"/>
+			<Node name="fp" considerCollisions="Actors"/>
+		</Actor>
+		<Actor name="l">
+			<!--Note that considerCollisions = None, Actors, or All!-->
+			<Node name="lfj2" considerCollisions="None"/>
+			<Node name="lfj3" considerCollisions="None"/>
+			<Node name="lfj4" considerCollisions="None"/>
+			<Node name="ld" considerCollisions="All"/>
+			<Node name="lk" considerCollisions="None"/>
+			<Node name="lm" considerCollisions="Actors"/>
+			<Node name="lp" considerCollisions="Actors"/>
+		</Actor>
+		<Actor name="m">
+			<!--Note that considerCollisions = None, Actors, or All!-->
+			<Node name="mfj2" considerCollisions="None"/>
+			<Node name="mfj3" considerCollisions="None"/>
+			<Node name="mfj4" considerCollisions="None"/>
+			<Node name="md" considerCollisions="All"/>
+			<Node name="mk" considerCollisions="None"/>
+			<Node name="mm" considerCollisions="Actors"/>
+			<Node name="mp" considerCollisions="Actors"/>
+		</Actor>
+		<Actor name="t">
+			<!--Note that considerCollisions = None, Actors, or All!-->
+			<Node name="thj1" considerCollisions="None"/>
+			<Node name="thj2" considerCollisions="None"/>
+			<Node name="thj3" considerCollisions="None"/>
+			<Node name="thj4" considerCollisions="None"/>
+			<Node name="tb" considerCollisions="Actors"/>
+			<Node name="td" considerCollisions="All"/>
+			<Node name="tk" considerCollisions="None"/>
+			<Node name="tp" considerCollisions="Actors"/>
+		</Actor>
+	</Endeffector>
+	<RobotNodeSet name="DMS Joints">
+		<!--This node is for Simox (e.g., GraspPlanner in Simox)!-->
+		<Node name="ffj1"/>
+		<Node name="ffj2"/>
+		<Node name="ffj3"/>
+		<Node name="ffj4"/>
+		<Node name="lfj1"/>
+		<Node name="lfj2"/>
+		<Node name="lfj3"/>
+		<Node name="lfj4"/>
+		<Node name="mfj1"/>
+		<Node name="mfj2"/>
+		<Node name="mfj3"/>
+		<Node name="mfj4"/>
+		<Node name="thj1"/>
+		<Node name="thj2"/>
+		<Node name="thj3"/>
+		<Node name="thj4"/>
+	</RobotNodeSet>
 </Robot>

@@ -1,0 +1,3 @@
+<launch>
+  <node name="urdf_to_simox_xml" pkg="urdf_to_simox_xml" type="urdf_to_simox_xml" output="screen" />
+</launch>

@@ -5,14 +5,32 @@ project(urdf_to_simox_xml)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
+  sr_grasp_description
   roscpp
   roslib
   std_msgs
   urdf
 )
 
+## Set CMAKE_MODULE_PATH (in this case for SoQt)
+set(CMAKE_MODULE_PATH
+  ${CMAKE_MODULE_PATH}
+  ${CMAKE_CURRENT_SOURCE_DIR}/CMakeModules
+)
+MESSAGE( STATUS "CMAKE_MODULE_PATH: " ${CMAKE_MODULE_PATH} )
+
 ## System dependencies are found with CMake's conventions
 find_package(Boost REQUIRED COMPONENTS system program_options)
+
+FIND_PACKAGE(Qt4 REQUIRED)
+
+find_package(Coin3D REQUIRED)
+MESSAGE( STATUS "COIN3D_INCLUDE_DIRS: " ${COIN3D_INCLUDE_DIRS} )
+MESSAGE( STATUS "COIN3D_LIBRARIES:    " ${COIN3D_LIBRARIES} )
+
+find_package(SoQt REQUIRED)
+MESSAGE( STATUS "SoQt_INCLUDE_DIRs:   " ${SoQt_INCLUDE_DIRS} )
+MESSAGE( STATUS "SoQt_LIBRARIES:      " ${SoQt_LIBRARIES} )
 
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
@@ -90,10 +108,16 @@ catkin_package(
 ## Build ##
 ###########
 
+## Qt
+INCLUDE(${QT_USE_FILE})
+ADD_DEFINITIONS(${QT_DEFINITIONS})
+
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(include)
 include_directories(${Boost_INCLUDE_DIR})
+include_directories(${SoQt_INCLUDE_DIRS})
+include_directories(${COIN3D_INCLUDE_DIRS})
 include_directories(${catkin_INCLUDE_DIRS})
 
 ## Declare a cpp library
@@ -113,8 +137,12 @@ add_executable(urdf_to_simox_xml
 
 ## Specify libraries to link a library or executable target against
 target_link_libraries(urdf_to_simox_xml
-  ${Boost_LIBRARIES}
   ${catkin_LIBRARIES}
+  ${Boost_LIBRARIES}
+  ${SoQt_LIBRARIES}
+  ${COIN3D_LIBRARIES}
+  ${QT_LIBRARIES}
+  GL
 )
 
 #############

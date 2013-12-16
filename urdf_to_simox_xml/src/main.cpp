@@ -9,7 +9,8 @@
 /**
  * @file   main.cpp
  * @author Yi Li <yi@shadowrobot.com>
- * @brief  Calll class UrdfToSimoxXml to convert from a hand description in URDF format to Simox XML.
+ * @brief  Calll class UrdfToSimoxXml to convert from a hand description
+ *         in URDF format to Simox XML.
  **/
 
 //-------------------------------------------------------------------------------
@@ -34,8 +35,15 @@ int main(int argc, char** argv)
 {
   ros::init(argc, argv, "urdf_to_simox_xml");
 
-  std::string dms_description_path  = ros::package::getPath("dms_description");
-  std::string urdf_filename_default = dms_description_path + "/robots/urdf/dms.urdf";
+  std::string package_name("sr_grasp_description");
+  std::string package_path = ros::package::getPath(package_name);
+  if (package_path.empty())
+  {
+    ROS_ERROR_STREAM("Failed to obtain the path of package " << package_name << ".");
+    return -1;
+  }
+
+  std::string urdf_filename_default = package_path + "/urdf/shadowhand.urdf";
 
   std::string output_dir_default = std::string(getenv("HOME")) + "/urdf_to_simox_xml_output";
 
@@ -43,6 +51,7 @@ int main(int argc, char** argv)
   std::string urdf_filename;
   std::string output_dir;
   std::string simox_xml_filename;
+  double scale;
 
   try {
     po::options_description desc("Allowed options");
@@ -55,8 +64,11 @@ int main(int argc, char** argv)
        "set the path to the urdf file (input)")
       ("output_dir", po::value<std::string>(&output_dir)->default_value(output_dir_default),
        "set the output directory")
-      ("xml", po::value<std::string>(&simox_xml_filename)->default_value("dms.xml"),
+      ("xml", po::value<std::string>(&simox_xml_filename)->default_value("shadowhand.xml"),
        "set the filename of the Simox XML file (output)")
+      ("scale", po::value<double>(&scale)->default_value(1.0),
+       "set the default scale (used when converting to WRL files)\n"
+       "note that the units in VRML (i.e., .WRL files) are assumed to be meters.")
       ;
 
     po::variables_map vm;
@@ -66,8 +78,8 @@ int main(int argc, char** argv)
     if (vm.count("help"))
     {
       std::cout << "Usage: rosrun urdf_to_simox_xml urdf_to_simox_xml [options]" << std::endl;
-      std::cout << desc << std::cout;
-      return 0;
+      std::cout << desc << "\n\n";
+      exit (EXIT_SUCCESS);
     }
 
     if (urdf_init_param)
@@ -79,16 +91,15 @@ int main(int argc, char** argv)
   catch (std::exception& e)
   {
     std::cout << e.what() << std::endl;
-    return 1;
+    exit (EXIT_FAILURE);
   }
 
   if (!boost::filesystem::exists(output_dir))
     boost::filesystem::create_directories(output_dir);
 
-  gsc::UrdfToSimoxXml urdf2xml(urdf_init_param, urdf_filename, output_dir);
+  gsc::UrdfToSimoxXml urdf2xml(urdf_init_param, urdf_filename, output_dir, scale);
 
-  std::string simox_xml_file = output_dir + "/" + simox_xml_filename;
-  urdf2xml.write_xml(simox_xml_file);
+  urdf2xml.write_xml(output_dir, simox_xml_filename);
 
   return 0;
 }
