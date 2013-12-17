@@ -10,6 +10,7 @@ find_package(catkin REQUIRED COMPONENTS
   pcl_ros
   roscpp
   rospy
+  rostest
   sr_grasp_msgs
   actionlib_msgs
   moveit_msgs
@@ -223,18 +224,19 @@ target_link_libraries(grasp_action_client_mesh
 #############
 
 ## Add gtest based cpp test target and link libraries
-catkin_add_gtest(test_grasp_mesh_planner
-  src/read_ply.cpp
+add_rostest_gtest(test_grasp_mesh_planner
   test/test_grasp_mesh_planner.test
-  test/test_grasp_mesh_planner.cpp)
-if(TARGET test_grasp_mesh_planner)
-  target_link_libraries(test_grasp_mesh_planner
-    ${catkin_LIBRARIES}
-    ${GTEST_LIBRARIES})
-  add_dependencies(test_grasp_mesh_planner
-    sr_grasp_msgs_gencpp
-    ${catkin_EXPORTED_TARGETS})
-endif()
+  test/test_grasp_mesh_planner.cpp
+  src/read_ply.cpp
+)
+target_link_libraries(test_grasp_mesh_planner
+  ${catkin_LIBRARIES}
+  ${GTEST_LIBRARIES}
+)
+add_dependencies(test_grasp_mesh_planner
+  sr_grasp_msgs_gencpp
+  ${catkin_EXPORTED_TARGETS}
+)
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)

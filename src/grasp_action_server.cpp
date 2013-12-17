@@ -21,11 +21,11 @@ const bool GraspActionServer::auto_start_ = true;
 // Note that node_name is used as the action name.
 GraspActionServer::GraspActionServer(std::string node_name,
                                      boost::shared_ptr<GraspPlannerWindow> grasp_win)
-  : as_mesh_(nh_,
-             node_name,
+  : action_name_(node_name),
+    as_mesh_(nh_,
+             action_name_,
              boost::bind(&GraspActionServer::goal_cb_, this, _1),
              !GraspActionServer::auto_start_),
-    action_name_(node_name),
     grasp_win_(grasp_win),
     timeout_(60.0),
     force_closure_(true),
@@ -74,7 +74,7 @@ void GraspActionServer::goal_cb_(const sr_grasp_msgs::PlanGraspGoalConstPtr &goa
   result_mesh_->grasps.clear();
 
   // publish info to the console for the user
-  ROS_INFO_STREAM(action_name_ << ": Executing GraspActionServer::goal_cb_");
+  ROS_INFO_STREAM("Action " << action_name_ << ": Executing GraspActionServer::goal_cb_");
 
   // *** start executing the action ***
 
@@ -117,7 +117,7 @@ void GraspActionServer::goal_cb_(const sr_grasp_msgs::PlanGraspGoalConstPtr &goa
   {
     // set the action state to succeeded
     as_mesh_.setSucceeded(*result_mesh_);
-    ROS_INFO_STREAM(action_name_ << ": Succeeded");
+    ROS_INFO_STREAM("Action " << action_name_ << ": Succeeded");
   }
 }
 
