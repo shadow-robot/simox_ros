@@ -8,9 +8,14 @@
 
   <gazebo reference="ffdistal">
     <sensor type="contact" name="ffdistal_contact" >
+      <always_on>1</always_on>
+      <update_rate>1000.0</update_rate>
+      <contact>
+        <collision>ffdistal_collision</collision>
+        <topic>ffdistal_collision</topic>
+      </contact>
       <plugin name="ffdistal_gazebo_ros_bumper_controller" filename="libgazebo_ros_bumper.so">
-	<alwaysOn>true</alwaysOn>
-	<updateRate>100.0</updateRate>
+        <updateRate>100.0</updateRate>
 	<frameName>ffdistal</frameName>
 	<bumperTopicName>/sh/contacts/ff</bumperTopicName>
       </plugin>
@@ -19,58 +24,70 @@
   </gazebo>
 
   <gazebo reference="mfdistal">
-    <sensor type="contact" name="mf_contact" >
-
-      <plugin name="mf_gazebo_ros_bumper_controller" filename="libgazebo_ros_bumper.so">
-	<alwaysOn>true</alwaysOn>
-	<updateRate>100.0</updateRate>
+    <sensor type="contact" name="mfdistal_contact" >
+      <always_on>1</always_on>
+      <update_rate>1000.0</update_rate>
+      <contact>
+        <collision>mfdistal_collision</collision>
+        <topic>mfdistal_collision</topic>
+      </contact>
+      <plugin name="mfdistal_gazebo_ros_bumper_controller" filename="libgazebo_ros_bumper.so">
+        <updateRate>100.0</updateRate>
 	<frameName>mfdistal</frameName>
 	<bumperTopicName>/sh/contacts/mf</bumperTopicName>
       </plugin>
     </sensor>
-
     <material>Gazebo/Orange</material>
   </gazebo>
 
   <gazebo reference="rfdistal">
-    <sensor type="contact" name="mf_contact" >
-
-      <plugin name="mf_gazebo_ros_bumper_controller" filename="libgazebo_ros_bumper.so">
-	<alwaysOn>true</alwaysOn>
-	<updateRate>100.0</updateRate>
+    <sensor type="contact" name="rfdistal_contact" >
+      <always_on>1</always_on>
+      <update_rate>1000.0</update_rate>
+      <contact>
+        <collision>rfdistal_collision</collision>
+        <topic>rfdistal_collision</topic>
+      </contact>
+      <plugin name="rfdistal_gazebo_ros_bumper_controller" filename="libgazebo_ros_bumper.so">
+        <updateRate>100.0</updateRate>
 	<frameName>rfdistal</frameName>
 	<bumperTopicName>/sh/contacts/rf</bumperTopicName>
       </plugin>
     </sensor>
-
     <material>Gazebo/Orange</material>
   </gazebo>
 
   <gazebo reference="lfdistal">
-    <sensor type="contact" name="lf_contact" >
-
-      <plugin name="lf_gazebo_ros_bumper_controller" filename="libgazebo_ros_bumper.so">
-	<alwaysOn>true</alwaysOn>
-	<updateRate>100.0</updateRate>
+    <sensor type="contact" name="lfdistal_contact" >
+      <always_on>1</always_on>
+      <update_rate>1000.0</update_rate>
+      <contact>
+        <collision>lfdistal_collision</collision>
+        <topic>lfdistal_collision</topic>
+      </contact>
+      <plugin name="lfdistal_gazebo_ros_bumper_controller" filename="libgazebo_ros_bumper.so">
+        <updateRate>100.0</updateRate>
 	<frameName>lfdistal</frameName>
 	<bumperTopicName>/sh/contacts/lf</bumperTopicName>
       </plugin>
     </sensor>
-
     <material>Gazebo/Orange</material>
   </gazebo>
 
   <gazebo reference="thdistal">
-    <sensor type="contact" name="th_contact" >
-
-      <plugin name="th_gazebo_ros_bumper_controller" filename="libgazebo_ros_bumper.so">
-	<alwaysOn>true</alwaysOn>
-	<updateRate>100.0</updateRate>
+    <sensor type="contact" name="thdistal_contact" >
+      <always_on>1</always_on>
+      <update_rate>1000.0</update_rate>
+      <contact>
+        <collision>thdistal_collision</collision>
+        <topic>thdistal_collision</topic>
+      </contact>
+      <plugin name="thdistal_gazebo_ros_bumper_controller" filename="libgazebo_ros_bumper.so">
+        <updateRate>100.0</updateRate>
 	<frameName>thdistal</frameName>
 	<bumperTopicName>/sh/contacts/th</bumperTopicName>
       </plugin>
     </sensor>
-
     <material>Gazebo/Orange</material>
   </gazebo>
 
