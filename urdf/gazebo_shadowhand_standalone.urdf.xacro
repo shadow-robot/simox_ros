@@ -12,7 +12,7 @@
 	<alwaysOn>true</alwaysOn>
 	<updateRate>100.0</updateRate>
 	<frameName>ffdistal</frameName>
-	<bumperTopicName>/sh/contacts/ffdistal</bumperTopicName>
+	<bumperTopicName>/sh/contacts/ff</bumperTopicName>
       </plugin>
     </sensor>
     <material>Gazebo/Orange</material>
@@ -39,7 +39,7 @@
 	<alwaysOn>true</alwaysOn>
 	<updateRate>100.0</updateRate>
 	<frameName>rfdistal</frameName>
-	<bumperTopicName>/sh/contacts/mf</bumperTopicName>
+	<bumperTopicName>/sh/contacts/rf</bumperTopicName>
       </plugin>
     </sensor>
 
@@ -90,7 +90,7 @@
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
-  
+
   <transmission name="trans_ffj1">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="FFJ1"/>
@@ -123,7 +123,7 @@
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
-  
+
   <transmission name="trans_mfj1">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="MFJ1"/>
@@ -265,5 +265,5 @@
 
   <!-- loading the shadow hand -->
   <xacro:include filename="$(find sr_grasp_description)/urdf/shadowhand.urdf" />
-  
+
 </robot>
