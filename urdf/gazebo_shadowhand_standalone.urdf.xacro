@@ -222,6 +222,14 @@
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
+  <transmission name="trans_lfj5">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="LFJ5"/>
+    <actuator name="motor_lfj5">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
 
   <transmission name="trans_thj1">
     <type>transmission_interface/SimpleTransmission</type>
@@ -251,6 +259,14 @@
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="THJ4"/>
     <actuator name="motor_thj4">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="trans_thj5">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="THJ5"/>
+    <actuator name="motor_thj5">
       <hardwareInterface>EffortJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
