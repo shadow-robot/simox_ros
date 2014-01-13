@@ -21,7 +21,8 @@ const bool GraspActionServer::auto_start_ = true;
 // Note that node_name is used as the action name.
 GraspActionServer::GraspActionServer(std::string node_name,
                                      boost::shared_ptr<GraspPlannerWindow> grasp_win)
-  : action_name_(node_name),
+  : nh_("~"),
+    action_name_(node_name),
     as_mesh_(nh_,
              action_name_,
              boost::bind(&GraspActionServer::goal_cb_, this, _1),

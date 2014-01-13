@@ -76,7 +76,7 @@ int main(int argc, char** argv)
 
   boost::shared_ptr<GraspPlannerWindow> grasp_win(new GraspPlannerWindow(robot, eef, preshape, skybox));
 
-  GraspActionServer grasp_as_("sr_grasp_mesh_planner", grasp_win);
+  GraspActionServer grasp_as_("plan_grasp", grasp_win);
   boost::thread spin_thread(&ros_spin);
 
   // Start Qt!
