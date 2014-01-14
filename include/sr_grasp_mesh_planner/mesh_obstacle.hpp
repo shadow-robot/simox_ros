@@ -45,6 +45,11 @@ public:
   static TriMeshModelPtr create_tri_mesh_skybox(void);
   static TriMeshModelPtr create_tri_mesh(const shape_msgs::Mesh &mesh_msg);
 
+  /**
+   * Debug function to write a tri mesh to an OFF file.
+   */
+  static void write_tri_mesh(TriMeshModelPtr model, std::string filename);
+
 private:
   // Size of the skybox divided by two.
   static const float SKY_BOX_SIZE2_;

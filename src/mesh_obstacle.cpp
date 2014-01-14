@@ -145,8 +145,29 @@ TriMeshModelPtr MeshObstacle::create_tri_mesh(const shape_msgs::Mesh &mesh_msg)
   bool inverted = true;
   unsigned int no_of_flipped_faces = triMeshModel->checkAndCorrectNormals(!inverted);
   std::cout << "Number of flipped faces = " << no_of_flipped_faces << "." << std::endl;
+  //write_tri_mesh(triMeshModel, "latest.off");
 
   return triMeshModel;
 }
 
 //-------------------------------------------------------------------------------
+
+void MeshObstacle::write_tri_mesh(TriMeshModelPtr model, std::string filename)
+{
+  std::ofstream outf(filename.c_str());
+  if (!outf)
+  {
+    VR_ERROR << "Can't open file for writing: " << filename << endl;
+    return;
+  }
+  std::vector<Eigen::Vector3f> verts = model->vertices;
+  std::vector<MathTools::TriangleFace> faces = model->faces;
+  outf << "OFF" << endl;
+  outf << verts.size() << " " << faces.size() << " 0" << endl;
+  for (size_t i=0; i < verts.size(); ++i)
+    outf << verts.at(i).x() << " " << verts.at(i).y() << " " << verts.at(i).z() << " " << endl;
+  for (size_t i=0; i<faces.size(); ++i)
+    outf << "3 " << faces.at(i).id1 << " " << faces.at(i).id2 << " " << faces.at(i).id3 << endl;
+  outf.close();
+  VR_INFO << "Wrote file: " << filename << endl;
+}
