@@ -47,6 +47,7 @@ public:
 
   /**
    * Debug function to write a tri mesh to an OFF file.
+   * http://segeval.cs.princeton.edu/public/off_format.html
    */
   static void write_tri_mesh(TriMeshModelPtr model, std::string filename);
 
