@@ -91,7 +91,7 @@ TEST(TestGraspMeshPlanner, testGraspMeshPlanner)
 
   // Create the action client, and true causes the client to spin its own thread.
   // true -> don't need ros::spin()
-  actionlib::SimpleActionClient<sr_grasp_msgs::PlanGraspAction> ac("sr_grasp_mesh_planner", true);
+  actionlib::SimpleActionClient<sr_grasp_msgs::PlanGraspAction> ac("sr_grasp_mesh_planner/plan_grasp", true);
 
   ROS_INFO_STREAM("Waiting for action server to start.");
   ac.waitForServer();
