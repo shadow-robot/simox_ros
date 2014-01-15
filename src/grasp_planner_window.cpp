@@ -239,6 +239,16 @@ void GraspPlannerWindow::loadObject(VirtualRobot::TriMeshModelPtr triMeshModel)
 {
   viewer_->lock();
 
+  // Simox uses MM while ROS uses M. So convert from M to MM.
+  std::vector< Eigen::Vector3f >& vertices = triMeshModel->vertices;
+  for (unsigned int i = 0; i < triMeshModel->vertices.size(); i++)
+  {
+    float x_MM = triMeshModel->vertices[i].x() * 1000.0; // M to MM
+    float y_MM = triMeshModel->vertices[i].y() * 1000.0; // M to MM
+    float z_MM = triMeshModel->vertices[i].z() * 1000.0; // M to MM
+    triMeshModel->vertices[i] << x_MM, y_MM, z_MM;
+  }
+
   const bool show_normals = true;
   object_ = MeshObstacle::create_mesh_obstacle(triMeshModel, !show_normals);
 
