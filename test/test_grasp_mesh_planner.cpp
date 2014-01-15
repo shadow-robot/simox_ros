@@ -57,7 +57,8 @@ void feedback_cb(const sr_grasp_msgs::PlanGraspFeedbackConstPtr& feedback)
 TEST(TestGraspMeshPlanner, testGraspMeshPlanner)
 {
   std::string package_path  = ros::package::getPath("sr_grasp_mesh_planner");
-  std::string ply_filename = package_path + "/kit/WhiteCup_800.ply";
+  std::string ply_filename = package_path + "/meshes/scanned_by_mark_M.ply";
+  // std::string ply_filename = package_path + "/meshes/WhiteCup_800_M.ply";
 
   ReadPLY reader;
   if (reader.load(ply_filename.c_str()) != 0)

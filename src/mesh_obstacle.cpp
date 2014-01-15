@@ -20,7 +20,7 @@ using namespace sr_grasp_mesh_planner;
 
 //-------------------------------------------------------------------------------
 
-const float MeshObstacle::SKY_BOX_SIZE2_ = 50;
+const float MeshObstacle::SKY_BOX_SIZE2_ = 0.050; // Meter
 
 //-------------------------------------------------------------------------------
 

@@ -52,8 +52,7 @@ int main (int argc, char **argv)
 {
   ros::init(argc, argv, "grasp_action_client_mesh");
   std::string package_path  = ros::package::getPath("sr_grasp_mesh_planner");
-  std::string ply_filename = package_path + "/kit/WhiteCup_800.ply";
-  // std::string ply_filename = package_path + "/kit/WhiteCup_NegX.ply";
+  std::string ply_filename = package_path + "/meshes/WhiteCup_800_M.ply";
 
   ReadPLY reader;
   if (reader.load(ply_filename.c_str()) != 0)
