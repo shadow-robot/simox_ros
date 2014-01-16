@@ -162,12 +162,12 @@ void MeshObstacle::write_tri_mesh(TriMeshModelPtr model, std::string filename)
   }
   std::vector<Eigen::Vector3f> verts = model->vertices;
   std::vector<MathTools::TriangleFace> faces = model->faces;
-  outf << "OFF" << endl;
-  outf << verts.size() << " " << faces.size() << " 0" << endl;
+  outf << "OFF" << "\n";
+  outf << verts.size() << " " << faces.size() << " 0\n";
   for (size_t i=0; i < verts.size(); ++i)
-    outf << verts.at(i).x() << " " << verts.at(i).y() << " " << verts.at(i).z() << " " << endl;
+    outf << verts.at(i).x() << " " << verts.at(i).y() << " " << verts.at(i).z() << "\n";
   for (size_t i=0; i<faces.size(); ++i)
-    outf << "3 " << faces.at(i).id1 << " " << faces.at(i).id2 << " " << faces.at(i).id3 << endl;
+    outf << "3 " << faces.at(i).id1 << " " << faces.at(i).id2 << " " << faces.at(i).id3 << "\n";
   outf.close();
   VR_INFO << "Wrote file: " << filename << endl;
 }
