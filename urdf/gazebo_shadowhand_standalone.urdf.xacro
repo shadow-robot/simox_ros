@@ -37,7 +37,7 @@
 	<bumperTopicName>/sh/contacts/mf</bumperTopicName>
       </plugin>
     </sensor>
-    <material>Gazebo/Orange</material>
+    <material>Gazebo/Green</material>
   </gazebo>
 
   <gazebo reference="rfdistal">
@@ -71,7 +71,7 @@
 	<bumperTopicName>/sh/contacts/lf</bumperTopicName>
       </plugin>
     </sensor>
-    <material>Gazebo/Orange</material>
+    <material>Gazebo/Green</material>
   </gazebo>
 
   <gazebo reference="thdistal">
