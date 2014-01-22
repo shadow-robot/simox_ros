@@ -2,7 +2,7 @@
 
   <gazebo>
     <plugin name="ros_control" filename="libgazebo_ros_control.so">
-      <robotNamespace>/sh</robotNamespace>
+      <robotNamespace>/rh</robotNamespace>
     </plugin>
   </gazebo>
 
@@ -17,7 +17,7 @@
       <plugin name="ffdistal_gazebo_ros_bumper_controller" filename="libgazebo_ros_bumper.so">
         <updateRate>100.0</updateRate>
 	<frameName>ffdistal</frameName>
-	<bumperTopicName>/sh/contacts/ff</bumperTopicName>
+	<bumperTopicName>/rh/contacts/ff</bumperTopicName>
       </plugin>
     </sensor>
     <material>Gazebo/Orange</material>
@@ -34,7 +34,7 @@
       <plugin name="mfdistal_gazebo_ros_bumper_controller" filename="libgazebo_ros_bumper.so">
         <updateRate>100.0</updateRate>
 	<frameName>mfdistal</frameName>
-	<bumperTopicName>/sh/contacts/mf</bumperTopicName>
+	<bumperTopicName>/rh/contacts/mf</bumperTopicName>
       </plugin>
     </sensor>
     <material>Gazebo/Green</material>
@@ -51,7 +51,7 @@
       <plugin name="rfdistal_gazebo_ros_bumper_controller" filename="libgazebo_ros_bumper.so">
         <updateRate>100.0</updateRate>
 	<frameName>rfdistal</frameName>
-	<bumperTopicName>/sh/contacts/rf</bumperTopicName>
+	<bumperTopicName>/rh/contacts/rf</bumperTopicName>
       </plugin>
     </sensor>
     <material>Gazebo/Orange</material>
@@ -68,7 +68,7 @@
       <plugin name="lfdistal_gazebo_ros_bumper_controller" filename="libgazebo_ros_bumper.so">
         <updateRate>100.0</updateRate>
 	<frameName>lfdistal</frameName>
-	<bumperTopicName>/sh/contacts/lf</bumperTopicName>
+	<bumperTopicName>/rh/contacts/lf</bumperTopicName>
       </plugin>
     </sensor>
     <material>Gazebo/Green</material>
@@ -85,7 +85,7 @@
       <plugin name="thdistal_gazebo_ros_bumper_controller" filename="libgazebo_ros_bumper.so">
         <updateRate>100.0</updateRate>
 	<frameName>thdistal</frameName>
-	<bumperTopicName>/sh/contacts/th</bumperTopicName>
+	<bumperTopicName>/rh/contacts/th</bumperTopicName>
       </plugin>
     </sensor>
     <material>Gazebo/Orange</material>
