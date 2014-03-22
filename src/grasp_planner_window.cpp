@@ -397,12 +397,11 @@ void GraspPlannerWindow::plan(bool force_closure, float min_quality)
     Eigen::Matrix4f poseGlobal = eefCloned_->getGlobalPose();
 
     // Here we choose between poseTcp and poseGlobal to save.
-    Eigen::Matrix4f poseToSave = poseTcp;
+    Eigen::Matrix4f poseToSave = poseGlobal;
     // Set pose.position.
-    grasp_msg.grasp_pose.header.frame_id = "forearm";
-    grasp_msg.grasp_pose.pose.position.x = poseToSave(0,3) / 1000.0; // /1000 as ros msg is in meters instead of mm
-    grasp_msg.grasp_pose.pose.position.y = poseToSave(1,3) / 1000.0;
-    grasp_msg.grasp_pose.pose.position.z = poseToSave(2,3) / 1000.0;
+    grasp_msg.grasp_pose.pose.position.x = poseToSave(0,3);
+    grasp_msg.grasp_pose.pose.position.y = poseToSave(1,3);
+    grasp_msg.grasp_pose.pose.position.z = poseToSave(2,3);
     // Set pose.orientation.
     MathTools::Quaternion q = MathTools::eigen4f2quat(poseToSave);
     grasp_msg.grasp_pose.pose.orientation.x = q.x;
