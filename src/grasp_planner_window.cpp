@@ -396,13 +396,17 @@ void GraspPlannerWindow::plan(bool force_closure, float min_quality)
     eefCloned_->setGlobalPoseForRobotNode(eefCloned_->getEndEffector(eefName_)->getTcp(), m);
     Eigen::Matrix4f poseGlobal = eefCloned_->getGlobalPose();
 
+    // We obtain the translation from the root to the TCP, to be able to get the grasp pose in the root (forearm) frame
+    // We do it this way because the TCP we have defined doesn't match any of the robot links' frames
+    Eigen::Matrix4f globalPoseTcp = eef_->getTcp()->getGlobalPose();
+
     // Here we choose between poseTcp and poseGlobal to save.
     Eigen::Matrix4f poseToSave = poseTcp;
     // Set pose.position.
     grasp_msg.grasp_pose.header.frame_id = "forearm";
-    grasp_msg.grasp_pose.pose.position.x = poseToSave(0,3) / 1000.0; // /1000 as ros msg is in meters instead of mm
-    grasp_msg.grasp_pose.pose.position.y = poseToSave(1,3) / 1000.0;
-    grasp_msg.grasp_pose.pose.position.z = poseToSave(2,3) / 1000.0;
+    grasp_msg.grasp_pose.pose.position.x = (poseToSave(0,3) + globalPoseTcp(0,3)) / 1000.0; // /1000 as ros msg is in meters instead of mm
+    grasp_msg.grasp_pose.pose.position.y = (poseToSave(1,3) + globalPoseTcp(1,3)) / 1000.0;
+    grasp_msg.grasp_pose.pose.position.z = (poseToSave(2,3) + globalPoseTcp(2,3)) / 1000.0;
     // Set pose.orientation.
     MathTools::Quaternion q = MathTools::eigen4f2quat(poseToSave);
     grasp_msg.grasp_pose.pose.orientation.x = q.x;
