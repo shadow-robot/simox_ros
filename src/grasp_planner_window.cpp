@@ -369,6 +369,7 @@ void GraspPlannerWindow::plan(bool force_closure, float min_quality)
     // Get the configuration of the grasp.
     std::map<std::string, float> config= grasps_->getGrasp(i)->getConfiguration();
     std::map<std::string, float>::const_iterator iter = config.begin();
+    trajectory_msgs::JointTrajectoryPoint jtPoint;
     while (iter != config.end())
     {
       std::string node_name = iter->first;
@@ -376,11 +377,11 @@ void GraspPlannerWindow::plan(bool force_closure, float min_quality)
       // Set joint name.
       grasp_posture.joint_names.push_back(node_name);
       // Set position (i.e., angle).
-      trajectory_msgs::JointTrajectoryPoint jtPoint;
       jtPoint.positions.push_back(value);
-      grasp_posture.points.push_back(jtPoint);
       iter++;
     }
+    if (!grasp_posture.joint_names.empty())
+      grasp_posture.points.push_back(jtPoint);
     // Set the grasp posture.
     grasp_msg.grasp_posture = grasp_posture;
 
