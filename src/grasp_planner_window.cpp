@@ -1,4 +1,5 @@
 #include "sr_grasp_mesh_planner/grasp_planner_window.hpp"
+#include "sr_grasp_mesh_planner/sr_approach_movement_bounding_box.hpp"
 #include "sr_grasp_mesh_planner/sr_approach_movement_surface_normal.hpp"
 #include "sr_grasp_mesh_planner/mesh_obstacle.hpp"
 
@@ -261,7 +262,7 @@ void GraspPlannerWindow::loadObject(VirtualRobot::TriMeshModelPtr triMeshModel)
   // qualityMeasure_->setVerbose(true);
   qualityMeasure_->calculateObjectProperties();
 
-  approach_.reset(new SrApproachMovementSurfaceNormal(object_, eef_));
+  approach_.reset(new SrApproachMovementBoundingBox(object_, eef_));
   eefCloned_ = approach_->getEEFRobotClone();
   if (robot_ && eef_)
   {

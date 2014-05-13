@@ -25,10 +25,6 @@ public:
   //! Returns a position with normal on the surface of the object
   bool getPositionOnObjectWithFocalPoint(Eigen::Vector3f &storePos,
                                          Eigen::Vector3f &storeApproachDir);
-
-private:
-  //! From the object and outward.
-  Eigen::Vector3f approach_direction_;
 };
 
 } // end of namespace sr_grasp_mesh_planner

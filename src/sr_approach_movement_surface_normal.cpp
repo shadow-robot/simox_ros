@@ -12,9 +12,7 @@
 #include <cstring>
 #include <iostream>
 
-//-------------------------------------------------------------------------------
-
-using namespace sr_grasp_mesh_planner;
+namespace sr_grasp_mesh_planner {
 
 //-------------------------------------------------------------------------------
 
@@ -25,10 +23,6 @@ SrApproachMovementSurfaceNormal::SrApproachMovementSurfaceNormal(VirtualRobot::S
   : ApproachMovementSurfaceNormal(object, eef, graspPreshape, maxRandDist)
 {
   name = "SrApproachMovementSurfaceNormal";
-
-  approach_direction_ = Eigen::Vector3f(-1.0, 0.0, 0.0);
-  approach_direction_.normalize();
-  // Eigen::Vector3f com = object->getCollisionModel()->getTriMeshModel()->getCOM();
 }
 
 //-------------------------------------------------------------------------------
@@ -97,10 +91,11 @@ bool SrApproachMovementSurfaceNormal::getPositionOnObjectWithFocalPoint(Eigen::V
                                                             objectModel->vertices[nVert2],
                                                             objectModel->vertices[nVert3]);
 
-  // storeApproachDir = (objectModel->faces[nRandFace]).normal;
-  storeApproachDir = approach_direction_;
+  storeApproachDir = (objectModel->faces[nRandFace]).normal;
 
   return true;
 }
+
+} // end of namespace sr_grasp_mesh_planner
 
 //-------------------------------------------------------------------------------
