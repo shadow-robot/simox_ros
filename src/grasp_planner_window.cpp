@@ -25,6 +25,8 @@
 #include <Inventor/nodes/SoTransform.h>
 #include <Inventor/nodes/SoUnits.h>
 
+#include <ros/ros.h>
+
 //-------------------------------------------------------------------------------
 
 using namespace std;
@@ -46,6 +48,15 @@ GraspPlannerWindow::GraspPlannerWindow(std::string &robFile,
 
   // init the random number generator
   srand(time(NULL));
+
+  if (!ros::param::get("~approach_movement", approach_movement_))
+  {
+    approach_movement_ = "surface_normal";
+    ROS_WARN_STREAM("Could not read approach_movement from the parameter server. Set to " <<
+                    approach_movement_ << ".");
+  }
+  ROS_INFO_STREAM("Read approach_movement from the parameter server. Set to " <<
+                  approach_movement_ << ".");
 
   this->robotFile_ = robFile;
   this->eefName_ = eefName;
@@ -262,7 +273,17 @@ void GraspPlannerWindow::loadObject(VirtualRobot::TriMeshModelPtr triMeshModel)
   // qualityMeasure_->setVerbose(true);
   qualityMeasure_->calculateObjectProperties();
 
-  approach_.reset(new SrApproachMovementBoundingBox(object_, eef_));
+  // Approach movement: bounding_box or surface_normal.
+  if (approach_movement_.compare("bounding_box") == 0)
+    approach_.reset(new SrApproachMovementBoundingBox(object_, eef_));
+  else if (approach_movement_.compare("surface_normal") == 0)
+    approach_.reset(new SrApproachMovementSurfaceNormal(object_, eef_));
+  else
+  {
+    ROS_ERROR_STREAM("Approach movement " << approach_movement_ << " is NOT supported. Use surface_normal.");
+    approach_.reset(new SrApproachMovementSurfaceNormal(object_, eef_));
+  }
+
   eefCloned_ = approach_->getEEFRobotClone();
   if (robot_ && eef_)
   {
