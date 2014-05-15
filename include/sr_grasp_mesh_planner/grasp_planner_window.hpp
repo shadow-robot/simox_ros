@@ -112,6 +112,10 @@ public slots:
   static double diffclock(clock_t clock1, clock_t clock2);
 
 protected:
+  // "bounding_box" or "surface_normal"
+  std::string approach_movement_;
+  static const std::string default_approach_movement_;
+
   Ui::GraspPlanner UI_;
   CoinViewer *viewer_; /*!< Viewer to display the 3D model of the robot and the environment. */
 

@@ -136,7 +136,7 @@ include_directories(SYSTEM ${Simox_VISUALIZATION_INCLUDE_PATHS})
 # Collect all required files for build
 file(GLOB QT_FORMS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} ui/*.ui)
 file(GLOB_RECURSE QT_MOC RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} FOLLOW_SYMLINKS include/sr_grasp_mesh_planner/grasp_planner_window.hpp)
-file(GLOB_RECURSE QT_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} FOLLOW_SYMLINKS src/grasp_planner.cpp src/grasp_planner_window.cpp src/grasp_action_server.cpp src/sr_approach_movement_surface_normal.cpp src/mesh_obstacle.cpp src/coin_viewer.cpp)
+file(GLOB_RECURSE QT_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} FOLLOW_SYMLINKS src/grasp_planner.cpp src/grasp_planner_window.cpp src/grasp_action_server.cpp src/sr_approach_movement_bounding_box.cpp src/sr_approach_movement_surface_normal.cpp src/mesh_obstacle.cpp src/coin_viewer.cpp)
 
 QT4_WRAP_UI(QT_FORMS_HPP ${QT_FORMS})
 QT4_WRAP_CPP(QT_MOC_HPP ${QT_MOC})

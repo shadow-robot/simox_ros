@@ -13,6 +13,7 @@
  **/
 
 #include "sr_grasp_mesh_planner/grasp_planner_window.hpp"
+#include "sr_grasp_mesh_planner/sr_approach_movement_bounding_box.hpp"
 #include "sr_grasp_mesh_planner/sr_approach_movement_surface_normal.hpp"
 #include "sr_grasp_mesh_planner/mesh_obstacle.hpp"
 
@@ -38,12 +39,16 @@
 #include <Inventor/nodes/SoTransform.h>
 #include <Inventor/nodes/SoUnits.h>
 
+#include <ros/ros.h>
+
 //-------------------------------------------------------------------------------
 
 using namespace std;
 using namespace VirtualRobot;
 using namespace GraspStudio;
 using namespace sr_grasp_mesh_planner;
+
+const std::string GraspPlannerWindow::default_approach_movement_ = "bounding_box";
 
 //-------------------------------------------------------------------------------
 
@@ -59,6 +64,20 @@ GraspPlannerWindow::GraspPlannerWindow(std::string &robFile,
 
   // init the random number generator
   srand(time(NULL));
+
+  if (!ros::param::get("~approach_movement", approach_movement_))
+  {
+    approach_movement_ = default_approach_movement_;
+    ROS_WARN_STREAM("Could not read approach_movement from the parameter server. Set to " <<
+                    approach_movement_ << ".");
+  }
+  if (approach_movement_.compare("bounding_box") != 0 &&
+      approach_movement_.compare("surface_normal") != 0)
+  {
+    ROS_WARN_STREAM("The approach_movement " << approach_movement_ << " from the parameter server is not valid. " <<
+                    "Set to " << default_approach_movement_ << ".");
+    approach_movement_ = default_approach_movement_;
+  }
 
   this->robotFile_ = robFile;
   this->eefName_ = eefName;
@@ -275,7 +294,12 @@ void GraspPlannerWindow::loadObject(VirtualRobot::TriMeshModelPtr triMeshModel)
   // qualityMeasure_->setVerbose(true);
   qualityMeasure_->calculateObjectProperties();
 
-  approach_.reset(new SrApproachMovementSurfaceNormal(object_, eef_));
+  // Approach movement: bounding_box or surface_normal.
+  if (approach_movement_.compare("bounding_box") == 0)
+    approach_.reset(new SrApproachMovementBoundingBox(object_, eef_));
+  else if (approach_movement_.compare("surface_normal") == 0)
+    approach_.reset(new SrApproachMovementSurfaceNormal(object_, eef_));
+
   eefCloned_ = approach_->getEEFRobotClone();
   if (robot_ && eef_)
   {
