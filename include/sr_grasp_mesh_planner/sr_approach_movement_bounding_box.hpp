@@ -1,3 +1,17 @@
+/*
+ * Copyright (c) 2013 Shadow Robot Company Ltd.
+ *  All rights reserved.
+ *
+ * This code is proprietary and may not be used, copied, distributed without
+ *  prior authorisation and agreement from Shadow Robot Company Ltd.
+ */
+
+/**
+ * @file   sr_approach_movement_bounding_box.hpp
+ * @author Yi Li <yi@shadowrobot.com>
+ * @brief  Bounding box (of the bounding box) based approach movement generator.
+ **/
+
 #pragma once
 
 #include <VirtualRobot/Visualization/TriMeshModel.h>
