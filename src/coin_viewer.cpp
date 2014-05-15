@@ -1,3 +1,17 @@
+/*
+ * Copyright (c) 2013 Shadow Robot Company Ltd.
+ *  All rights reserved.
+ *
+ * This code is proprietary and may not be used, copied, distributed without
+ *  prior authorisation and agreement from Shadow Robot Company Ltd.
+ */
+
+/**
+ * @file   coin_viewer.cpp
+ * @author Yi Li <yi@shadowrobot.com>
+ * @brief  Use mutex to protect SoQtExaminerViewer::actualRedraw.
+ **/
+
 #include "sr_grasp_mesh_planner/coin_viewer.hpp"
 
 //-------------------------------------------------------------------------------

@@ -1,3 +1,17 @@
+/*
+ * Copyright (c) 2013 Shadow Robot Company Ltd.
+ *  All rights reserved.
+ *
+ * This code is proprietary and may not be used, copied, distributed without
+ *  prior authorisation and agreement from Shadow Robot Company Ltd.
+ */
+
+/**
+ * @file   grasp_planner_window.cpp
+ * @author Yi Li <yi@shadowrobot.com>
+ * @brief  The main Qt window for the Simox-based grasp planner.
+ **/
+
 #include "sr_grasp_mesh_planner/grasp_planner_window.hpp"
 #include "sr_grasp_mesh_planner/sr_approach_movement_surface_normal.hpp"
 #include "sr_grasp_mesh_planner/mesh_obstacle.hpp"

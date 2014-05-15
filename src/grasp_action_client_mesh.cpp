@@ -1,3 +1,17 @@
+/*
+ * Copyright (c) 2013 Shadow Robot Company Ltd.
+ *  All rights reserved.
+ *
+ * This code is proprietary and may not be used, copied, distributed without
+ *  prior authorisation and agreement from Shadow Robot Company Ltd.
+ */
+
+/**
+ * @file   grasp_action_client_mesh.cppp
+ * @author Yi Li <yi@shadowrobot.com>
+ * @brief  A grasp action client.
+ **/
+
 #include "sr_grasp_mesh_planner/mesh_obstacle.hpp"
 #include "sr_grasp_mesh_planner/read_ply.hpp"
 #include <sr_grasp_msgs/PlanGraspAction.h>

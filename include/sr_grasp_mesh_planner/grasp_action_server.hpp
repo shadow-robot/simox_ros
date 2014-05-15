@@ -1,3 +1,17 @@
+/*
+ * Copyright (c) 2013 Shadow Robot Company Ltd.
+ *  All rights reserved.
+ *
+ * This code is proprietary and may not be used, copied, distributed without
+ *  prior authorisation and agreement from Shadow Robot Company Ltd.
+ */
+
+/**
+ * @file   grasp_action_server.hpp
+ * @author Yi Li <yi@shadowrobot.com>
+ * @brief  A grasp action server.
+ **/
+
 #pragma once
 
 //-------------------------------------------------------------------------------
