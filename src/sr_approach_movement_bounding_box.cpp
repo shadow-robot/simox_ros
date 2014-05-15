@@ -51,6 +51,8 @@ void SrApproachMovementBoundingBox::constructBoundingBoxObject(VirtualRobot::Sce
   VirtualRobot::BoundingBox bb = object->getCollisionModel()->getBoundingBox();
   std::vector <Eigen::Vector3f> bb_points = bb.getPoints();
 
+  // We get 8 vertices. From these vertices, we can construct 12 triangles (that cover the surface
+  // of the bounding box), 2 triangles per face.
   Eigen::MatrixXi triangles = Eigen::MatrixXi::Zero(12, 3);
   triangles << 3, 1, 5,
     3, 5, 7,
