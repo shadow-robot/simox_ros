@@ -25,6 +25,7 @@
 #include <cstdio>
 #include <cstring>
 #include <iostream>
+#include <ros/ros.h>
 
 namespace sr_grasp_mesh_planner
 {
@@ -89,7 +90,7 @@ Eigen::Matrix4f SrApproachMovementBoundingBox::createNewApproachPose()
   Eigen::Vector3f approachDir;
   if (!this->getPositionOnObjectWithFocalPoint(position, approachDir))
   {
-    GRASPSTUDIO_ERROR << "no position on object?!" << std::endl;
+    ROS_ERROR_STREAM("no position on object?!");
     return pose;
   }
 
