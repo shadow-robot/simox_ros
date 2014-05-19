@@ -52,7 +52,8 @@ protected:
 
   bool time_to_quit_;
 
-  float timeout_;
+  float timeout_total_;
+  float timeout_one_grasp_;
   bool force_closure_;
   float min_quality_;
   int max_grasps_;

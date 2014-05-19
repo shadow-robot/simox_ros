@@ -100,6 +100,13 @@ TEST(TestGraspMeshPlanner, testGraspMeshPlanner)
   // http://goo.gl/BcuAFa
   ROS_INFO_STREAM("Action server started, sending goal.");
   ac.sendGoal(goal, &done_cb, &active_cb, &feedback_cb);
+
+  ros::Rate r(1);
+  while (ros::ok())
+  {
+    ros::spinOnce();
+    r.sleep();
+  }
 }
 
 //-------------------------------------------------------------------------------

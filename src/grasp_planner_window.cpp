@@ -140,12 +140,8 @@ void GraspPlannerWindow::setupUI()
   viewer_->setSceneGraph(sceneSep_);
   viewer_->viewAll();
 
-  connect(UI_.pushButtonReset, SIGNAL(clicked()), this, SLOT(resetSceneryAll()));
-  connect(UI_.pushButtonPlan, SIGNAL(clicked()), this, SLOT(plan()));
-  connect(UI_.pushButtonSave, SIGNAL(clicked()), this, SLOT(save()));
   connect(UI_.pushButtonOpen, SIGNAL(clicked()), this, SLOT(openEEF()));
   connect(UI_.pushButtonClose, SIGNAL(clicked()), this, SLOT(closeEEF()));
-
   connect(UI_.checkBoxColModel, SIGNAL(clicked()), this, SLOT(colModel()));
   connect(UI_.checkBoxCones, SIGNAL(clicked()), this, SLOT(frictionConeVisu()));
   connect(UI_.checkBoxGrasps, SIGNAL(clicked()), this, SLOT(showGrasps()));
@@ -338,6 +334,7 @@ void GraspPlannerWindow::loadRobot()
 //-------------------------------------------------------------------------------
 
 void GraspPlannerWindow::plan(bool force_closure,
+                              float timeout,
                               float min_quality,
                               boost::shared_ptr<sr_grasp_msgs::PlanGraspFeedback> feedback_mesh,
                               boost::shared_ptr<sr_grasp_msgs::PlanGraspResult> result_mesh)
@@ -345,20 +342,26 @@ void GraspPlannerWindow::plan(bool force_closure,
   feedback_mesh_ = feedback_mesh;
   result_mesh_ = result_mesh;
   this->resetSceneryAll();
-  this->plan(force_closure, min_quality);
+  this->plan(force_closure, timeout, min_quality);
 }
 
 //-------------------------------------------------------------------------------
 
-void GraspPlannerWindow::plan(bool force_closure, float min_quality)
+void GraspPlannerWindow::plan(bool force_closure,
+                              float timeout,
+                              float min_quality)
 {
   viewer_->lock();
 
   // Start!
   clock_t begin = clock();
 
-  float timeout = UI_.spinBoxTimeOut->value() * 1000.0f;
-  int nrDesiredGrasps = UI_.spinBoxGraspNumber->value();
+  /*
+   * Parameter num_of_desired_grasp_sets is set in class GraspActionServer.
+   * For every set, we generate ONE grasp.
+   */
+  const int nrDesiredGrasps = 1;
+  const float timeout_ms =  timeout * 1000.0f; // second -> millisecond.
 
   planner_.reset(new GraspStudio::GenericGraspPlanner(grasps_,
                                                       qualityMeasure_,
@@ -366,7 +369,7 @@ void GraspPlannerWindow::plan(bool force_closure, float min_quality)
                                                       min_quality,
                                                       force_closure));
 
-  int nrComputedGrasps = planner_->plan(nrDesiredGrasps, timeout);
+  int nrComputedGrasps = planner_->plan(nrDesiredGrasps, timeout_ms);
   grasps_->setPreshape(preshape_);
   for (int i=0; i<static_cast<int>(grasps_->getSize()); i++)
   {
