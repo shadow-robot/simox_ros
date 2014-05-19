@@ -286,9 +286,15 @@ void GraspPlannerWindow::loadObject(VirtualRobot::TriMeshModelPtr triMeshModel,
    * See cfg/Planner.cfg.
    */
   if (approach_movement == 0)
+  {
     approach_.reset(new SrApproachMovementBoundingBox(object_, eef_));
+    ROS_INFO_STREAM("Choose the Bounding box based approach movement generator.");
+  }
   else
+  {
     approach_.reset(new SrApproachMovementSurfaceNormal(object_, eef_));
+    ROS_INFO_STREAM("Choose the Object surface normal based approach movement generator.");
+  }
 
   eefCloned_ = approach_->getEEFRobotClone();
   if (robot_ && eef_)
