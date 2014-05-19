@@ -9,7 +9,7 @@
 /**
  * @file   sr_approach_movement_bounding_box.hpp
  * @author Yi Li <yi@shadowrobot.com>
- * @brief  Bounding box (of the bounding box) based approach movement generator.
+ * @brief  Bounding box based approach movement generator.
  **/
 
 #pragma once
