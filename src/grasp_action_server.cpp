@@ -68,7 +68,6 @@ void GraspActionServer::config_cb_(sr_grasp_mesh_planner::PlannerConfig &config,
                                   uint32_t level)
 {
   max_grasps_        = config.max_grasps;
-  timeout_total_     = config.timeout_total;
   timeout_one_grasp_ = config.timeout_one_grasp;
   min_quality_       = config.min_quality;
   force_closure_     = config.force_closure;
@@ -93,17 +92,6 @@ void GraspActionServer::goal_cb_(const sr_grasp_msgs::PlanGraspGoalConstPtr &goa
 
   // *** start executing the action ***
 
-  // Start the timer.
-  time_to_quit_ = false;
-  ros::WallTimer timer;
-  if (timeout_total_ > 0.0)
-  {
-    timer = nh_.createWallTimer(ros::WallDuration(timeout_total_),
-                                &GraspActionServer::timer_cb_,
-                                this);
-    timer.start();
-  }
-
   /*
    * GraspPlannerWindow::plan can generate multiple grasps.
    * However, we always generate a single grasp in the method.
@@ -120,7 +108,7 @@ void GraspActionServer::goal_cb_(const sr_grasp_msgs::PlanGraspGoalConstPtr &goa
                      result_mesh_);
 
     // check that preempt has not been requested by the client
-    if (as_mesh_.isPreemptRequested() || !ros::ok() || time_to_quit_)
+    if (as_mesh_.isPreemptRequested() || !ros::ok())
     {
       ROS_INFO("%s: Preempted", action_name_.c_str());
       // set the action state to preempted
@@ -142,13 +130,6 @@ void GraspActionServer::goal_cb_(const sr_grasp_msgs::PlanGraspGoalConstPtr &goa
     as_mesh_.setSucceeded(*result_mesh_);
     ROS_INFO_STREAM("Action " << action_name_ << ": Succeeded");
   }
-}
-
-//-------------------------------------------------------------------------------
-
-void GraspActionServer::timer_cb_(const ros::WallTimerEvent& event)
-{
-  time_to_quit_ = true;
 }
 
 //-------------------------------------------------------------------------------

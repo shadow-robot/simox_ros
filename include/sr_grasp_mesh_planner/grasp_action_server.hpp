@@ -50,9 +50,6 @@ protected:
 
   boost::shared_ptr<GraspPlannerWindow> grasp_win_;
 
-  bool time_to_quit_;
-
-  float timeout_total_;
   float timeout_one_grasp_;
   bool force_closure_;
   float min_quality_;
@@ -72,8 +69,6 @@ private:
   void goal_cb_(const sr_grasp_msgs::PlanGraspGoalConstPtr &goal);
 
   void config_cb_(sr_grasp_mesh_planner::PlannerConfig &config, uint32_t level);
-
-  void timer_cb_(const ros::WallTimerEvent& event);
 };
 
 } // end of namespace sr_grasp_mesh_planner
