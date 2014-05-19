@@ -101,6 +101,7 @@ TEST(TestGraspMeshPlanner, testGraspMeshPlanner)
   ROS_INFO_STREAM("Action server started, sending goal.");
   ac.sendGoal(goal, &done_cb, &active_cb, &feedback_cb);
 
+  // Keep the action client alive until done_cb is called.
   ros::Rate r(1);
   while (ros::ok())
   {
