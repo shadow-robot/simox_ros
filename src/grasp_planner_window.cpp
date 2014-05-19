@@ -16,6 +16,7 @@
 #include "sr_grasp_mesh_planner/sr_approach_movement_bounding_box.hpp"
 #include "sr_grasp_mesh_planner/sr_approach_movement_surface_normal.hpp"
 #include "sr_grasp_mesh_planner/mesh_obstacle.hpp"
+#include "sr_grasp_mesh_planner/PlannerConfig.h"
 
 #include <cmath>
 #include <ctime>
@@ -281,16 +282,16 @@ void GraspPlannerWindow::loadObject(VirtualRobot::TriMeshModelPtr triMeshModel,
 
   /*
    * Set approach movement generator.
-   * 0 : Bounding box based approach movement generator.
-   * 1 : Object surface normal based approach movement generator.
+   * Planner_bounding_box : Bounding box based approach movement generator.
+   * Planner_surface_normal : Object surface normal based approach movement generator.
    * See cfg/Planner.cfg.
    */
-  if (approach_movement == 0)
+  if (approach_movement == Planner_bounding_box)
   {
     approach_.reset(new SrApproachMovementBoundingBox(object_, eef_));
     ROS_INFO_STREAM("Choose the Bounding box based approach movement generator.");
   }
-  else
+  else if (approach_movement == Planner_surface_normal)
   {
     approach_.reset(new SrApproachMovementSurfaceNormal(object_, eef_));
     ROS_INFO_STREAM("Choose the Object surface normal based approach movement generator.");
