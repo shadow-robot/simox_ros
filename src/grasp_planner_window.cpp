@@ -279,7 +279,12 @@ void GraspPlannerWindow::loadObject(VirtualRobot::TriMeshModelPtr triMeshModel,
   // qualityMeasure_->setVerbose(true);
   qualityMeasure_->calculateObjectProperties();
 
-  // Set approach movement generator.
+  /*
+   * Set approach movement generator.
+   * 0 : Bounding box based approach movement generator.
+   * 1 : Object surface normal based approach movement generator.
+   * See cfg/Planner.cfg.
+   */
   if (approach_movement == 0)
     approach_.reset(new SrApproachMovementBoundingBox(object_, eef_));
   else
