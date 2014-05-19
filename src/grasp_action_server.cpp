@@ -71,6 +71,7 @@ void GraspActionServer::config_cb_(sr_grasp_mesh_planner::PlannerConfig &config,
   timeout_one_grasp_ = config.timeout_one_grasp;
   min_quality_       = config.min_quality;
   force_closure_     = config.force_closure;
+  approach_movement_ = config.approach_movement;
 }
 
 //-------------------------------------------------------------------------------
@@ -80,7 +81,7 @@ void GraspActionServer::goal_cb_(const sr_grasp_msgs::PlanGraspGoalConstPtr &goa
   bool success = true;
 
   // Construct an object from the given triangle mesh model (for the grasp planner).
-  grasp_win_->loadObject(goal->object);
+  grasp_win_->loadObject(goal->object, approach_movement_);
   grasp_win_->buildVisu();
 
   // Init the actionlib feedback and result data.

@@ -48,8 +48,6 @@ using namespace VirtualRobot;
 using namespace GraspStudio;
 using namespace sr_grasp_mesh_planner;
 
-const std::string GraspPlannerWindow::default_approach_movement_ = "bounding_box";
-
 //-------------------------------------------------------------------------------
 
 GraspPlannerWindow::GraspPlannerWindow(std::string &robFile,
@@ -64,20 +62,6 @@ GraspPlannerWindow::GraspPlannerWindow(std::string &robFile,
 
   // init the random number generator
   srand(time(NULL));
-
-  if (!ros::param::get("~approach_movement", approach_movement_))
-  {
-    approach_movement_ = default_approach_movement_;
-    ROS_WARN_STREAM("Could not read approach_movement from the parameter server. Set to " <<
-                    approach_movement_ << ".");
-  }
-  if (approach_movement_.compare("bounding_box") != 0 &&
-      approach_movement_.compare("surface_normal") != 0)
-  {
-    ROS_WARN_STREAM("The approach_movement " << approach_movement_ << " from the parameter server is not valid. " <<
-                    "Set to " << default_approach_movement_ << ".");
-    approach_movement_ = default_approach_movement_;
-  }
 
   this->robotFile_ = robFile;
   this->eefName_ = eefName;
@@ -105,7 +89,10 @@ GraspPlannerWindow::GraspPlannerWindow(std::string &robFile,
   setupUI();
 
   loadRobot();
-  loadObject(triMeshModel);
+
+  // Load a temporary object.
+  int approach_movement = 0;
+  loadObject(triMeshModel, approach_movement);
 
   buildVisu();
 
@@ -255,16 +242,18 @@ void GraspPlannerWindow::quit()
 
 //-------------------------------------------------------------------------------
 
-void GraspPlannerWindow::loadObject(const object_recognition_msgs::RecognizedObject &object)
+void GraspPlannerWindow::loadObject(const object_recognition_msgs::RecognizedObject &object,
+                                    int approach_movement)
 {
   const shape_msgs::Mesh& obj_mesh = object.bounding_mesh;
   TriMeshModelPtr triMeshModel = MeshObstacle::create_tri_mesh(obj_mesh);
-  this->loadObject(triMeshModel);
+  this->loadObject(triMeshModel, approach_movement);
 }
 
 //-------------------------------------------------------------------------------
 
-void GraspPlannerWindow::loadObject(VirtualRobot::TriMeshModelPtr triMeshModel)
+void GraspPlannerWindow::loadObject(VirtualRobot::TriMeshModelPtr triMeshModel,
+                                    int approach_movement)
 {
   viewer_->lock();
 
@@ -283,17 +272,17 @@ void GraspPlannerWindow::loadObject(VirtualRobot::TriMeshModelPtr triMeshModel)
 
   Eigen::Vector3f minS, maxS;
   object_->getCollisionModel()->getTriMeshModel()->getSize(minS, maxS);
-  cout << "TriMeshModel minS:\n" << minS << endl;
-  cout << "TriMeshModel MaxS:\n" << maxS << endl;
+  cout << "TriMeshModel minS: [" << minS[0] << ", " << minS[1] << ", " << minS[2] << "]" << endl;
+  cout << "TriMeshModel MaxS: [" << maxS[0] << ", " << maxS[1] << ", " << maxS[2] << "]" << endl;
 
   qualityMeasure_.reset(new GraspStudio::GraspQualityMeasureWrenchSpace(object_));
   // qualityMeasure_->setVerbose(true);
   qualityMeasure_->calculateObjectProperties();
 
-  // Approach movement: bounding_box or surface_normal.
-  if (approach_movement_.compare("bounding_box") == 0)
+  // Set approach movement generator.
+  if (approach_movement == 0)
     approach_.reset(new SrApproachMovementBoundingBox(object_, eef_));
-  else if (approach_movement_.compare("surface_normal") == 0)
+  else
     approach_.reset(new SrApproachMovementSurfaceNormal(object_, eef_));
 
   eefCloned_ = approach_->getEEFRobotClone();

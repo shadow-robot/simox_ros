@@ -17,8 +17,8 @@
 //-------------------------------------------------------------------------------
 
 #include "sr_grasp_mesh_planner/grasp_planner_window.hpp"
-#include <sr_grasp_mesh_planner/PlannerConfig.h>
-#include <sr_grasp_msgs/PlanGraspAction.h>
+#include "sr_grasp_mesh_planner/PlannerConfig.h"
+#include "sr_grasp_msgs/PlanGraspAction.h"
 
 #include <ros/ros.h>
 #include <actionlib/server/simple_action_server.h>
@@ -54,6 +54,7 @@ protected:
   bool force_closure_;
   float min_quality_;
   int max_grasps_;
+  int approach_movement_;
 
   dynamic_reconfigure::Server<sr_grasp_mesh_planner::PlannerConfig> config_server_;
 
