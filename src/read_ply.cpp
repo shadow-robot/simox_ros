@@ -19,6 +19,7 @@
 #include <cmath>
 #include <cstring>
 #include <string>
+#include <ros/ros.h>
 
 //-------------------------------------------------------------------------------
 
@@ -40,7 +41,7 @@ int ReadPLY::load(const char* filename)
   const char* pch = strstr(filename,".ply");
   if (pch == NULL)
   {
-    printf("File does not have a .PLY extension. ");
+    ROS_ERROR_STREAM("File " << filename << " does not have a .PLY extension.");
     return -1;
   }
 
@@ -66,7 +67,12 @@ int ReadPLY::load(const char* filename)
     int normal_index = 0;
     char buffer[1000];
 
-    fgets(buffer,300,file); // ply
+    // PLY
+    if (fgets(buffer,300,file) == NULL)
+    {
+      ROS_ERROR_STREAM("Failed to read file " << filename << ".");
+      return -1;
+    }
 
     // READ HEADER
     // -----------------
@@ -74,7 +80,12 @@ int ReadPLY::load(const char* filename)
     // Find number of vertexes
     while (  strncmp( "element vertex", buffer,strlen("element vertex")) != 0  )
     {
-      fgets(buffer,300,file); // format
+      // format
+      if (fgets(buffer,300,file) == NULL)
+      {
+        ROS_ERROR_STREAM("Failed to read file " << filename << ".");
+        return -1;
+      }
     }
     strcpy(buffer, buffer+strlen("element vertex"));
     sscanf(buffer,"%i", &this->total_vertices_);
@@ -82,7 +93,12 @@ int ReadPLY::load(const char* filename)
     // Find number of vertexes
     while (  strncmp( "element face", buffer,strlen("element face")) != 0  )
     {
-      fgets(buffer,300,file); // format
+      // format
+      if (fgets(buffer,300,file) == NULL)
+      {
+        ROS_ERROR_STREAM("Failed to read file " << filename << ".");
+        return -1;
+      }
     }
     strcpy(buffer, buffer+strlen("element face"));
     sscanf(buffer,"%i", &this->total_triangles_);
@@ -90,7 +106,12 @@ int ReadPLY::load(const char* filename)
     // go to end_header
     while (  strncmp( "end_header", buffer,strlen("end_header")) != 0  )
     {
-      fgets(buffer,300,file); // format
+      // format
+      if (fgets(buffer,300,file) == NULL)
+      {
+        ROS_ERROR_STREAM("Failed to read file " << filename << ".");
+        return -1;
+      }
     }
 
     //----------------------
@@ -99,7 +120,11 @@ int ReadPLY::load(const char* filename)
     i = 0;
     for (int iterator = 0; iterator < this->total_vertices_; iterator++)
     {
-      fgets(buffer,300,file);
+      if (fgets(buffer,300,file) == NULL)
+      {
+        ROS_ERROR_STREAM("Failed to read file " << filename << ".");
+        return -1;
+      }
 
       PlyVertex v;
       sscanf(buffer,"%f %f %f", &v.x, &v.y, &v.z);
@@ -112,7 +137,11 @@ int ReadPLY::load(const char* filename)
     i =0;
     for (int iterator = 0; iterator < this->total_triangles_; iterator++)
     {
-      fgets(buffer,300,file);
+      if (fgets(buffer,300,file) == NULL)
+      {
+        ROS_ERROR_STREAM("Failed to read file " << filename << ".");
+        return -1;
+      }
 
       if (buffer[0] == '3')
       {
@@ -129,7 +158,7 @@ int ReadPLY::load(const char* filename)
   }
   else
   {
-    printf("File can't be opened\n");
+    ROS_ERROR_STREAM("File " << filename << "can't be opened.\n");
   }
 
   return 0;
