@@ -1,9 +1,9 @@
 /*
  * Copyright (c) 2013 Shadow Robot Company Ltd.
- *  All rights reserved.
+ * All rights reserved.
  *
  * This code is proprietary and may not be used, copied, distributed without
- *  prior authorisation and agreement from Shadow Robot Company Ltd.
+ * prior authorisation and agreement from Shadow Robot Company Ltd.
  */
 
 /**
@@ -80,7 +80,7 @@ int ReadPLY::load(const char* filename)
   // READ HEADER
 
   // Find number of vertexes
-  while (  strncmp( "element vertex", buffer,strlen("element vertex")) != 0  )
+  while ( strncmp( "element vertex", buffer,strlen("element vertex")) != 0 )
   {
     // format
     if (fgets(buffer,300,file) == NULL)
@@ -93,7 +93,7 @@ int ReadPLY::load(const char* filename)
   sscanf(buffer,"%i", &this->total_vertices_);
 
   // Find number of vertexes
-  while (  strncmp( "element face", buffer,strlen("element face")) != 0  )
+  while ( strncmp( "element face", buffer,strlen("element face")) != 0 )
   {
     // format
     if (fgets(buffer,300,file) == NULL)
@@ -106,7 +106,7 @@ int ReadPLY::load(const char* filename)
   sscanf(buffer,"%i", &this->total_triangles_);
 
   // go to end_header
-  while (  strncmp( "end_header", buffer,strlen("end_header")) != 0  )
+  while ( strncmp( "end_header", buffer,strlen("end_header")) != 0 )
   {
     // format
     if (fgets(buffer,300,file) == NULL)
@@ -134,7 +134,7 @@ int ReadPLY::load(const char* filename)
   }
 
   // read faces
-  i =0;
+  i = 0;
   for (int iterator = 0; iterator < this->total_triangles_; iterator++)
   {
     if (fgets(buffer,300,file) == NULL)
