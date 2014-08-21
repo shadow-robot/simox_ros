@@ -33,19 +33,11 @@ int main(int argc, char** argv)
   robot.append("/simox/shadowhand.xml");
   std::string eef("SHADOWHAND");
   std::string preshape("Grasp Preshape");
+
   if (!VirtualRobot::RuntimeEnvironment::getDataFileAbsolute(robot))
   {
-    // Shadow hand not found -> Try ArmarIII.
-    ROS_ERROR_STREAM("Shadow hand not found. Try ArmarIII.");
-    // The folder robots should be inside /usr/local/data.
-    robot = std::string("robots/ArmarIII/ArmarIII.xml");
-    eef = std::string("Hand R");
-    preshape = std::string("");
-    if (!VirtualRobot::RuntimeEnvironment::getDataFileAbsolute(robot))
-    {
-      ROS_ERROR_STREAM("Backup robot ArmarIII not found.");
-      return EXIT_FAILURE;
-    }
+    ROS_FATAL("Shadow hand not found");
+    return EXIT_FAILURE;
   }
 
   VirtualRobot::RuntimeEnvironment::considerKey("robot");

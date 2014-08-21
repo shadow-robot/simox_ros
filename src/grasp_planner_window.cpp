@@ -57,31 +57,31 @@ GraspPlannerWindow::GraspPlannerWindow(std::string &robFile,
                                        VirtualRobot::TriMeshModelPtr triMeshModel,
                                        Qt::WFlags flags)
   : QMainWindow(NULL),
-    grasp_counter_(0)
+
+  viewer_(NULL), /*!< Viewer to display the 3D model of the robot and the environment. */
+
+  sceneSep_(new SoSeparator),
+  robotSep_(new SoSeparator),
+  objectSep_(new SoSeparator),
+  frictionConeSep_(new SoSeparator),
+  graspsSep_(new SoSeparator),
+  sphereSep_(new SoSeparator),
+
+  robotFile_(robFile),
+  eefName_(eefName),
+  preshape_(preshape),
+  eefVisu_(NULL),
+
+  grasp_counter_(0)
 {
   VR_INFO << " Start GraspPlannerWindow " << endl;
 
   // init the random number generator
   srand(time(NULL));
 
-  this->robotFile_ = robFile;
-  this->eefName_ = eefName;
-  this->preshape_ = preshape;
-  eefVisu_ = NULL;
-
-  sceneSep_ = new SoSeparator;
   sceneSep_->ref();
-  robotSep_ = new SoSeparator;
-  objectSep_ = new SoSeparator;
-  sphereSep_ = new SoSeparator;
-  frictionConeSep_ = new SoSeparator;
-  graspsSep_ = new SoSeparator;
   graspsSep_->ref();
 
-#if 0
-  SoSeparator *s = CoinVisualizationFactory::CreateCoordSystemVisualization();
-  sceneSep_->addChild(s);
-#endif
   sceneSep_->addChild(robotSep_);
   sceneSep_->addChild(objectSep_);
   sceneSep_->addChild(sphereSep_);
