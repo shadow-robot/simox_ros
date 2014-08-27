@@ -51,9 +51,9 @@ using namespace sr_grasp_mesh_planner;
 
 //-------------------------------------------------------------------------------
 
-GraspPlannerWindow::GraspPlannerWindow(std::string &robFile,
-                                       std::string &eefName,
-                                       std::string &preshape,
+GraspPlannerWindow::GraspPlannerWindow(string &robFile,
+                                       string &eefName,
+                                       string &preshape,
                                        VirtualRobot::TriMeshModelPtr triMeshModel,
                                        Qt::WFlags flags)
   : QMainWindow(NULL),
@@ -119,9 +119,6 @@ void GraspPlannerWindow::setupUI()
 
   viewer_->setBackgroundColor(SbColor(1.0f, 1.0f, 1.0f));
   viewer_->setAccumulationBuffer(true);
-#ifdef WIN32
-  viewer_->setAntialiasing(true, 8);
-#endif
   viewer_->setGLRenderAction(new SoLineHighlightRenderAction);
   viewer_->setTransparencyType(SoGLRenderAction::SORTED_OBJECT_BLEND);
   viewer_->setFeedbackVisibility(true);
@@ -236,7 +233,7 @@ int GraspPlannerWindow::main()
 
 void GraspPlannerWindow::quit()
 {
-  std::cout << "GraspPlannerWindow: Closing" << std::endl;
+  ROS_INFO("GraspPlannerWindow: Closing");
   this->close();
   SoQt::exitMainLoop();
 }
@@ -259,7 +256,6 @@ void GraspPlannerWindow::loadObject(VirtualRobot::TriMeshModelPtr triMeshModel,
   viewer_->lock();
 
   // Simox uses MM while ROS uses M. So convert from M to MM.
-  std::vector< Eigen::Vector3f >& vertices = triMeshModel->vertices;
   for (unsigned int i = 0; i < triMeshModel->vertices.size(); i++)
   {
     float x_MM = triMeshModel->vertices[i].x() * 1000.0; // M to MM
@@ -273,8 +269,8 @@ void GraspPlannerWindow::loadObject(VirtualRobot::TriMeshModelPtr triMeshModel,
 
   Eigen::Vector3f minS, maxS;
   object_->getCollisionModel()->getTriMeshModel()->getSize(minS, maxS);
-  cout << "TriMeshModel minS: [" << minS[0] << ", " << minS[1] << ", " << minS[2] << "]" << endl;
-  cout << "TriMeshModel MaxS: [" << maxS[0] << ", " << maxS[1] << ", " << maxS[2] << "]" << endl;
+  ROS_INFO_STREAM("TriMeshModel minS: [" << minS[0] << ", " << minS[1] << ", " << minS[2] << "]");
+  ROS_INFO_STREAM("TriMeshModel MaxS: [" << maxS[0] << ", " << maxS[1] << ", " << maxS[2] << "]");
 
   qualityMeasure_.reset(new GraspStudio::GraspQualityMeasureWrenchSpace(object_));
   // qualityMeasure_->setVerbose(true);
@@ -300,7 +296,7 @@ void GraspPlannerWindow::loadObject(VirtualRobot::TriMeshModelPtr triMeshModel,
   eefCloned_ = approach_->getEEFRobotClone();
   if (robot_ && eef_)
   {
-    std::string name = "Grasp Planner - ";
+    string name = "Grasp Planner - ";
     name += eef_->getName();
     grasps_.reset(new GraspSet(name, robot_->getType(), eefName_));
   }
@@ -372,7 +368,7 @@ void GraspPlannerWindow::plan(bool force_closure,
 
   int nrComputedGrasps = planner_->plan(nrDesiredGrasps, timeout_ms);
   grasps_->setPreshape(preshape_);
-  for (int i=0; i<static_cast<int>(grasps_->getSize()); i++)
+  for (size_t i=0; i < grasps_->getSize(); i++)
   {
     // m is the pose of the grasp applied to the global object pose,
     // resulting in the global TCP pose which is related to the grasp.
@@ -386,7 +382,7 @@ void GraspPlannerWindow::plan(bool force_closure,
 
   //--------------------------------------------------------
 
-  for (int i=0; i<static_cast<int>(grasps_->getSize()); i++)
+  for (size_t i=0; i < grasps_->getSize(); i++)
   {
     // m is the pose of the grasp applied to the global object pose,
     // resulting in the global TCP pose which is related to the grasp.
@@ -398,32 +394,52 @@ void GraspPlannerWindow::plan(bool force_closure,
     feedback_mesh_->number_of_synthesized_grasps += nrComputedGrasps;
 
     // A name for this grasp.
-    grasp_msg.id = std::string("grasp_") + boost::lexical_cast<std::string>(grasp_counter_);
+    grasp_msg.id = string("grasp_") + boost::lexical_cast<string>(grasp_counter_);
     grasp_counter_++;
 
     // The position of the end-effector for the grasp.
     grasp_msg.grasp_pose.header.stamp = ros::Time::now();
 
+    // The internal posture of the hand before the grasp.
+    // positions and efforts (not set here) are used.
+    if (eef_->hasPreshape("Grasp Preshape"))
+    {
+      trajectory_msgs::JointTrajectory pre_grasp_posture;
+      pre_grasp_posture.header.stamp = grasp_msg.grasp_pose.header.stamp;
+      // Get the configuration of the grasp.
+      trajectory_msgs::JointTrajectoryPoint pre_grasp_point;
+      for (map<string, float>::const_iterator it = eef_->getPreshape("Grasp Preshape")->getRobotNodeJointValueMap().begin();
+           it != eef_->getPreshape("Grasp Preshape")->getRobotNodeJointValueMap().end();
+           ++it)
+      {
+        // Set joint name.
+        pre_grasp_posture.joint_names.push_back(it->first);
+        // Set position (i.e., angle).
+        pre_grasp_point.positions.push_back(it->second); // Unit is radian
+      }
+      if (!pre_grasp_posture.joint_names.empty())
+        pre_grasp_posture.points.push_back(pre_grasp_point);
+      // Set the pre-grasp posture.
+      grasp_msg.pre_grasp_posture = pre_grasp_posture;
+    }
+
     // The internal posture of the hand for the grasp.
     // positions and efforts (not set here) are used.
     trajectory_msgs::JointTrajectory grasp_posture;
-    grasp_posture.header.stamp = ros::Time::now();
+    grasp_posture.header.stamp = grasp_msg.grasp_pose.header.stamp;
     // Get the configuration of the grasp.
-    std::map<std::string, float> config= grasps_->getGrasp(i)->getConfiguration();
-    std::map<std::string, float>::const_iterator iter = config.begin();
-    trajectory_msgs::JointTrajectoryPoint jtPoint;
-    while (iter != config.end())
+    trajectory_msgs::JointTrajectoryPoint grasp_point;
+    for (map<string, float>::const_iterator it = grasps_->getGrasp(i)->getConfiguration().begin();
+         it != grasps_->getGrasp(i)->getConfiguration().end();
+         ++it)
     {
-      std::string node_name = iter->first;
-      float value = iter->second; // Unit is radian.
       // Set joint name.
-      grasp_posture.joint_names.push_back(node_name);
+      grasp_posture.joint_names.push_back(it->first);
       // Set position (i.e., angle).
-      jtPoint.positions.push_back(value);
-      iter++;
+      grasp_point.positions.push_back(it->second); // Unit is radian
     }
     if (!grasp_posture.joint_names.empty())
-      grasp_posture.points.push_back(jtPoint);
+      grasp_posture.points.push_back(grasp_point);
     // Set the grasp posture.
     grasp_msg.grasp_posture = grasp_posture;
 
@@ -481,7 +497,7 @@ void GraspPlannerWindow::plan(bool force_closure,
   }
 
   clock_t end = clock();
-  cout << "Grasp planning took " << static_cast<double>(diffclock(end, begin)) << " ms."<< endl;
+  ROS_INFO_STREAM("Grasp planning took " << static_cast<double>(diffclock(end, begin)) << " ms.");
 
   viewer_->unlock();
 }
@@ -511,8 +527,8 @@ void GraspPlannerWindow::closeEEF()
     float qual = qualityMeasure_->getGraspQuality();
     bool isFC = qualityMeasure_->isGraspForceClosure();
 
-    std::stringstream ss;
-    ss << std::setprecision(3);
+    stringstream ss;
+    ss << setprecision(3);
     ss << "Grasp Nr " << grasps_->getSize();
     ss << "\nQuality (wrench space): ";
     ss << "\n  " << qual;
@@ -562,7 +578,7 @@ void GraspPlannerWindow::save()
                                             tr("Save ManipulationObject"),
                                             QString(),
                                             tr("XML Files (*.xml)"));
-  std::string objectFile = std::string(fi.toAscii());
+  string objectFile = string(fi.toAscii());
   bool ok = false;
   try
   {
@@ -570,14 +586,14 @@ void GraspPlannerWindow::save()
   }
   catch (VirtualRobotException &e)
   {
-    cout << " ERROR while saving object" << endl;
-    cout << e.what();
+    ROS_INFO_STREAM(" ERROR while saving object");
+    ROS_INFO_STREAM(e.what());
     return;
   }
 
   if (!ok)
   {
-    cout << " ERROR while saving object" << endl;
+    ROS_INFO_STREAM(" ERROR while saving object");
     return;
   }
 }
