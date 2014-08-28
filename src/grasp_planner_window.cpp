@@ -586,14 +586,14 @@ void GraspPlannerWindow::save()
   }
   catch (VirtualRobotException &e)
   {
-    ROS_INFO_STREAM(" ERROR while saving object");
-    ROS_INFO_STREAM(e.what());
+    ROS_ERROR_STREAM(" ERROR while saving object");
+    ROS_ERROR_STREAM(e.what());
     return;
   }
 
   if (!ok)
   {
-    ROS_INFO_STREAM(" ERROR while saving object");
+    ROS_ERROR_STREAM(" ERROR while saving object");
     return;
   }
 }
