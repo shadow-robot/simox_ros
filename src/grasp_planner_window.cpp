@@ -578,7 +578,7 @@ void GraspPlannerWindow::save()
                                             tr("Save ManipulationObject"),
                                             QString(),
                                             tr("XML Files (*.xml)"));
-  string objectFile = string(fi.toAscii());
+  string objectFile = fi.toStdString();
   bool ok = false;
   try
   {
