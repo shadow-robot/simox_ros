@@ -408,8 +408,10 @@ void GraspPlannerWindow::plan(bool force_closure,
       pre_grasp_posture.header.stamp = grasp_msg.grasp_pose.header.stamp;
       // Get the configuration of the grasp.
       trajectory_msgs::JointTrajectoryPoint pre_grasp_point;
-      for (map<string, float>::const_iterator it = eef_->getPreshape("Grasp Preshape")->getRobotNodeJointValueMap().begin();
-           it != eef_->getPreshape("Grasp Preshape")->getRobotNodeJointValueMap().end();
+
+      map<string, float> robotNodeJointValueMap = eef_->getPreshape("Grasp Preshape")->getRobotNodeJointValueMap();
+      for (map<string, float>::const_iterator it = robotNodeJointValueMap.begin();
+           it != robotNodeJointValueMap.end();
            ++it)
       {
         // Set joint name.
@@ -429,8 +431,10 @@ void GraspPlannerWindow::plan(bool force_closure,
     grasp_posture.header.stamp = grasp_msg.grasp_pose.header.stamp;
     // Get the configuration of the grasp.
     trajectory_msgs::JointTrajectoryPoint grasp_point;
-    for (map<string, float>::const_iterator it = grasps_->getGrasp(i)->getConfiguration().begin();
-         it != grasps_->getGrasp(i)->getConfiguration().end();
+
+    map<string, float> configuration = grasps_->getGrasp(i)->getConfiguration();
+    for (map<string, float>::const_iterator it = configuration.begin();
+         it != configuration.end();
          ++it)
     {
       // Set joint name.
