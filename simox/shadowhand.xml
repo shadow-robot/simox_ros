@@ -653,6 +653,7 @@
 			<Node name="FFJ1" unit="radian" value="0.0"/>
 			<Node name="FFJ2" unit="radian" value="0.0"/>
 			<Node name="FFJ3" unit="radian" value="0.0"/>
+			<Node name="FFJ4" unit="radian" value="0.0"/>
 			<Node name="LFJ1" unit="radian" value="0.0"/>
 			<Node name="LFJ2" unit="radian" value="0.0"/>
 			<Node name="LFJ3" unit="radian" value="0.0"/>
@@ -670,7 +671,7 @@
 			<Node name="THJ2" unit="radian" value="0.0"/>
 			<Node name="THJ3" unit="radian" value="0.0"/>
 			<Node name="THJ4" unit="radian" value="1.3"/>
-			<Node name="THJ5" unit="radian" value="-1.0"/>
+			<Node name="THJ5" unit="radian" value="0.24"/>
 			<Node name="WRJ1" unit="radian" value="0.0"/>
 			<Node name="WRJ2" unit="radian" value="0.0"/>
 		</Preshape>
