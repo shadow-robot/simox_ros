@@ -5,13 +5,14 @@ project(sr_grasp_mesh_planner)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
+  cmake_modules
   dynamic_reconfigure
   actionlib
   pcl_ros
   roscpp
   rospy
   rostest
-  sr_grasp_msgs
+  sr_robot_msgs
   actionlib_msgs
   moveit_msgs
   sensor_msgs
@@ -23,6 +24,7 @@ find_package(Boost REQUIRED COMPONENTS system)
 
 ## Eigen
 find_package(Eigen REQUIRED)
+
 
 ## Qt4
 # http://www.briangoldfain.com/2013/02/using-qt-in-a-ros-catkin-package/
@@ -112,7 +114,7 @@ generate_dynamic_reconfigure_options(
 catkin_package(
   INCLUDE_DIRS include ${EIGEN_INCLUDE_DIRS}
   # LIBRARIES sr_grasp_mesh_planner
-  CATKIN_DEPENDS roscpp rospy sr_grasp_msgs actionlib_msgs sensor_msgs std_msgs
+  CATKIN_DEPENDS roscpp rospy sr_robot_msgs actionlib_msgs sensor_msgs std_msgs
   DEPENDS eigen
 )
 
@@ -148,10 +150,10 @@ add_executable(sr_grasp_mesh_planner_qt
   ${QT_MOC_HPP}
 )
 
-add_executable(grasp_action_client_mesh
-  src/grasp_action_client_mesh.cpp
-  src/read_ply.cpp
-)
+#add_executable(grasp_action_client_mesh
+#  src/grasp_action_client_mesh.cpp
+#  src/read_ply.cpp
+#)
 
 ## Declare a cpp library
 # add_library(sr_grasp_mesh_planner
@@ -163,14 +165,14 @@ add_executable(grasp_action_client_mesh
 # http://answers.ros.org/question/62092/catkin_make-started-failing-to-generate-h-from-msg/
 # http://answers.ros.org/question/52744/how-to-specify-dependencies-with-foo_msgs-catkin-packages/
 add_dependencies(sr_grasp_mesh_planner_qt
-  sr_grasp_msgs_gencpp
+  sr_robot_msgs_gencpp
   ${PROJECT_NAME}_gencfg
   ${catkin_EXPORTED_TARGETS}
 )
-add_dependencies(grasp_action_client_mesh
-  sr_grasp_msgs_gencpp
-  ${catkin_EXPORTED_TARGETS}
-)
+#add_dependencies(grasp_action_client_mesh
+#  sr_robot_msgs_gencpp
+#  ${catkin_EXPORTED_TARGETS}
+#)
 
 ## Specify libraries to link a library or executable target against
 target_link_libraries(sr_grasp_mesh_planner_qt
@@ -180,9 +182,9 @@ target_link_libraries(sr_grasp_mesh_planner_qt
   ${catkin_LIBRARIES}
 )
 
-target_link_libraries(grasp_action_client_mesh
-  ${catkin_LIBRARIES}
-)
+#target_link_libraries(grasp_action_client_mesh
+#  ${catkin_LIBRARIES}
+#)
 
 #############
 ## Install ##
@@ -234,7 +236,7 @@ target_link_libraries(test_grasp_mesh_planner
   ${GTEST_LIBRARIES}
 )
 add_dependencies(test_grasp_mesh_planner
-  sr_grasp_msgs_gencpp
+  sr_robot_msgs_gencpp
   ${catkin_EXPORTED_TARGETS}
 )
 

@@ -17,7 +17,7 @@
 //-------------------------------------------------------------------------------
 
 #include "sr_grasp_mesh_planner/coin_viewer.hpp"
-#include <sr_grasp_msgs/PlanGraspAction.h>
+#include <sr_robot_msgs/PlanGraspAction.h>
 #include <shape_msgs/Mesh.h>
 
 #include <VirtualRobot/Robot.h>
@@ -98,8 +98,8 @@ public slots:
   void plan(bool force_closure,
             float timeout,
             float min_quality,
-            boost::shared_ptr<sr_grasp_msgs::PlanGraspFeedback> feedback_mesh,
-            boost::shared_ptr<sr_grasp_msgs::PlanGraspResult> result_mesh);
+            boost::shared_ptr<sr_robot_msgs::PlanGraspFeedback> feedback_mesh,
+            boost::shared_ptr<sr_robot_msgs::PlanGraspResult> result_mesh);
   void plan(bool force_closure,
             float timeout,
             float min_quality);
@@ -151,8 +151,8 @@ protected:
   // Not used.
   // boost::shared_ptr<VirtualRobot::CoinVisualization> visualizationObject_;
 
-  boost::shared_ptr<sr_grasp_msgs::PlanGraspFeedback> feedback_mesh_;
-  boost::shared_ptr<sr_grasp_msgs::PlanGraspResult> result_mesh_;
+  boost::shared_ptr<sr_robot_msgs::PlanGraspFeedback> feedback_mesh_;
+  boost::shared_ptr<sr_robot_msgs::PlanGraspResult> result_mesh_;
 
   unsigned short grasp_counter_;
 };

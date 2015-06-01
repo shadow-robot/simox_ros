@@ -333,8 +333,8 @@ void GraspPlannerWindow::loadRobot()
 void GraspPlannerWindow::plan(bool force_closure,
                               float timeout,
                               float min_quality,
-                              boost::shared_ptr<sr_grasp_msgs::PlanGraspFeedback> feedback_mesh,
-                              boost::shared_ptr<sr_grasp_msgs::PlanGraspResult> result_mesh)
+                              boost::shared_ptr<sr_robot_msgs::PlanGraspFeedback> feedback_mesh,
+                              boost::shared_ptr<sr_robot_msgs::PlanGraspResult> result_mesh)
 {
   feedback_mesh_ = feedback_mesh;
   result_mesh_ = result_mesh;

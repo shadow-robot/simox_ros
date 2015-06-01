@@ -18,7 +18,7 @@
 
 #include "sr_grasp_mesh_planner/grasp_planner_window.hpp"
 #include "sr_grasp_mesh_planner/PlannerConfig.h"
-#include "sr_grasp_msgs/PlanGraspAction.h"
+#include "sr_robot_msgs/PlanGraspAction.h"
 
 #include <ros/ros.h>
 #include <actionlib/server/simple_action_server.h>
@@ -44,9 +44,9 @@ protected:
 
   std::string action_name_;
 
-  actionlib::SimpleActionServer<sr_grasp_msgs::PlanGraspAction> as_mesh_;
-  boost::shared_ptr<sr_grasp_msgs::PlanGraspFeedback> feedback_mesh_;
-  boost::shared_ptr<sr_grasp_msgs::PlanGraspResult> result_mesh_;
+  actionlib::SimpleActionServer<sr_robot_msgs::PlanGraspAction> as_mesh_;
+  boost::shared_ptr<sr_robot_msgs::PlanGraspFeedback> feedback_mesh_;
+  boost::shared_ptr<sr_robot_msgs::PlanGraspResult> result_mesh_;
 
   boost::shared_ptr<GraspPlannerWindow> grasp_win_;
 
@@ -67,7 +67,7 @@ public:
   virtual ~GraspActionServer();
 
 private:
-  void goal_cb_(const sr_grasp_msgs::PlanGraspGoalConstPtr &goal);
+  void goal_cb_(const sr_robot_msgs::PlanGraspGoalConstPtr &goal);
 
   void config_cb_(sr_grasp_mesh_planner::PlannerConfig &config, uint32_t level);
 };

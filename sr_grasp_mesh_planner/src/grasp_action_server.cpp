@@ -49,8 +49,8 @@ GraspActionServer::GraspActionServer(std::string node_name,
   // Set up dynamic_reconfigure.
   config_server_.setCallback( boost::bind(&GraspActionServer::config_cb_, this, _1, _2) );
 
-  feedback_mesh_.reset(new sr_grasp_msgs::PlanGraspFeedback);
-  result_mesh_.reset(new sr_grasp_msgs::PlanGraspResult);
+  feedback_mesh_.reset(new sr_robot_msgs::PlanGraspFeedback);
+  result_mesh_.reset(new sr_robot_msgs::PlanGraspResult);
 
   as_mesh_.start();
   ROS_INFO_STREAM("Action server " << action_name_ << " just started.");
@@ -76,7 +76,7 @@ void GraspActionServer::config_cb_(sr_grasp_mesh_planner::PlannerConfig &config,
 
 //-------------------------------------------------------------------------------
 
-void GraspActionServer::goal_cb_(const sr_grasp_msgs::PlanGraspGoalConstPtr &goal)
+void GraspActionServer::goal_cb_(const sr_robot_msgs::PlanGraspGoalConstPtr &goal)
 {
   bool success = true;
 
