@@ -5,7 +5,7 @@ This stack focuses on the integration of [Simox](simox.sourceforge.net) with [RO
 ## Structure
 
 * [sr_grasp_description](sr_grasp_description) - Definition of the Shadow hand model for Simox
-* [sr_grasp_mesh_planner](sr_grasp_mesh_planner) - Integration of the [GraspStudio](http://sourceforge.net/p/simox/wiki/GraspStudio/) library with ROS for grasp planning
+* [sr_grasp_mesh_planner](sr_grasp_mesh_planner) - Grasp mesh planner part of the [GraspStudio](http://sourceforge.net/p/simox/wiki/GraspStudio/) library
 * [urdf_to_simox_xml](urdf_to_simox_xml) - URDF to Simox XML converter
 
 
