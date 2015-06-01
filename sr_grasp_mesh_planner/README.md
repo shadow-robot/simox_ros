@@ -3,6 +3,7 @@
 The grasp mesh planner is part of the [GraspStudio](http://sourceforge.net/p/simox/wiki/GraspStudio/) library and mainly has two functionalities: a generator for building grasping hypothesis and a grasp evaluation component.
 
 The node is defined as an ActionServer, with the following messages:
+
 Goal:
 object_recognition_msgs/RecognizedObject object
 
