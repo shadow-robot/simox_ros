@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<package>
+  <name>sr_grasp_mesh_planner</name>
+  <version>0.0.0</version>
+  <description>The Simox based grasp planning package</description>
+  <maintainer email="software@shadowrobot.com">Shadow Robot's software team</maintainer>
+
+  <license>Private</license>
+
+  <author email="yi@shadowrobot.com">Yi Li</author>
+
+  <!-- The *_depend tags are used to specify dependencies -->
+  <!--- http://wiki.ros.org/pcl/Tutorials -->
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>actionlib</build_depend>
+  <build_depend>pcl_ros</build_depend>
+  <build_depend>sr_robot_msgs</build_depend>
+  <build_depend>actionlib_msgs</build_depend>
+  <build_depend>moveit_msgs</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>rospy</build_depend>
+  <build_depend>rostest</build_depend>
+  <build_depend>qt4-qmake</build_depend>
+  <build_depend>libsoqt4-dev</build_depend>
+  <build_depend>libcoin80-dev</build_depend>
+  <build_depend>libqt4-dev</build_depend>
+  <build_depend>eigen</build_depend>
+  <build_depend>cmake_modules</build_depend>
+
+  <run_depend>actionlib</run_depend>
+  <run_depend>pcl_ros</run_depend>
+  <run_depend>sr_robot_msgs</run_depend>
+  <run_depend>actionlib_msgs</run_depend>
+  <run_depend>moveit_msgs</run_depend>
+  <run_depend>sensor_msgs</run_depend>
+  <run_depend>std_msgs</run_depend>
+  <run_depend>roscpp</run_depend>
+  <run_depend>rospy</run_depend>
+  <run_depend>libsoqt4-dev</run_depend>
+  <run_depend>libcoin80-dev</run_depend>
+  <run_depend>libqt4-dev</run_depend>
+
+  <!-- The export tag contains other, unspecified, tags -->
+  <export>
+    <!-- You can specify that this package is a metapackage here: -->
+    <!-- <metapackage/> -->
+
+    <!-- Other tools can request additional information be placed here -->
+
+  </export>
+</package>
