@@ -4,15 +4,9 @@ The grasp mesh planner is part of the [GraspStudio](http://sourceforge.net/p/sim
 
 The node is defined as an ActionServer, with the following messages:
 
-Goal:
-object_recognition_msgs/RecognizedObject object
-
-Result:
-moveit_msgs/Grasp[] grasps
-
-Feedback:
-int32 number_of_synthesized_grasps
-
+* **Goal**: The object's mesh (object_recognition_msgs/RecognizedObject object)
+* **Results**: The grasp hypotheses generated (moveit_msgs/Grasp[] grasps)
+* **Feedback**: Number of grasp generated (int32 number_of_synthesized_grasps)
 
 ## Launching the grasp planner interface
 ```bash
@@ -24,7 +18,5 @@ To run a test:
 ```bash
 catkin_make run_tests_sr_grasp_mesh_planner_rostest_test_test_grasp_mesh_planner.test 
 ```
-
-
 
 
