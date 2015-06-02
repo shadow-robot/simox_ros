@@ -23,4 +23,6 @@
   <run_depend>roslib</run_depend>
   <run_depend>std_msgs</run_depend>
   <run_depend>urdf</run_depend>
+  <run_depend>meshlab</run_depend>
+  
 </package>
