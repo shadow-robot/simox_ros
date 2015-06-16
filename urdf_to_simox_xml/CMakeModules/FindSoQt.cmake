@@ -47,7 +47,7 @@ ELSE (WIN32)
   ELSE(APPLE)
 
     FIND_PATH(SoQt_INCLUDE_DIRS NAMES Inventor/Qt/SoQt.h PATHS "$ENV{SoQt_DIR}/include" "$ENV{COIN3D_DIR}/include" "$ENV{Coin3D_DIR}/include" /usr/include /usr/local/include NO_DEFAULT_PATH)
-    FIND_LIBRARY(SoQt_LIBRARIES NAMES SoQt PATHS "$ENV{SoQt_DIR}/lib" "$ENV{COIN3D_DIR}/lib" "$ENV{Coin3D_DIR}/lib" /usr/lib /usr/local/lib NO_DEFAULT_PATH)
+    FIND_LIBRARY(SoQt_LIBRARIES NAMES SoQt PATHS "$ENV{SoQt_DIR}/lib" "$ENV{COIN3D_DIR}/lib" "$ENV{Coin3D_DIR}/lib" /usr/lib /usr/local/lib  /usr/lib/x86_64-linux-gnu NO_DEFAULT_PATH)
 
   ENDIF(APPLE)
 
