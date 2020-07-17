@@ -40,7 +40,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry name="shadow_forearm_geom">
-        <mesh filename="package://sr_description/hand/model/forearm.dae" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://sr_description/meshes/hand/forearm.dae" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="Grey"/>
     </visual>
@@ -65,7 +65,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry name="wrist_visual">
-        <mesh filename="package://sr_description/hand/model/wrist.dae" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://sr_description/meshes/hand/wrist.dae" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="LightGrey"/>
     </visual>
@@ -105,7 +105,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry name="palm_visual">
-        <mesh filename="package://sr_description/hand/model/palm.dae" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://sr_description/meshes/hand/palm.dae" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="Grey"/>
     </visual>
@@ -155,7 +155,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0.0005"/>
       <geometry name="knuckle_visual">
-        <mesh filename="package://sr_description/hand/model/knuckle.dae" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://sr_description/meshes/hand/knuckle.dae" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="LightGrey"/>
     </visual>
@@ -205,7 +205,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry name="proximal_visual">
-        <mesh filename="package://sr_description/hand/model/F3.dae" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://sr_description/meshes/hand/F3.dae" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="Grey"/>
     </visual>
@@ -255,7 +255,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry name="middle_visual">
-        <mesh filename="package://sr_description/hand/model/F2.dae" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://sr_description/meshes/hand/F2.dae" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="Grey"/>
     </visual>
@@ -306,21 +306,21 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry name="distal_visual">
-        <mesh filename="package://sr_description/hand/model/distal_ellipsoid.dae" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://sr_description/meshes/hand/distal_ellipsoid.dae" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="Grey"/>
     </visual>
     <!--      <visual>
 	   <origin xyz="0 0 0" rpy="0 0 0" />
 	   <geometry name="nano17">
-	   <mesh filename="package://sr_description/hand/model/nano17.dae" scale="0.001 0.001 0.001" />
+	   <mesh filename="package://sr_description/meshes/hand/nano17.dae" scale="0.001 0.001 0.001" />
 	   </geometry>
 	   <material name="Grey" />
 	   </visual>-->
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry name="distal_collision_geom">
-        <mesh filename="package://sr_description/hand/model/distal_ellipsoid.dae" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://sr_description/meshes/hand/distal_ellipsoid.dae" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -372,7 +372,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0.0005"/>
       <geometry name="knuckle_visual">
-        <mesh filename="package://sr_description/hand/model/knuckle.dae" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://sr_description/meshes/hand/knuckle.dae" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="LightGrey"/>
     </visual>
@@ -422,7 +422,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry name="proximal_visual">
-        <mesh filename="package://sr_description/hand/model/F3.dae" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://sr_description/meshes/hand/F3.dae" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="Grey"/>
     </visual>
@@ -472,7 +472,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry name="middle_visual">
-        <mesh filename="package://sr_description/hand/model/F2.dae" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://sr_description/meshes/hand/F2.dae" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="Grey"/>
     </visual>
@@ -523,21 +523,21 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry name="distal_visual">
-        <mesh filename="package://sr_description/hand/model/distal_ellipsoid.dae" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://sr_description/meshes/hand/distal_ellipsoid.dae" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="Grey"/>
     </visual>
     <!--      <visual>
 	   <origin xyz="0 0 0" rpy="0 0 0" />
 	   <geometry name="nano17">
-	   <mesh filename="package://sr_description/hand/model/nano17.dae" scale="0.001 0.001 0.001" />
+	   <mesh filename="package://sr_description/meshes/hand/nano17.dae" scale="0.001 0.001 0.001" />
 	   </geometry>
 	   <material name="Grey" />
 	   </visual>-->
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry name="distal_collision_geom">
-        <mesh filename="package://sr_description/hand/model/distal_ellipsoid.dae" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://sr_description/meshes/hand/distal_ellipsoid.dae" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -589,7 +589,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0.0005"/>
       <geometry name="knuckle_visual">
-        <mesh filename="package://sr_description/hand/model/knuckle.dae" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://sr_description/meshes/hand/knuckle.dae" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="LightGrey"/>
     </visual>
@@ -639,7 +639,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry name="proximal_visual">
-        <mesh filename="package://sr_description/hand/model/F3.dae" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://sr_description/meshes/hand/F3.dae" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="Grey"/>
     </visual>
@@ -689,7 +689,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry name="middle_visual">
-        <mesh filename="package://sr_description/hand/model/F2.dae" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://sr_description/meshes/hand/F2.dae" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="Grey"/>
     </visual>
@@ -740,21 +740,21 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry name="distal_visual">
-        <mesh filename="package://sr_description/hand/model/distal_ellipsoid.dae" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://sr_description/meshes/hand/distal_ellipsoid.dae" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="Grey"/>
     </visual>
     <!--      <visual>
 	   <origin xyz="0 0 0" rpy="0 0 0" />
 	   <geometry name="nano17">
-	   <mesh filename="package://sr_description/hand/model/nano17.dae" scale="0.001 0.001 0.001" />
+	   <mesh filename="package://sr_description/meshes/hand/nano17.dae" scale="0.001 0.001 0.001" />
 	   </geometry>
 	   <material name="Grey" />
 	   </visual>-->
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry name="distal_collision_geom">
-        <mesh filename="package://sr_description/hand/model/distal_ellipsoid.dae" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://sr_description/meshes/hand/distal_ellipsoid.dae" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -805,7 +805,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry name="lfmetacarpal_visual">
-        <mesh filename="package://sr_description/hand/model/lfmetacarpal.dae" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://sr_description/meshes/hand/lfmetacarpal.dae" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="Grey"/>
     </visual>
@@ -854,7 +854,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry name="knuckle_visual">
-        <mesh filename="package://sr_description/hand/model/knuckle.dae" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://sr_description/meshes/hand/knuckle.dae" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="LightGrey"/>
     </visual>
@@ -903,7 +903,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry name="proximal_visual">
-        <mesh filename="package://sr_description/hand/model/F3.dae" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://sr_description/meshes/hand/F3.dae" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="Grey"/>
     </visual>
@@ -953,7 +953,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry name="middle_visual">
-        <mesh filename="package://sr_description/hand/model/F2.dae" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://sr_description/meshes/hand/F2.dae" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="Grey"/>
     </visual>
@@ -1004,21 +1004,21 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry name="distal_visual">
-        <mesh filename="package://sr_description/hand/model/distal_ellipsoid.dae" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://sr_description/meshes/hand/distal_ellipsoid.dae" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="Grey"/>
     </visual>
     <!--      <visual>
 	   <origin xyz="0 0 0" rpy="0 0 0" />
 	   <geometry name="nano17">
-	   <mesh filename="package://sr_description/hand/model/nano17.dae" scale="0.001 0.001 0.001" />
+	   <mesh filename="package://sr_description/meshes/hand/nano17.dae" scale="0.001 0.001 0.001" />
 	   </geometry>
 	   <material name="Grey" />
 	   </visual>-->
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry name="distal_collision_geom">
-        <mesh filename="package://sr_description/hand/model/distal_ellipsoid.dae" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://sr_description/meshes/hand/distal_ellipsoid.dae" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -1120,7 +1120,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry name="thproximal_visual">
-        <mesh filename="package://sr_description/hand/model/TH3_z.dae" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://sr_description/meshes/hand/TH3_z.dae" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="shadow_thproximal_material">
         <color rgba="0.2 0.2 0.2 1.0"/>
@@ -1222,7 +1222,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry name="thmiddle_visual">
-        <mesh filename="package://sr_description/hand/model/TH2_z.dae" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://sr_description/meshes/hand/TH2_z.dae" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="shadow_thmiddle_material">
         <color rgba="0.2 0.2 0.2 1.0"/>
@@ -1273,7 +1273,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0.002 0.0025"/>
       <geometry name="thdistal_visual">
-        <mesh filename="package://sr_description/hand/model/distal_ellipsoid.dae" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://sr_description/meshes/hand/distal_ellipsoid.dae" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="shadow_thmiddle_material">
         <color rgba="0.2 0.2 0.2 1.0"/>
@@ -1282,7 +1282,7 @@
     <collision>
       <origin rpy="0 0 0 " xyz="0 0.002 0.0025"/>
       <geometry name="thmiddle_collision_geom">
-        <mesh filename="package://sr_description/hand/model/distal_ellipsoid.dae" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://sr_description/meshes/hand/distal_ellipsoid.dae" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
